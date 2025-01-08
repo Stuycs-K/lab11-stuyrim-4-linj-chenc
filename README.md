@@ -15,8 +15,31 @@ Make a clear list of features that work/dont work
 
 :beetle: This is a bug that affects the game.
 
+***
 
 ## Adventurer Subclasses
+- ### Name 1
 
-replace this with your documentation for your two Adventurer subclasses. If you modify or replace the provided CodeWarrior class, please provide documentation for that as well.
+|  Info           |  Details  |
+| :-------------: | :-------: |
+|  Name           |           |
+|  maxHP          |           |
+|  specialName    |           |
+|  specialMax     |           |
+|  attack         |           |
+|  specialAttack  |           |
+|  supportSelf    |           |
+|  supportOther   |           |
 
+- ### Name 2
+
+|  Info           |  Details  |
+| :-------------: | :-------: |
+|  Name           |           |
+|  maxHP          |           |
+|  specialName    |           |
+|  specialMax     |           |
+|  attack         |           |
+|  specialAttack  |           |
+|  supportSelf    |           |
+|  supportOther   |           |
