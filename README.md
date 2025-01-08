@@ -18,7 +18,7 @@ Make a clear list of features that work/dont work
 ***
 
 ## Adventurer Subclasses
-- ### Name 1
+- ### Priest
 
 |  Info           |  Details  |
 | :-------------: | :-------: |
