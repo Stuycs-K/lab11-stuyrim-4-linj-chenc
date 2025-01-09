@@ -20,16 +20,16 @@ Make a clear list of features that work/dont work
 ## Adventurer Subclasses
 - ### Priest
 
-|  Info           |  Details  |
-| :-------------: | :-------: |
-|  Name           |           |
-|  maxHP          |           |
-|  specialName    |           |
-|  specialMax     |           |
-|  attack         |           |
-|  specialAttack  |           |
-|  supportSelf    |           |
-|  supportOther   |           |
+|  Info           |  Details                                                                                                   |
+| :-------------: | :--------------------------------------------------------------------------------------------------------: |
+|  Name           |  Priest                                                                                                    |
+|  maxHP          |  30                                                                                                        |
+|  specialName    |  Faith                                                                                                     |
+|  specialMax     |  12                                                                                                        |
+|  attack         |  Light Arrows: deals 2 damage to each enemy                                                                |
+|  specialAttack  |  Holy fire: deals 2 x # of enemies damage to one target and leaves burn damage that inflicts 1 damage on target for the next 2 turns; consumes 4 faith                                                                                  |
+|  supportSelf    |  Prayer: Recover 3 faith                                                                                   |
+|  supportOther   |  Resurrection: Resurrects one fallen ally and takes 2x more dmg for next 2 turns; consumes 8 faith         |
 
 - ### Name 2
 
