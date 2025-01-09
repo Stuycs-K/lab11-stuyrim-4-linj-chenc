@@ -31,7 +31,7 @@ Make a clear list of features that work/dont work
 |  supportSelf    |  **Prayer**: Recover **3 faith**                                                                                   |
 |  supportOther   |  **Resurrection**: **Resurrects** one fallen ally; Priest takes **2x more dmg for next 2 turns**; consumes **8 faith**         |
 
-- ### Name 2
+- ### Sorcerer
 
 |  Info           |  Details  |
 | :-------------: | :-------: |
