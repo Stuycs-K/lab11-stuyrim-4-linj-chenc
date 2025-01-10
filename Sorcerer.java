@@ -50,13 +50,16 @@ public class Sorcerer extends Adventurer {
       int dmg = 6;
       //arraylist later other.applyDamage(dmg);
       boolean isStunned = Math.random() < 0.3;
-      String result = this + " unleashed Arcane Nova, dealing " + damage + ""
+      String result = this + " unleashed Arcane Nova, dealing " + dmg + "damage to all enemies.";
+    } else {
+      S
     }
+  }
 
   public String support(Adventurer other) {
     if (mana >= 4) {
       setSpecial(mana - 4);
-      return this + " cast Arcane Shield on " + other + ", granting a shield that absorbs 6 dmg."
+      return this + " cast Arcane Shield on " + other + ", granting a shield that absorbs 6 dmg.";
     } else {
       return this + " attempted to Arcane Shield on " + other + " but had insufficient mana.";
     }
@@ -65,7 +68,7 @@ public class Sorcerer extends Adventurer {
   public String support() {
     int restored = restoreSpecial(2);
     hasBuff = true;
-    return this + " (some word) Mana Surge, restoring " + restored + " Mana and gaining a +2 dmg atk buff.";
+    return this + " (some word) Mana Surge, restoring " + restored + " Mana and gaining a +2 damage atk buff.";
   }
 
 }
