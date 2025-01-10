@@ -31,8 +31,12 @@ public class Priest extends Adventurer {
     return faithMax;
   }
 
-  public String attack(Adventurer other){
-
+  // Deals 2 points of damage to all enemies -- > requires an ArrayList of foes
+  public String attack(ArrayList<Adventurer> enemies){
+    for (int x = 0; x < enemies.size(); x++) {
+      enemies.get(x).applyDamage(2);
+    }
+    return this + " casts Light Arrows, raining light from the sky and dealing 2 damage to each enemy.";
   }
 
   public String specialAttack(Adventurer other){
@@ -46,5 +50,5 @@ public class Priest extends Adventurer {
   public String support(){
 
   }
-  
+
 }
