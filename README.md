@@ -43,3 +43,16 @@ Make a clear list of features that work/dont work
 |  specialAttack  |  **Arcane Nova**: Deals **6 dmg to all enemies** with a **30% chance to stun each enemy for 1 turn**; deals **1 dmg to all allies**; consumes **6 mana**          |
 |  supportSelf    |  **Mana Surge**: Recover **2 mana**; increases the Sorcerer's **atk dmg by +2 for next atk** (buff can not stack)         |
 |  supportOther   |  **Arcane Shield**: Grants an ally a shield that absorbs **6 dmg**; consumes **4 mana**         |
+
+## Bosses
+- ### Phase 1: Little Cheese
+
+|  Info           |  Details  |
+| :-------------: | :-------: |
+|  Name           |  Little Cheese          |
+|  maxHP          |  30        |
+|  specialName    |  Dairy        |
+|  specialMax     |  5         |
+|  attack         |  **Cheese Chuck**: Deals **1 dmg to one enemy**        |
+|  specialAttack  |  **Spoiled Milk**: Leaves poison effect that deals **1 dmg to all enemies** at the end of each turn before Little Cheese is defeated; consumes **5 dairy**          |
+|  supportSelf    |      |
