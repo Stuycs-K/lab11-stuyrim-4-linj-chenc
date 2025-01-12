@@ -27,7 +27,7 @@ Make a clear list of features that work/dont work
 |  specialName    |  Faith                                                                                                     |
 |  specialMax     |  12                                                                                                        |
 |  attack         |  **Light Arrows**: Deals **2 dmg to all enemies**                                                                |
-|  specialAttack  |  **Holy Fire**: Deals dmg equivalent to **2x # of enemies to one target** and leaves burn damage that inflicts **1 dmg on target for the next 2 turns**; consumes **4 faith**                                                                                  |
+|  specialAttack  |  **Divine Judgement**: Deals dmg equivalent to **2x # of enemies to one target** and leaves burn damage that inflicts **1 dmg on target for the next 2 turns**; consumes **4 faith**                                                                                  |
 |  supportSelf    |  **Prayer**: Recover **3 faith**                                                                                   |
 |  supportOther   |  **Resurrection**: **Resurrects** one fallen ally; Priest takes **2x more dmg for next 2 turns**; consumes **8 faith**         |
 
