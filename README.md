@@ -56,3 +56,15 @@ Make a clear list of features that work/dont work
 |  attack         |  **Cheese Chuck**: Deals **1 dmg to one enemy**        |
 |  specialAttack  |  **Spoiled Milk**: Leaves poison effect that deals **1 dmg to all enemies** at the end of each turn before Little Cheese is defeated; consumes **5 dairy**          |
 |  supportSelf    |      |
+
+- ### Phase 2: Big Cheese the Destroyer of Worlds
+
+|  Info           |  Details  |
+| :-------------: | :-------: |
+|  Name           |  Big Cheese the Destroyer of Worlds          |
+|  maxHP          |  60        |
+|  specialName    |  Evil Dairy        |
+|  specialMax     |  15         |
+|  attack         |  **TBD**: Deals **1-8 dmg to one enemy**        |
+|  specialAttack  |  **Mark of Vengeance**: Deals **5 dmg to one enemy** and inflicts the Lactose Intolerance Debuff that will **remove 50% of the target's special on the next attack**. The mark does not disappear until they are attacked (can be stacked (?)); consumes **5 evil dairy**          |
+|  supportSelf    |  **TBD**: **recovers 10 hp points** and either **recovers or consumes 2 evil dairy**    |
