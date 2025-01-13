@@ -79,13 +79,6 @@ public class Priest extends Adventurer {
   }
 
   public String support(){
-    if (getSpecial() + 3 < getSpecialMax()) {
-      setSpecial(getSpecial() + 3);
-    }
-    else {
-      setSpecial(getSpecialMax());
-    }
-    return this + " uses Prayer, gaining 3 Faith!";
-  }
-
+  restoreSpecial(3);
+  return this + " uses Prayer, gaining 3 Faith!";
 }
