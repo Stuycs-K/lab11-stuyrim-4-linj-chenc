@@ -52,7 +52,7 @@ public class Priest extends Adventurer {
     if (getSpecial() >= 4) {
       other.applyDamage(dmg);
       other.isBurning = true;
-      setSpecial(getSpecial() = 4);
+      setSpecial(getSpecial() - 4);
       return this + " casts Divine Judgement, harnessing the flames of judgement to burn opponents, dealing "
         + dmg + " to " + other + " and inflicts them with Burning.";
     }
@@ -79,6 +79,7 @@ public class Priest extends Adventurer {
   }
 
   public String support(){
-  restoreSpecial(3);
-  return this + " uses Prayer, gaining 3 Faith!";
+    restoreSpecial(3);
+    return this + " uses Prayer, gaining 3 Faith!";
+  }
 }
