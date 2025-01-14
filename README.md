@@ -55,7 +55,7 @@ Make a clear list of features that work/dont work
 |  specialMax     |  5         |
 |  attack         |  **Cheese Chuck**: Deals **1 dmg to one enemy**        |
 |  specialAttack  |  **Spoiled Milk**: Leaves poison effect that deals **1 dmg to all enemies** at the end of each turn before Little Cheese is defeated; consumes **5 dairy**          |
-|  supportSelf    |      |
+|  supportSelf    |   **Cheese Churn**: Recovers **0 to 3 dairy**   |
 
 - ### Phase 2: Big Cheese the Destroyer of Worlds
 
