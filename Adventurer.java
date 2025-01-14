@@ -85,7 +85,25 @@ public abstract class Adventurer{
     this.HP -= amount;
     if (HP <= 0) {
       HP = 0;
-      System.out.println(name + " has been defeated.");
+      System.out.println(getName() + " has been defeated.");
+    }
+  }
+
+  public void applyStatusEffects() {
+    if (isBurning()) {
+      applyDamage(1);
+      System.out.println(getName() + " takes 1 damage from burning.");
+    }
+    if (isPoisoned()) {
+      applyDamage(1);
+      System.out.println(getname() + " takes 1 damage from poision.");
+    }
+    if (isStunned()) {
+      System.out.println(getName() + " is stunned and skips their turn.");
+      setStunned(false);
+    }
+    if (isDead()) {
+      System.out.println(getName() + " is dead and cannot act.");
     }
   }
 
