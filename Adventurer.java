@@ -77,8 +77,16 @@ public abstract class Adventurer{
     return isPoisioned;
   }
 
+  public boolean isDead() {
+    return HP <= 0;
+  }
+
   public void applyDamage(int amount){
     this.HP -= amount;
+    if (HP <= 0) {
+      HP = 0;
+      System.out.println(name + " has been defeated.");
+    }
   }
 
   //You did it wrong if this happens.
