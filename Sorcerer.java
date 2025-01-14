@@ -37,29 +37,41 @@ public class Sorcerer extends Adventurer {
     int dmg = 4;
     if (hasBuff) {
       dmg += 2;
+      hasBuff = false;
     }
     other.applyDamage(dmg);
-    hasBuff = false;
-    return this + " casts an arcane bolt on " + other + ", dealing "
+    return this + " channels a bolt of arcane energy, casting Arcane Bolt on " + other + " for "
     + dmg + " damage.";
   }
 
-  public String specialAttack(Adventurer other) {
+  public String specialAttack(ArrayList<Adventuer> enemies, ArrayList<Adventurer> allies) {
     if (mana >= 6) {
       setSpecial(mana - 6);
-      int dmg = 6;
-      //arraylist later other.applyDamage(dmg);
-      boolean isStunned = Math.random() < 0.3;
-      String result = this + " unleashed Arcane Nova, dealing " + dmg + "damage to all enemies.";
+      String result = this + " harnesses immense magical energy and unleashes Arcane Nova!\n";
+      result += " The explosion resonates across the battlefield, dealing 6 damage to all enemies and 1 damage to all allies.";
+      for (Adventurer enemy : enemies) {
+        int dmg = 6;
+        enemy.applyDamage(dmg);
+        if (Math.random() < 0.3) {
+          enemy.setStunned(true);
+          result += enemy + " is stunned by the following shockwave!";
+        }
+      }
+      for (Adventurer ally : alies) {
+        if (!ally.isDead()) {
+          ally.applyDamage(1);
+        }
+      }
+      return result;
     } else {
-      S
+      return this + " attempts to unleash Arcane Nova but lacks sufficient mana.";
     }
   }
 
   public String support(Adventurer other) {
     if (mana >= 4) {
       setSpecial(mana - 4);
-      return this + " cast Arcane Shield on " + other + ", granting a shield that absorbs 6 dmg.";
+      return this + " casts Arcane Shield on " + other + ", granting a shield that absorbs 6 dmg.";
     } else {
       return this + " attempted to Arcane Shield on " + other + " but had insufficient mana.";
     }
