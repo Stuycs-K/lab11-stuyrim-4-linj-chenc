@@ -99,7 +99,14 @@ public class Game{
     // under 25% : red
     // under 75% : yellow
     // otherwise : white
-    return output;
+    double percent = (double) hp / maxHP;
+    if (percent < 0.25) {
+      return Text.RED + output + Text.RESET;
+    } else if (percent < 0.75) {
+      return Text.YELLOW + output + Text.RESET;
+    } else {
+      return Text.WHITE + output + Text.RESET;
+    }
   }
 
 
