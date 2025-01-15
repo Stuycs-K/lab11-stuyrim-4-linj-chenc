@@ -32,18 +32,17 @@ public class Enemy_Yang extends Adventurer {
   }
 
   public String attack(Adventurer other) {
-    other.applyDamage(2);
+    other.applyStatusEffects(2);
     return this + " uses TBD, dealing 2 dmg to " + other + "!";
   }
 
 // Maybe put the insufficient special in game.java instead, prompting the player to put in a new input
-  public String specialAttack(ArrayList<Adventurer> enemies, Adventurer other){
-    int dmg = 2 * enemies.size();
+  public String specialAttack(ArrayList<Adventurer> enemies){
     if (getSpecial() >= 4) {
-      other.isBurning = true;
-      setSpecial(getSpecial() - 4);
-      return this + " casts Divine Judgement, harnessing the flames of judgement to burn opponents, dealing "
-        + dmg + " to " + other + " and inflicts them with Burning.";
+      for (int x = 0; x < enemies.size(); x++) {
+        enemies.get(x).setWeakened(true);
+      }
+      return this + " casts TBD, weakening the enemy team, now taking 2x the damage on the next hit!"
     }
     else {
       return this + " attempted to cast TBD but has insufficient TBD!";
@@ -51,24 +50,21 @@ public class Enemy_Yang extends Adventurer {
   }
 
   public String specialAttack(Adventurer other) {
-    return specialAttack(enemies, other);
+    return specialAttack(enemies);
   }
 
   public String support(Adventurer other){
-    if (getSpecial() >= 8) {
-      other.isDead = false;
-      setSpecial(getSpecial() - 8);
-      other.setHP(getmaxHP() / 2);
-      hasDebuff = true;
-      return this + " resurrects " + other + ", bringing back the ally in a weakened state! A debuff has been applied, taking 2x damage, for interfering with the order of life.";
+    if (getSpecial() >= 4) {
+      // Implement method of making ally's attack deal 2x damage
+      return this + " shares __ energy with " + other + ", strengthening them and allowing their next attack to deal 2x damage!";
     }
     else {
-      return this + " attempted to resurrect " + other + " but has insufficient faith!";
+      return this + " attempted to share __ energy with " + other + " but has insufficient energy!";
     }
   }
 
   public String support(){
-    restoreSpecial(3);
-    return this + " uses Prayer, gaining 3 Faith!";
+    yangHasBuff = true;
+    return this + " has used on themselves, increasing their speed, now having a 30% chance to dodge the next enemy attack!";
   }
 }

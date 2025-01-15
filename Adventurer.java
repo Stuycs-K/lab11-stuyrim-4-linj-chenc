@@ -125,6 +125,7 @@ public abstract class Adventurer{
       if ((int)(Math.Random() * 100) + 1 > 30) {
         applyDamage(dmg);
       }
+      yangHasBuff = false;
     }
   }
 
