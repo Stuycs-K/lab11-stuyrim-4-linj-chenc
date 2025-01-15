@@ -1,10 +1,10 @@
 public class Enemy_Yang extends Adventurer {
-  int TBD, TBDMax;
+  int sunEnergy, sEMax;
 
   public Enemy_Yang(String name, int hp){
     super(name,hp);
-    TBDMax = 8;
-    TBD = TBDMax;
+    sEMax = 8;
+    sunEnergy = sEMax;
   }
 
   public Enemy_Yang(String name){
@@ -16,24 +16,24 @@ public class Enemy_Yang extends Adventurer {
   }
 
   public String getSpecialName(){
-    return "TBD";
+    return "Sun Energy";
   }
 
   public int getSpecial(){
-    return TBD;
+    return sunEnergy;
   }
 
   public void setSpecial(int n){
-    TBD = n;
+    sunEnergy = n;
   }
 
   public int getSpecialMax(){
-    return TBDMax;
+    return sEMax;
   }
 
   public String attack(Adventurer other) {
     other.applyStatusEffects(2);
-    return this + " uses TBD, dealing 2 dmg to " + other + "!";
+    return this + " manifests a blade of light, stabbing " + other + " and dealing 2 dmg.";
   }
 
 // Maybe put the insufficient special in game.java instead, prompting the player to put in a new input
@@ -43,10 +43,10 @@ public class Enemy_Yang extends Adventurer {
         enemies.get(x).setWeakened(true);
       }
       setSpecial(getSpecial() - 4);
-      return this + " casts TBD, weakening the enemy team, now taking 2x the damage on the next hit!"
+      return this + " casts Heavenly Jurisdiction, entering all enemies in the field of effect into a weakened state, now taking 2x the damage on the next hit!";
     }
     else {
-      return this + " attempted to cast TBD but has insufficient TBD!";
+      return this + " attempted to cast Heavenly Jurisdiction but has insufficient Sun Energy!";
     }
   }
 
@@ -58,15 +58,15 @@ public class Enemy_Yang extends Adventurer {
     if (getSpecial() >= 4) {
       // Implement method of making ally's attack deal 2x damage
       setSpecial(getSpecial() - 4);
-      return this + " shares __ energy with " + other + ", strengthening them and allowing their next attack to deal 2x damage!";
+      return this + " bestows the Sun's blessing upon " + other + ", imbuing them with Sun Energy and allowing their next attack to deal 2x damage!";
     }
     else {
-      return this + " attempted to share __ energy with " + other + " but has insufficient energy!";
+      return this + " attempted to apply the Sun's blessing on " + other + " but has insufficient Sun Energy!";
     }
   }
 
   public String support(){
     yangHasBuff = true;
-    return this + " has used on themselves, increasing their speed, now having a 30% chance to dodge the next enemy attack!";
+    return this + " is imbued with the energy of the heavens, increasing their speed, now having a 30% chance to dodge the next enemy attack!";
   }
 }
