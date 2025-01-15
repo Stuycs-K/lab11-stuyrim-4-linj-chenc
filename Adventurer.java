@@ -3,7 +3,7 @@ public abstract class Adventurer{
   private String name;
   private int HP,maxHP;
   boolean isStunned, isBurning, isPoisioned, isWeakened;
-  boolean yangHasBuff, rageMode;
+  boolean yangHasBuff, rageMode, hasShield;
 
   //Abstract methods are meant to be implemented in child classes.
   /*
@@ -129,6 +129,9 @@ public abstract class Adventurer{
     }
     if (rageMode) {
       applyDamage((int)(dmg * 0.7));
+    }
+    if (shield > 0) {
+      int remaining =  
     }
   }
 
