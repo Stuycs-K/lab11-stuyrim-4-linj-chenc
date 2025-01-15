@@ -1,9 +1,10 @@
-import java.util.Random;
+import java.util.*;
 public abstract class Adventurer{
   private String name;
   private int HP,maxHP;
   boolean isStunned, isBurning, isPoisioned, isWeakened;
   boolean yangHasBuff, rageMode;
+  ArrayList<Adventurer> enemies, allies;
 
   //Abstract methods are meant to be implemented in child classes.
   /*

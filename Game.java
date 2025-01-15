@@ -318,4 +318,13 @@ public class Game{
     //After quit reset things:
     quit();
   }
+
+  public static void addAllies(Adventurer a) {
+    this.allies.add(a);
+  }
+
+  public static void addEnemeis(Adventurer a) {
+    this.enemies.add(a);
+  }
+
 }
