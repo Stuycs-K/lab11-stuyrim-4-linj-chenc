@@ -2,7 +2,7 @@ import java.util.Random;
 public abstract class Adventurer{
   private String name;
   private int HP,maxHP;
-  boolean isStunned, isBurning, isPoisioned;
+  boolean isStunned, isBurning, isPoisioned, isWeakened;
 
   //Abstract methods are meant to be implemented in child classes.
   /*
@@ -75,6 +75,14 @@ public abstract class Adventurer{
 
   public boolean isPoisioned() {
     return isPoisioned;
+  }
+
+  public void setWeakened(boolean weakened) {
+    this.isWeakened = weakened;
+  }
+
+  public boolean isWeakened() {
+    return isWeakened;
   }
 
   public boolean isDead() {
