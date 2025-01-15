@@ -50,14 +50,13 @@ public class Boss2 extends Adventurer{
   }
 
   public String support(){
-    int special = (int)(Math.random() * 2);
     if (getHP() + 10 < getmaxHP()) {
       setHP(getHP + 10);
     }
     else {
       setHP(getmaxHP());
     }
-    if (special == 1) {
+    if ((int)(Math.random() * 2) == 1) {
       if (getSpecial() - 2 < 0) {
         setSpecial(0);
       }

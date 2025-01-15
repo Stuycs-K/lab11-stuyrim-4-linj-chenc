@@ -3,6 +3,7 @@ public abstract class Adventurer{
   private String name;
   private int HP,maxHP;
   boolean isStunned, isBurning, isPoisioned, isWeakened;
+  boolean yangHasBuff, rageMode;
 
   //Abstract methods are meant to be implemented in child classes.
   /*
@@ -112,6 +113,22 @@ public abstract class Adventurer{
     }
     if (isDead()) {
       System.out.println(getName() + " is dead and cannot act.");
+    }
+  }
+
+  public void applyStatusEffects(int dmg) {
+    if (isWeakened()) {
+      applyDamage(dmg * 2);
+      System.out.println(getName() + " is weakened, taking 2x damage.");
+    }
+    if (yangHasBuff) {
+      if ((int)(Math.Random() * 100) + 1 > 30) {
+        applyDamage(dmg);
+      }
+      yangHasBuff = false;
+    }
+    if (rageMode) {
+      applyDamage((int)(dmg * 0.7));
     }
   }
 

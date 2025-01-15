@@ -1,74 +1,72 @@
 public class Enemy_Yang extends Adventurer {
-  int TBD, TBDMax;
+  int sunEnergy, sEMax;
 
-  public EnemyYang(String name, int hp){
+  public Enemy_Yang(String name, int hp){
     super(name,hp);
-    TBDMax = 8;
-    TBD = TBDMax;
+    sEMax = 8;
+    sunEnergy = sEMax;
   }
 
-  public EnemyYang(String name){
+  public Enemy_Yang(String name){
     this(name,18);
   }
 
-  public EnemyYang(){
+  public Enemy_Yang(){
     this("Yang");
   }
 
   public String getSpecialName(){
-    return "TBD";
+    return "Sun Energy";
   }
 
   public int getSpecial(){
-    return TBD;
+    return sunEnergy;
   }
 
   public void setSpecial(int n){
-    TBD = n;
+    sunEnergy = n;
   }
 
   public int getSpecialMax(){
-    return TBDMax;
+    return sEMax;
   }
 
   public String attack(Adventurer other) {
-    other.applyDamage(2);
-    return this + " uses TBD, dealing 2 dmg to " + other + "!";
+    other.applyStatusEffects(2);
+    return this + " manifests a blade of light, stabbing " + other + " and dealing 2 dmg.";
   }
 
 // Maybe put the insufficient special in game.java instead, prompting the player to put in a new input
-  public String specialAttack(ArrayList<Adventurer> enemies, Adventurer other){
-    int dmg = 2 * enemies.size();
+  public String specialAttack(ArrayList<Adventurer> enemies){
     if (getSpecial() >= 4) {
-      other.isBurning = true;
+      for (int x = 0; x < enemies.size(); x++) {
+        enemies.get(x).setWeakened(true);
+      }
       setSpecial(getSpecial() - 4);
-      return this + " casts Divine Judgement, harnessing the flames of judgement to burn opponents, dealing "
-        + dmg + " to " + other + " and inflicts them with Burning.";
+      return this + " casts Heavenly Jurisdiction, entering all enemies in the field of effect into a weakened state, now taking 2x the damage on the next hit!";
     }
     else {
-      return this + " attempted to cast TBD but has insufficient TBD!";
+      return this + " attempted to cast Heavenly Jurisdiction but has insufficient Sun Energy!";
     }
   }
 
   public String specialAttack(Adventurer other) {
-    return specialAttack(enemies, other);
+    return specialAttack(enemies);
   }
 
   public String support(Adventurer other){
-    if (getSpecial() >= 8) {
-      other.isDead = false;
-      setSpecial(getSpecial() - 8);
-      other.setHP(getmaxHP() / 2);
-      hasDebuff = true;
-      return this + " resurrects " + other + ", bringing back the ally in a weakened state! A debuff has been applied, taking 2x damage, for interfering with the order of life.";
+    if (getSpecial() >= 4) {
+      // Implement method of making ally's attack deal 2x damage
+      setSpecial(getSpecial() - 4);
+      return this + " bestows the Sun's blessing upon " + other + ", imbuing them with Sun Energy and allowing their next attack to deal 2x damage!";
     }
     else {
-      return this + " attempted to resurrect " + other + " but has insufficient faith!";
+      return this + " attempted to apply the Sun's blessing on " + other + " but has insufficient Sun Energy!";
     }
   }
 
   public String support(){
-    restoreSpecial(3);
-    return this + " uses Prayer, gaining 3 Faith!";
+    yangHasBuff = true;
+    return this + " is imbued with the energy of the heavens, increasing their speed, now having a 30% chance to dodge the next enemy attack!";
   }
 }

@@ -2,7 +2,6 @@ import java.util.*;
 
 public class Priest extends Adventurer {
   int faith, faithMax;
-  boolean hasDebuff;
 
   public Priest(String name, int hp){
     super(name,hp);
@@ -37,7 +36,7 @@ public class Priest extends Adventurer {
   // Deals 2 points of damage to all enemies -- > requires an ArrayList of foes
   public String attack(ArrayList<Adventurer> enemies){
     for (int x = 0; x < enemies.size(); x++) {
-      enemies.get(x).applyDamage(2);
+      enemies.get(x).applyStatusEffects(2);
     }
     return this + " casts Light Arrows, raining light from the sky and dealing 2 damage to each enemy.";
   }
@@ -50,11 +49,11 @@ public class Priest extends Adventurer {
   public String specialAttack(ArrayList<Adventurer> enemies, Adventurer other){
     int dmg = 2 * enemies.size();
     if (getSpecial() >= 4) {
-      other.applyDamage(dmg);
-      other.isBurning = true;
+      other.applyStatusEffects(dmg);
+      other.setBurning(true);
       setSpecial(getSpecial() - 4);
       return this + " casts Divine Judgement, harnessing the flames of judgement to burn opponents, dealing "
-        + dmg + " to " + other + " and inflicts them with Burning.";
+        + dmg + " dmg to " + other + " and inflicts them with Burning.";
     }
     else {
       return this + " attempted to cast Divine Judgement on " + other + " but has insufficient faith!";
@@ -67,10 +66,10 @@ public class Priest extends Adventurer {
 
   public String support(Adventurer other){
     if (getSpecial() >= 8) {
-      other.isDead = false;
+      other.isDead();
       setSpecial(getSpecial() - 8);
       other.setHP(getmaxHP() / 2);
-      hasDebuff = true;
+      setWeakened(true);
       return this + " resurrects " + other + ", bringing back the ally in a weakened state! A debuff has been applied, taking 2x damage, for interfering with the order of life.";
     }
     else {
