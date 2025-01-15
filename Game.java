@@ -79,10 +79,16 @@ public class Game{
     * ***THIS ROW INTENTIONALLY LEFT BLANK***
     */
     public static void drawParty(ArrayList<Adventurer> party,int startRow){
-
-      /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-      //YOUR CODE HERE
-      /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+      for (int i = 0; i < party.size(); i++) {
+        Adventurer ally = party.get(i);
+        int startCol = (i * WIDTH) / party.size();
+        drawText(member.getName(), startRow, startCol);
+        String hp = "HP: " + colorByPercent(member.getHP(), member.getmaxHP());
+        drawText(hp, startRow + 1, startCol);
+        String special = member.getSpecialName() + ": " + colorByPercent(member.getSpecial(), member.getSpecialMax());
+        drawText(special, startRow + 2, startCol);
+      }
+      drawText("", startRow + 3, 0);
     }
 
 
