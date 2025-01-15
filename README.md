@@ -68,3 +68,56 @@ Make a clear list of features that work/dont work
 |  attack         |  **TBD**: Deals **1-8 dmg to one enemy**        |
 |  specialAttack  |  **Mark of Vengeance**: Deals **5 dmg to one enemy** and inflicts the Lactose Intolerance Debuff that will **remove 50% of the target's special on the next attack**. The mark does not disappear until they are attacked (can be stacked (?)); consumes **5 evil dairy**          |
 |  supportSelf    |  **TBD**: **recovers 10 hp points** and either **recovers or consumes 2 evil dairy**    |
+
+## Enemies
+- ### Barbarian Goblin
+
+|  Info           |  Details  |
+| :-------------: | :-------: |
+|  Name           |  Barbarian Goblin         |
+|  maxHP          |   15        |
+|  specialName    |    Roast Meat        |
+|  specialMax     |     4      |
+|  attack         |   **Club Attack**: Deals **4 damage**        |
+|  specialAttack  |  **Hunger Pains**: Enters an enraged state, taking **30% less damage** and has a **50% chance to do 1.5x damage** on **next turn**; only works if **no Roast Meat is remaining**         |
+|  supportSelf    |    **Herbal Roast (self)** - Recovers **2 hp**; consumes **1 Roast Meat**       |
+|  supportOther   |    **Herbal Roast (other)** - Allows ally to recover **2 hp**; consumes **1 Roast Meat**       |
+
+- ### Drunk Goblin
+
+|  Info           |  Details  |
+| :-------------: | :-------: |
+|  Name           |           |
+|  maxHP          |           |
+|  specialName    |           |
+|  specialMax     |           |
+|  attack         |           |
+|  specialAttack  |           |
+|  supportSelf    |           |
+|  supportOther   |           |
+
+- ### Yin
+
+|  Info           |  Details  |
+| :-------------: | :-------: |
+|  Name           |           |
+|  maxHP          |           |
+|  specialName    |           |
+|  specialMax     |           |
+|  attack         |           |
+|  specialAttack  |           |
+|  supportSelf    |           |
+|  supportOther   |           |
+
+- ### Yang
+
+|  Info           |  Details  |
+| :-------------: | :-------: |
+|  Name           |   Yang        |
+|  maxHP          |   18        |
+|  specialName    |  Sun Energy         |
+|  specialMax     |    8       |
+|  attack         |  **Light Blade**: deals **2 dmg**         |
+|  specialAttack  |  **Heavenly Jurisdiction**: **All enemies** now will take **2x damage on next hit**; consumes **4 Sun Energy**       |
+|  supportSelf    |  **Heaven's Warrior**: Next enemy attack has a **30% chance of missing** and dealing **no damage**; does not stack         |
+|  supportOther   |  **Blessing of the Sun**:  Buff ally’s **next attack** to deal **2x extra damage**; consumes **4 Sun Energy**         |
