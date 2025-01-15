@@ -19,7 +19,7 @@ public class Enemy_Yin extends Adventurer {
   }
 
   public String getSpecialName(){
-    return "moonEnergy";
+    return "Moon Energy";
   }
 
   public int getSpecial(){
@@ -37,13 +37,14 @@ public class Enemy_Yin extends Adventurer {
   public String attack(Adventurer other) {
     int dmg = 3;
     other.applyDamage(dmg);
+    String result = this + " (text), striking " + other + " for " + dmg + " damage.";
     if (hasBuff) {
       int recovered = dmg / 2;
       setHP(getHP() + recovered);
       hasBuff = false;
-      return this + "";
+      result += this + "(text), recovering " + recovered + " HP.";
     }
-    return this + "";
+    return result;
   }
 
   public String specialAttack(ArrayList<Adventuer> enemies) {
@@ -53,22 +54,25 @@ public class Enemy_Yin extends Adventurer {
         int dmg = 5;
         enemy.applyDamage(dmg);
       }
-      return this + "";
+      return this + " unleashes (name), dealing " + dmg + " to all enemies.";
     } else {
-      return this + "";
+      return this + " attemped to unleash (name) but lacks sufficient Moon Energy.";
     }
   }
 
   public String support(Adventurer other) {
     if (moonEnergy >= 3) {
       setSpecial(moonEnergy - 3);
-      other.set
+      other.rageMode = true;
+      return this + " weaves together the stars, endowing " + other + " with a Celestial Shield, reducing incoming damage by 30% for the next attack.";
+    } else {
+      return this + " attempts to grant a Celestial Shield to " + other + " but lacks sufficient Moon Energy.";
     }
   }
 
   public String support(){
     hasBuff = true;
-    return this + "";
+    return this + " harnesses (text), healing themselves for 50% of the damage dealt by their next attack.";
   }
 
 }
