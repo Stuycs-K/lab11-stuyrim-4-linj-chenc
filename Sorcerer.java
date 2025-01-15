@@ -54,12 +54,13 @@ public class Sorcerer extends Adventurer {
         enemy.applyDamage(dmg);
         if (Math.random() < 0.3) {
           enemy.setStunned(true);
-          result += enemy + " is stunned by the following shockwave!";
+          result += enemy + " is stunned by the following shockwave!\n";
         }
       }
       for (Adventurer ally : alies) {
         if (!ally.isDead()) {
           ally.applyDamage(1);
+          result += ally + " is caught in the blast and takes 1 damage.\n";
         }
       }
       return result;
