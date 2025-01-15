@@ -64,9 +64,9 @@ public class Enemy_Yin extends Adventurer {
     if (moonEnergy >= 3) {
       setSpecial(moonEnergy - 3);
       other.rageMode = true;
-      return this + " weaves together the stars, endowing " + other + " with a Celestial Shield, reducing incoming damage by 30% for the next attack.";
+      return this + " weaves together the stars, endowing " + other + " with Celestial Protection, reducing incoming damage by 30% for the next attack.";
     } else {
-      return this + " attempts to grant a Celestial Shield to " + other + " but lacks sufficient Moon Energy.";
+      return this + " attempts to grant Celestial Protection to " + other + " but lacks sufficient Moon Energy.";
     }
   }
 
