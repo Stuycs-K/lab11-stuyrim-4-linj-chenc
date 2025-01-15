@@ -17,17 +17,65 @@ public class Game{
     System.out.print("\u250F");
     Text.go(1,80);
     System.out.print("\u2513");
-    for(int x = 2; x < HEIGHT - 1; x++) {
-      Text.go(x,0);
+    for(int x = 2; x < 6; x++) {
+      Text.go(x,28);
       System.out.print("\u2503");
-      Text.go(x,80);
+      Text.go(x,56);
       System.out.print("\u2503");
     }
-    for(int x = 2; x < WIDTH; x++) {
+    for(int x = 21; x < 26; x++) {
+      Text.go(x,28);
+      System.out.print("\u2503");
+      Text.go(x,56);
+      System.out.print("\u2503");
+    }
+    for(int x = 2; x < 29; x++) {
+      Text.go(x,0);
+      if(x != 5 && x!= 21 && x!=25) {
+        System.out.print("\u2503");
+      }
+      else {
+        System.out.print("\u2523");
+      }
+      Text.go(x,80);
+      if(x != 5 && x!= 21 && x!=25) {
+        System.out.print("\u2503");
+      }
+      else {
+        System.out.print("\u252B");
+      }
+    }
+    for(int x = 2; x < 80; x++) {
       Text.go(1,x);
-      System.out.print("\u2501");
+      if(x != 28 && x != 56) {
+        System.out.print("\u2501");
+      }
+      else {
+        System.out.print("\u2533");
+      }
       Text.go(29,x);
       System.out.print("\u2501");
+      Text.go(5,x);
+      if(x != 28 && x != 56) {
+        System.out.print("\u2501");
+      }
+      else {
+        System.out.print("\u253B");
+      }
+      Text.go(21,x);
+      if(x != 28 && x != 56) {
+        System.out.print("\u2501");
+      }
+      else {
+        System.out.print("\u2533");
+      }
+      Text.go(25,x);
+      if(x != 28 && x != 56) {
+        System.out.print("\u2501");
+      }
+      else {
+        System.out.print("\u253B");
+      }
     }
     Text.go(29,0);
     System.out.print("\u2517");
