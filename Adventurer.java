@@ -3,7 +3,8 @@ public abstract class Adventurer{
   private String name;
   private int HP,maxHP;
   boolean isStunned, isBurning, isPoisioned, isWeakened;
-  boolean yangHasBuff, rageMode, hasShield;
+  boolean yangHasBuff, rageMode;
+  int shieldStrength;
   ArrayList<Adventurer> enemies, allies;
 
   //Abstract methods are meant to be implemented in child classes.
@@ -87,12 +88,24 @@ public abstract class Adventurer{
     return isWeakened;
   }
 
+  public int getShieldStrength() {
+    return shieldStrength;
+  }
+
   public boolean isDead() {
     return HP <= 0;
   }
 
   public void applyDamage(int amount){
-    this.HP -= amount;
+    if (shieldStrength > 0) {
+      int shielded = Math.min(amount, shieldStrength);
+      shieldStrength -= shielded;
+      amount -= shielded;
+      System.out.println(getName() + "'s shield absorbed " + shielded + " damage.");
+    }
+    if (amount > 0) {
+      this.HP -= amount;
+    }
     if (HP <= 0) {
       HP = 0;
       System.out.println(getName() + " has been defeated.");
@@ -130,9 +143,6 @@ public abstract class Adventurer{
     }
     if (rageMode) {
       applyDamage((int)(dmg * 0.7));
-    }
-    if (shield > 0) {
-      int remaining =
     }
   }
 

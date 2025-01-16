@@ -72,7 +72,12 @@ public class Sorcerer extends Adventurer {
   public String support(Adventurer other) {
     if (mana >= 4) {
       setSpecial(mana - 4);
-      return this + " casts Arcane Shield on " + other + ", granting a shield that absorbs 6 dmg.";
+      if (other.getShieldStrength() < 6) {
+        other.shieldStrength = 6;
+        return this + " casts Arcane Shield on " + other + ", granting a shield that absorbs 6 damage.";
+      } else {
+        return this + " casts Arcane Shield on " + other + ", but their existing shield is already at maximum strength.";
+      }
     } else {
       return this + " attempted to Arcane Shield on " + other + " but had insufficient mana.";
     }
