@@ -2,7 +2,7 @@ import java.util.*;
 public abstract class Adventurer{
   private String name;
   private int HP,maxHP;
-  boolean isStunned, isBurning, isPoisioned, isWeakened;
+  boolean isStunned, isBurning, isPoisioned, isWeakened, isStrengthened;
   boolean yangHasBuff, rageMode;
   int shieldStrength;
   ArrayList<Adventurer> enemies, allies;
@@ -88,6 +88,14 @@ public abstract class Adventurer{
     return isWeakened;
   }
 
+  public void setStrengthened(boolean Strengthened) {
+    this.isStrengthened = Strengthened;
+  }
+
+  public boolean isWeakened() {
+    return isWeakened;
+  }
+
   public int getShieldStrength() {
     return shieldStrength;
   }
@@ -102,6 +110,10 @@ public abstract class Adventurer{
       shieldStrength -= shielded;
       amount -= shielded;
       System.out.println(getName() + "'s shield absorbed " + shielded + " damage.");
+    }
+    if (isStrengthened) {
+      amount = amount *2;
+      setStrengthened(false);
     }
     if (amount > 0) {
       this.HP -= amount;
