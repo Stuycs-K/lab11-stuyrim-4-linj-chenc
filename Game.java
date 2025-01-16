@@ -98,7 +98,7 @@ public class Game{
       }
     }
     TextBox(26,2,80,3, "HIe");
-    
+
     // Bottom Outer Corners
     Text.go(29,0);
     System.out.print("\u2517");
@@ -125,7 +125,16 @@ public class Game{
   *@param height the number of rows
   */
   public static void TextBox(int row, int col, int width, int height, String text){
-
+    String temp = "";
+    if(text.length() > width - 4) {
+      temp = text.substring(width - 4);
+      text = text.substring(0, width - 4);
+    }
+    drawText(text, row, col);
+    height--;
+    if (temp.length() > 0) {
+      TextBox(row++,col,width,height,temp);
+    }
   }
 
 
