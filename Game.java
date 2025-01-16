@@ -143,7 +143,15 @@ public class Game{
     //return a random adventurer (choose between all available subclasses)
     //feel free to overload this method to allow specific names/stats.
     public static Adventurer createRandomAdventurer(){
-      return new CodeWarrior("Bob"+(int)(Math.random()*100));
+      int num = (int) (Math.random() * 3);
+      if (num == 0) {
+        // we can change names later
+        return new CodeWarrior("Bob"+(int)(Math.random()*100));
+      } else if (num == 1) {
+        return new Sorcerer("Sorcerer"+(int)(Math.random()*100));
+      } else {
+        return new Priest("Priest"+(int)(Math.random()*100));
+      }
     }
 
     /*Display a List of 2-4 adventurers on the rows row through row+3 (4 rows max)
@@ -157,7 +165,7 @@ public class Game{
     */
     public static void drawParty(ArrayList<Adventurer> party,int startRow){
       for (int i = 0; i < party.size(); i++) {
-        Adventurer ally = party.get(i);
+        Adventurer member = party.get(i);
         int startCol = (i * WIDTH) / party.size();
         drawText(member.getName(), startRow, startCol);
         String hp = "HP: " + colorByPercent(member.getHP(), member.getmaxHP());
@@ -178,11 +186,11 @@ public class Game{
     // otherwise : white
     double percent = (double) hp / maxHP;
     if (percent < 0.25) {
-      return Text.RED + output + Text.RESET;
+      return Text.colorize(input, Text.RED)
     } else if (percent < 0.75) {
-      return Text.YELLOW + output + Text.RESET;
+      return Text.colorize(input, Text.YELLOW)
     } else {
-      return Text.WHITE + output + Text.RESET;
+      return Text.colorize(input, Text.WHITE)
     }
   }
 
