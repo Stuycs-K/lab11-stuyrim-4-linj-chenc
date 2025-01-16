@@ -97,7 +97,6 @@ public class Game{
         System.out.print("\u253B");
       }
     }
-    TextBox(26,2,80,3, "HIe");
 
     // Bottom Outer Corners
     Text.go(29,0);
@@ -126,14 +125,28 @@ public class Game{
   */
   public static void TextBox(int row, int col, int width, int height, String text){
     String temp = "";
-    if(text.length() > width - 4) {
-      temp = text.substring(width - 4);
-      text = text.substring(0, width - 4);
+    String temp2 = "";
+    if(text.length() > width - 2) {
+      temp = text.substring(width - 2);
+      text = text.substring(0, width - 2);
     }
     drawText(text, row, col);
     height--;
     if (temp.length() > 0) {
-      TextBox(row++,col,width,height,temp);
+      TextBox(row+1,col,width,height,temp);
+    }
+    else {
+      for (int x = 0; x < width-2 && height > 0; x++) {
+        temp = temp + " ";
+      }
+      for (int x = 0; x < width-2-text.length(); x++) {
+        temp2 = temp2 + " ";
+      }
+      drawText(temp2,row,col+text.length());
+      while (height > 0) {
+        height--;
+        drawText(temp, row+1, col);
+      }
     }
   }
 
