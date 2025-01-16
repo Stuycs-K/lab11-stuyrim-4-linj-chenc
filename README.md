@@ -87,11 +87,11 @@ Make a clear list of features that work/dont work
 
 |  Info           |  Details  |
 | :-------------: | :-------: |
-|  Name           |           |
-|  maxHP          |           |
-|  specialName    |           |
-|  specialMax     |           |
-|  attack         |           |
+|  Name           |  Drunk Goblin         |
+|  maxHP          |  15         |
+|  specialName    |  Booze         |
+|  specialMax     |  5         |
+|  attack         |  **Alcohol Poisoning**: Deals **1 Damage** to one enemy and causes them to take **2x damage** on their **next attack**        |
 |  specialAttack  |           |
 |  supportSelf    |           |
 |  supportOther   |           |
@@ -100,14 +100,14 @@ Make a clear list of features that work/dont work
 
 |  Info           |  Details  |
 | :-------------: | :-------: |
-|  Name           |           |
-|  maxHP          |           |
-|  specialName    |           |
-|  specialMax     |           |
+|  Name           |  Yin         |
+|  maxHP          |  30         |
+|  specialName    |  Moon Energy         |
+|  specialMax     |  10         |
 |  attack         |           |
-|  specialAttack  |           |
+|  specialAttack  |  **Total Eclipse**: Deals **5 damage** to all enemies; consumes **5 Moon Energy**          |
 |  supportSelf    |           |
-|  supportOther   |           |
+|  supportOther   |  **Celestial Protection**: **Reduces damage** taken by ally on **next hit by 30%**; consumes **3 Moon Energy**         |
 
 - ### Yang
 
