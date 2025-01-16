@@ -20,8 +20,13 @@ public class Game{
     Text.go(1,80);
     System.out.print("\u2513");
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+    for(int x = 2; x < HEIGHT - 1; x++) {
+=======
+>>>>>>> c9e58d793797c6e994eae56dff1a1c51b8948bfb
+=======
     for(int x = 2; x < HEIGHT - 1; x++) {
 =======
 >>>>>>> c9e58d793797c6e994eae56dff1a1c51b8948bfb
@@ -40,11 +45,32 @@ public class Game{
     for(int x = 2; x < 6; x++) {
       Text.go(x,28);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
 =======
       System.out.print("\u2503");
       Text.go(x,56);
       System.out.print("\u2503");
     }
+
+    // Inner Vertical Borders (bottom)
+    for(int x = 21; x < 26; x++) {
+      Text.go(x,28);
+      System.out.print("\u2503");
+      Text.go(x,56);
+      System.out.print("\u2503");
+    }
+
+    // Left and Right Outer Borders
+    for(int x = 2; x < 29; x++) {
+>>>>>>> decfa019301279411a180ba1b08bf77e2151c505
+      Text.go(x,0);
+>>>>>>> c9e58d793797c6e994eae56dff1a1c51b8948bfb
+      System.out.print("\u2503");
+      Text.go(x,56);
+      System.out.print("\u2503");
+    }
+<<<<<<< HEAD
 
     // Inner Vertical Borders (bottom)
     for(int x = 21; x < 26; x++) {
@@ -94,6 +120,8 @@ public class Game{
     // All Horizontal Border Lines
     for(int x = 2; x < 80; x++) {
 =======
+=======
+>>>>>>> c9e58d793797c6e994eae56dff1a1c51b8948bfb
 <<<<<<< HEAD
     for(int x = 2; x < WIDTH; x++) {
 =======
@@ -101,6 +129,9 @@ public class Game{
     // All Horizontal Border Lines
     for(int x = 2; x < 80; x++) {
 >>>>>>> decfa019301279411a180ba1b08bf77e2151c505
+<<<<<<< HEAD
+>>>>>>> c9e58d793797c6e994eae56dff1a1c51b8948bfb
+=======
 >>>>>>> c9e58d793797c6e994eae56dff1a1c51b8948bfb
       Text.go(1,x);
       if(x != 28 && x != 56) {
