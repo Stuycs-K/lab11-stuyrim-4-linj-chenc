@@ -13,22 +13,40 @@ public class Game{
   //Do not write over the blank areas where text will appear or parties will appear.
   public static void drawBackground(){
     System.out.print("\033[;" + BORDER_COLOR + ";" + BORDER_BACKGROUND + "m");
+
+    // Top Outer Corners
     Text.go(1,0);
     System.out.print("\u250F");
     Text.go(1,80);
     System.out.print("\u2513");
+
+    // Fills in empty space
+    for (int i = 2; i < 80; i++) {
+      for (int x = 2; x < 29; x++) {
+        if (x!= 5 && x!= 21 && x!= 25) {
+          Text.go(x,i);
+          System.out.print(" ");
+        }
+      }
+    }
+
+    // Inner Vertical Borders (top)
     for(int x = 2; x < 6; x++) {
       Text.go(x,28);
       System.out.print("\u2503");
       Text.go(x,56);
       System.out.print("\u2503");
     }
+
+    // Inner Vertical Borders (bottom)
     for(int x = 21; x < 26; x++) {
       Text.go(x,28);
       System.out.print("\u2503");
       Text.go(x,56);
       System.out.print("\u2503");
     }
+
+    // Left and Right Outer Borders
     for(int x = 2; x < 29; x++) {
       Text.go(x,0);
       if(x != 5 && x!= 21 && x!=25) {
@@ -45,6 +63,8 @@ public class Game{
         System.out.print("\u252B");
       }
     }
+
+    // All Horizontal Border Lines
     for(int x = 2; x < 80; x++) {
       Text.go(1,x);
       if(x != 28 && x != 56) {
@@ -77,6 +97,9 @@ public class Game{
         System.out.print("\u253B");
       }
     }
+    TextBox(26,2,80,3, "HIe");
+    
+    // Bottom Outer Corners
     Text.go(29,0);
     System.out.print("\u2517");
     Text.go(29,80);
@@ -87,9 +110,8 @@ public class Game{
   //(columns and rows start at 1 (not zero) in the terminal)
   //use this method in your other text drawing methods to make things simpler.
   public static void drawText(String s,int startRow, int startCol){
-    /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-    //YOUR CODE HERE
-    /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+    Text.go(startCol, startRow);
+    System.out.print(s);
   }
 
   /*Use this method to place text on the screen at a particular location.
@@ -103,9 +125,7 @@ public class Game{
   *@param height the number of rows
   */
   public static void TextBox(int row, int col, int width, int height, String text){
-    /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-    //YOUR CODE HERE
-    /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+
   }
 
 
