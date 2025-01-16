@@ -145,7 +145,7 @@ public class Game{
     public static Adventurer createRandomAdventurer(){
       int num = (int) (Math.random() * 3);
       if (num == 0) {
-        // we can change names later
+        // we can change or remove names/stats later
         return new CodeWarrior("Bob"+(int)(Math.random()*100));
       } else if (num == 1) {
         return new Sorcerer("Sorcerer"+(int)(Math.random()*100));
@@ -186,11 +186,11 @@ public class Game{
     // otherwise : white
     double percent = (double) hp / maxHP;
     if (percent < 0.25) {
-      return Text.colorize(input, Text.RED)
+      return Text.colorize(output, Text.RED)
     } else if (percent < 0.75) {
-      return Text.colorize(input, Text.YELLOW)
+      return Text.colorize(output, Text.YELLOW)
     } else {
-      return Text.colorize(input, Text.WHITE)
+      return Text.colorize(output, Text.WHITE)
     }
   }
 
@@ -206,8 +206,12 @@ public class Game{
     drawBackground();
 
     //draw player party
+    int partyStartRow = 22;
+    drawParty(party, partyStartRow);
 
     //draw enemy party
+    int enemyStartRow = 6;
+    drawParty(enemies, enemyStartRow);
 
   }
 
