@@ -19,17 +19,6 @@ public class Game{
     System.out.print("\u250F");
     Text.go(1,80);
     System.out.print("\u2513");
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-    for(int x = 2; x < HEIGHT - 1; x++) {
-=======
->>>>>>> c9e58d793797c6e994eae56dff1a1c51b8948bfb
-=======
-    for(int x = 2; x < HEIGHT - 1; x++) {
-=======
->>>>>>> c9e58d793797c6e994eae56dff1a1c51b8948bfb
 
     // Fills in empty space
     for (int i = 2; i < 80; i++) {
@@ -44,52 +33,10 @@ public class Game{
     // Inner Vertical Borders (top)
     for(int x = 2; x < 6; x++) {
       Text.go(x,28);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
       System.out.print("\u2503");
       Text.go(x,56);
       System.out.print("\u2503");
     }
-
-    // Inner Vertical Borders (bottom)
-    for(int x = 21; x < 26; x++) {
-      Text.go(x,28);
-      System.out.print("\u2503");
-      Text.go(x,56);
-      System.out.print("\u2503");
-    }
-
-    // Left and Right Outer Borders
-    for(int x = 2; x < 29; x++) {
->>>>>>> decfa019301279411a180ba1b08bf77e2151c505
-      Text.go(x,0);
->>>>>>> c9e58d793797c6e994eae56dff1a1c51b8948bfb
-      System.out.print("\u2503");
-      Text.go(x,56);
-      System.out.print("\u2503");
-    }
-<<<<<<< HEAD
-
-    // Inner Vertical Borders (bottom)
-    for(int x = 21; x < 26; x++) {
-      Text.go(x,28);
-      System.out.print("\u2503");
-      Text.go(x,56);
-      System.out.print("\u2503");
-    }
-
-    // Left and Right Outer Borders
-    for(int x = 2; x < 29; x++) {
->>>>>>> decfa019301279411a180ba1b08bf77e2151c505
-      Text.go(x,0);
->>>>>>> c9e58d793797c6e994eae56dff1a1c51b8948bfb
-      System.out.print("\u2503");
-      Text.go(x,56);
-      System.out.print("\u2503");
-    }
-<<<<<<< HEAD
 
     // Inner Vertical Borders (bottom)
     for(int x = 21; x < 26; x++) {
@@ -119,20 +66,6 @@ public class Game{
 
     // All Horizontal Border Lines
     for(int x = 2; x < 80; x++) {
-=======
-=======
->>>>>>> c9e58d793797c6e994eae56dff1a1c51b8948bfb
-<<<<<<< HEAD
-    for(int x = 2; x < WIDTH; x++) {
-=======
-
-    // All Horizontal Border Lines
-    for(int x = 2; x < 80; x++) {
->>>>>>> decfa019301279411a180ba1b08bf77e2151c505
-<<<<<<< HEAD
->>>>>>> c9e58d793797c6e994eae56dff1a1c51b8948bfb
-=======
->>>>>>> c9e58d793797c6e994eae56dff1a1c51b8948bfb
       Text.go(1,x);
       if(x != 28 && x != 56) {
         System.out.print("\u2501");
@@ -164,6 +97,7 @@ public class Game{
         System.out.print("\u253B");
       }
     }
+    TextBox(26,2,80,3, "HIe");
 
     // Bottom Outer Corners
     Text.go(29,0);
@@ -192,28 +126,14 @@ public class Game{
   */
   public static void TextBox(int row, int col, int width, int height, String text){
     String temp = "";
-    String temp2 = "";
-    if(text.length() > width - 2) {
-      temp = text.substring(width - 2);
-      text = text.substring(0, width - 2);
+    if(text.length() > width - 4) {
+      temp = text.substring(width - 4);
+      text = text.substring(0, width - 4);
     }
     drawText(text, row, col);
     height--;
     if (temp.length() > 0) {
-      TextBox(row+1,col,width,height,temp);
-    }
-    else {
-      for (int x = 0; x < width-2 && height > 0; x++) {
-        temp = temp + " ";
-      }
-      for (int x = 0; x < width-2-text.length(); x++) {
-        temp2 = temp2 + " ";
-      }
-      drawText(temp2,row,col+text.length());
-      while (height > 0) {
-        height--;
-        drawText(temp, row+1, col);
-      }
+      TextBox(row++,col,width,height,temp);
     }
   }
 
