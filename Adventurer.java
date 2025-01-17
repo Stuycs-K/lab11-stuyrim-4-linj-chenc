@@ -3,7 +3,7 @@ public abstract class Adventurer{
   private String name;
   private int HP,maxHP;
   boolean isStunned, isBurning, isPoisioned, isWeakened, isStrengthened;
-  boolean yangHasBuff, rageMode;
+  boolean yangHasBuff, rageMode, hasDGStrengthed;
   int shieldStrength;
   ArrayList<Adventurer> enemies, allies;
 
@@ -92,8 +92,8 @@ public abstract class Adventurer{
     this.isStrengthened = Strengthened;
   }
 
-  public boolean isWeakened() {
-    return isWeakened;
+  public void hasDGStrengthed(boolean strengthend) {
+    this.hasDGStrengthed = strengthend;
   }
 
   public int getShieldStrength() {
@@ -113,7 +113,13 @@ public abstract class Adventurer{
     }
     if (isStrengthened) {
       amount = amount *2;
+      System.out.println(getName() + " has received the Blessing of the Sun, dealing 2x the damage!");
       setStrengthened(false);
+    }
+    if (hasDGStrengthed) {
+      amount = amount * 1.5;
+      System.out.println(getName() + " is bolstered by encouragement and alchohol, increasing their damage 1.5x!");
+      setHasDGStrengthed = false;
     }
     if (amount > 0) {
       this.HP -= amount;
@@ -134,11 +140,11 @@ public abstract class Adventurer{
       System.out.println(getname() + " takes 1 damage from poision.");
     }
     if (isStunned()) {
-      System.out.println(getName() + " is stunned and skips their turn.");
+      System.out.println(getName() + " is stunned and cannot act this turn.");
       setStunned(false);
     }
     if (isDead()) {
-      System.out.println(getName() + " is dead and cannot act.");
+      System.out.println(getName() + " cannot act, as they have already been defeated.");
     }
   }
 
