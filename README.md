@@ -91,10 +91,10 @@ Make a clear list of features that work/dont work
 |  maxHP          |  15         |
 |  specialName    |  Booze         |
 |  specialMax     |  5         |
-|  attack         |  **Alcohol Poisoning**: Deals **1 Damage** to one enemy and causes them to take **2x damage** on their **next attack**        |
-|  specialAttack  |           |
-|  supportSelf    |           |
-|  supportOther   |           |
+|  attack         |  **Alcohol Poisoning**: Deals **1 damage** to one enemy and causes them to take **2x damage** on their **next attack**        |
+|  specialAttack  |  **Special Blend**: Leaves **poison effect** on **1** enemy, causing them to take **2 damage** at the end of each turn for **2 turns**; consumes **4 Booze**         |
+|  supportSelf    |  **Drink**: Has a **50%** chance of either **recovering 2 HP** or losing **2 HP**; consumes **1 Booze**         |
+|  supportOther   |  **Encouraging Words**: Buffs **ally's next attack** to deal **1.5x damage**; consumes **1 Booze**         |
 
 - ### Yin
 
@@ -104,9 +104,9 @@ Make a clear list of features that work/dont work
 |  maxHP          |  30         |
 |  specialName    |  Moon Energy         |
 |  specialMax     |  10         |
-|  attack         |           |
-|  specialAttack  |  **Total Eclipse**: Deals **5 damage** to all enemies; consumes **5 Moon Energy**          |
-|  supportSelf    |           |
+|  attack         |  **Lunar Blade**: Deals **3 damage** to **1** enemy         |
+|  specialAttack  |  **Moon's Descent**: Deals **5 damage** to all enemies; consumes **5 Moon Energy**          |
+|  supportSelf    |  **Whispers of the Dead**: **Next attack recovers HP** equivalent to **50% of damage** dealt        |
 |  supportOther   |  **Celestial Protection**: **Reduces damage** taken by ally on **next hit by 30%**; consumes **3 Moon Energy**         |
 
 - ### Yang
