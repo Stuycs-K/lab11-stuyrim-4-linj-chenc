@@ -161,13 +161,15 @@ public class Game{
     //feel free to overload this method to allow specific names/stats.
     public static Adventurer createRandomAdventurer(){
       int num = (int) (Math.random() * 3);
+
       if (num == 0) {
         // we can change or remove names/stats later
-        return new CodeWarrior("Bob"+(int)(Math.random()*100));
+        return new Enemy_BarbGoblin("Bob"+(int)(Math.random()*100));
       } else if (num == 1) {
-        return new Sorcerer("Sorcerer"+(int)(Math.random()*100));
+        return new Enemy_DrunkGoblin("Sorcerer"+(int)(Math.random()*100));
       } else {
-        return new Priest("Priest"+(int)(Math.random()*100));
+        if (())
+        return new Enemy_("Priest"+(int)(Math.random()*100));
       }
     }
 
