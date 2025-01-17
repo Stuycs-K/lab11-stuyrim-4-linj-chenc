@@ -54,12 +54,13 @@ public class Sorcerer extends Adventurer {
         enemy.applyDamage(dmg);
         if (Math.random() < 0.3) {
           enemy.setStunned(true);
-          result += enemy + " is stunned by the following shockwave!";
+          result += enemy + " is stunned by the following shockwave!\n";
         }
       }
       for (Adventurer ally : alies) {
         if (!ally.isDead()) {
           ally.applyDamage(1);
+          result += ally + " is caught in the blast and takes 1 damage.\n";
         }
       }
       return result;
@@ -71,7 +72,12 @@ public class Sorcerer extends Adventurer {
   public String support(Adventurer other) {
     if (mana >= 4) {
       setSpecial(mana - 4);
-      return this + " casts Arcane Shield on " + other + ", granting a shield that absorbs 6 dmg.";
+      if (other.getShieldStrength() < 6) {
+        other.shieldStrength = 6;
+        return this + " casts Arcane Shield on " + other + ", granting a shield that absorbs 6 damage.";
+      } else {
+        return this + " casts Arcane Shield on " + other + ", but their existing shield is already at maximum strength.";
+      }
     } else {
       return this + " attempted to Arcane Shield on " + other + " but had insufficient mana.";
     }

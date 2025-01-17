@@ -97,6 +97,7 @@ public class Game{
         System.out.print("\u253B");
       }
     }
+    TextBox(26,2,80,3, "HIe");
 
     // Bottom Outer Corners
     Text.go(29,0);
@@ -125,28 +126,14 @@ public class Game{
   */
   public static void TextBox(int row, int col, int width, int height, String text){
     String temp = "";
-    String temp2 = "";
-    if(text.length() > width - 2) {
-      temp = text.substring(width - 2);
-      text = text.substring(0, width - 2);
+    if(text.length() > width - 4) {
+      temp = text.substring(width - 4);
+      text = text.substring(0, width - 4);
     }
     drawText(text, row, col);
     height--;
     if (temp.length() > 0) {
-      TextBox(row+1,col,width,height,temp);
-    }
-    else {
-      for (int x = 0; x < width-2 && height > 0; x++) {
-        temp = temp + " ";
-      }
-      for (int x = 0; x < width-2-text.length(); x++) {
-        temp2 = temp2 + " ";
-      }
-      drawText(temp2,row,col+text.length());
-      while (height > 0) {
-        height--;
-        drawText(temp, row+1, col);
-      }
+      TextBox(row++,col,width,height,temp);
     }
     Text.go(29,0);
     System.out.print("\u2517");
@@ -160,7 +147,15 @@ public class Game{
     //return a random adventurer (choose between all available subclasses)
     //feel free to overload this method to allow specific names/stats.
     public static Adventurer createRandomAdventurer(){
-      return new CodeWarrior("Bob"+(int)(Math.random()*100));
+      int num = (int) (Math.random() * 3);
+      if (num == 0) {
+        // we can change or remove names/stats later
+        return new CodeWarrior("Bob"+(int)(Math.random()*100));
+      } else if (num == 1) {
+        return new Sorcerer("Sorcerer"+(int)(Math.random()*100));
+      } else {
+        return new Priest("Priest"+(int)(Math.random()*100));
+      }
     }
 
     /*Display a List of 2-4 adventurers on the rows row through row+3 (4 rows max)
@@ -174,7 +169,7 @@ public class Game{
     */
     public static void drawParty(ArrayList<Adventurer> party,int startRow){
       for (int i = 0; i < party.size(); i++) {
-        Adventurer ally = party.get(i);
+        Adventurer member = party.get(i);
         int startCol = (i * WIDTH) / party.size();
         drawText(member.getName(), startRow, startCol);
         String hp = "HP: " + colorByPercent(member.getHP(), member.getmaxHP());
@@ -195,11 +190,11 @@ public class Game{
     // otherwise : white
     double percent = (double) hp / maxHP;
     if (percent < 0.25) {
-      return Text.RED + output + Text.RESET;
+      return Text.colorize(output, Text.RED)
     } else if (percent < 0.75) {
-      return Text.YELLOW + output + Text.RESET;
+      return Text.colorize(output, Text.YELLOW)
     } else {
-      return Text.WHITE + output + Text.RESET;
+      return Text.colorize(output, Text.WHITE)
     }
   }
 
@@ -215,8 +210,12 @@ public class Game{
     drawBackground();
 
     //draw player party
+    int partyStartRow = 22;
+    drawParty(party, partyStartRow);
 
     //draw enemy party
+    int enemyStartRow = 6;
+    drawParty(enemies, enemyStartRow);
 
   }
 

@@ -2,8 +2,9 @@ import java.util.*;
 public abstract class Adventurer{
   private String name;
   private int HP,maxHP;
-  boolean isStunned, isBurning, isPoisioned, isWeakened;
+  boolean isStunned, isBurning, isPoisioned, isWeakened, isStrengthened;
   boolean yangHasBuff, rageMode;
+  int shieldStrength;
   ArrayList<Adventurer> enemies, allies;
 
   //Abstract methods are meant to be implemented in child classes.
@@ -87,12 +88,36 @@ public abstract class Adventurer{
     return isWeakened;
   }
 
+  public void setStrengthened(boolean Strengthened) {
+    this.isStrengthened = Strengthened;
+  }
+
+  public boolean isWeakened() {
+    return isWeakened;
+  }
+
+  public int getShieldStrength() {
+    return shieldStrength;
+  }
+
   public boolean isDead() {
     return HP <= 0;
   }
 
   public void applyDamage(int amount){
-    this.HP -= amount;
+    if (shieldStrength > 0) {
+      int shielded = Math.min(amount, shieldStrength);
+      shieldStrength -= shielded;
+      amount -= shielded;
+      System.out.println(getName() + "'s shield absorbed " + shielded + " damage.");
+    }
+    if (isStrengthened) {
+      amount = amount *2;
+      setStrengthened(false);
+    }
+    if (amount > 0) {
+      this.HP -= amount;
+    }
     if (HP <= 0) {
       HP = 0;
       System.out.println(getName() + " has been defeated.");

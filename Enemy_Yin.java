@@ -1,11 +1,11 @@
 public class Enemy_Yin extends Adventurer {
-  int TBD, TBDMax;
+  int moonEnergy, moonEnergyMax;
   boolean hasBuff, allyHasBuff;
 
   public Boss1(String name, int hp){
     super(name,hp);
-    TBDMax = 10;
-    TBD = TBDMax;
+    moonEnergyMax = 10;
+    moonEnergy = moonEnergyMax;
     hasBuff = false;
     allyHasBuff = false;
   }
@@ -19,56 +19,60 @@ public class Enemy_Yin extends Adventurer {
   }
 
   public String getSpecialName(){
-    return "TBD";
+    return "Moon Energy";
   }
 
   public int getSpecial(){
-    return TBD;
+    return moonEnergy;
   }
 
   public int getSpecialMax(){
-    return TBDMax;
+    return moonEnergyMax;
   }
 
   public void setSpecial(int n){
-    TBD = Math.min(n, TBDMax);
+    moonEnergy = Math.min(n, moonEnergyMax);
   }
 
   public String attack(Adventurer other) {
     int dmg = 3;
     other.applyDamage(dmg);
+    String result = this + " (text), striking " + other + " for " + dmg + " damage.";
     if (hasBuff) {
       int recovered = dmg / 2;
       setHP(getHP() + recovered);
       hasBuff = false;
-      return this + "";
+      result += this + "(text), recovering " + recovered + " HP.";
     }
-    return this + "";
+    return result;
   }
 
   public String specialAttack(ArrayList<Adventuer> enemies) {
-    if (TBD >= 5) {
-      setSpecial(TBD - 5);
+    if (moonEnergy >= 5) {
+      setSpecial(moonEnergy - 5);
       for (Adventurer enemy : enemies) {
         int dmg = 5;
         enemy.applyDamage(dmg);
       }
-      return this + "";
+      return this + " unleashes (name), dealing " + dmg + " to all enemies.";
     } else {
-      return this + "";
+      return this + " attemped to unleash (name) but lacks sufficient Moon Energy.";
     }
   }
 
   public String support(Adventurer other) {
-    if (TBD >= 3) {
-      setSpecial(TBD - 3);
-      other.set
+    if (moonEnergy >= 3) {
+      setSpecial(moonEnergy - 3);
+      other.rageMode = true;
+      return this + " weaves together the stars, endowing " + other + " with Celestial Protection, reducing incoming damage by 30% for the next attack.";
+    } else {
+      return this + " attempts to grant Celestial Protection to " + other + " but lacks sufficient Moon Energy.";
     }
   }
 
   public String support(){
     hasBuff = true;
-    return this + "";
+    return this + " harnesses (text), healing themselves for 50% of the damage dealt by their next attack.";
   }
 
 }

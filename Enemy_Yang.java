@@ -56,7 +56,7 @@ public class Enemy_Yang extends Adventurer {
 
   public String support(Adventurer other){
     if (getSpecial() >= 4) {
-      // Implement method of making ally's attack deal 2x damage
+      other.setStrengthened(true);
       setSpecial(getSpecial() - 4);
       return this + " bestows the Sun's blessing upon " + other + ", imbuing them with Sun Energy and allowing their next attack to deal 2x damage!";
     }
