@@ -1,8 +1,7 @@
 public class Enemy_DrunkGoblin extends Adventurer {
   int Booze, BoozeMax;
-  boolean hasBuff, allyHasBuff;
 
-  public Boss1(String name, int hp){
+  public Enemy_DrunkGoblin(String name, int hp){
     super(name,hp);
     BoozeMax = 5;
     Booze = BoozeMax;
@@ -10,11 +9,11 @@ public class Enemy_DrunkGoblin extends Adventurer {
     allyHasBuff = false;
   }
 
-  public Enemy_Yin(String name){
+  public Enemy_DrunkGoblin(String name){
     this(name, 15);
   }
 
-  public Enemy_Yin(){
+  public Enemy_DrunkGoblin(){
     this("Drunk Goblin");
   }
 
@@ -35,7 +34,7 @@ public class Enemy_DrunkGoblin extends Adventurer {
   }
 
   public String attack(Adventurer other) {
-    other.hasBuff = true;
+    other.setWeakend(true);
     return this + " applies Alcohol Poisoning on " + other + ", causing them to take 2x damage on the next hit.";
   }
 
@@ -52,8 +51,8 @@ public class Enemy_DrunkGoblin extends Adventurer {
 
   public String support(Adventurer other) {
     if (Booze >= 1) {
+      other.setHasDGStrengthed(true);
       setSpecial(Booze - 1);
-      other.allyHasBuff = true;
       return this + " offers Encouraging Words and a bottle of booze to " + other + ", buffing their next attack to deal 1.5x damage.";
     } else {
       return this + " tried to offer Encouraging Words and a drink to " + other + " but doesn't have enough Booze.";
