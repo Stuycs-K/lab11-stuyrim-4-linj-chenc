@@ -148,6 +148,10 @@ public class Game{
         drawText(temp, row+1, col);
       }
     }
+    Text.go(29,0);
+    System.out.print("\u2517");
+    Text.go(29,80);
+    System.out.print("\u251B"); 
   }
 
 
