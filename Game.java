@@ -284,7 +284,7 @@ public class Game{
     //Draw the window border
 
     //You can add parameters to draw screen!
-    drawScreen();//initial state.
+    drawScreen(party, enemies);//initial state.
 
     //Main loop
 
@@ -304,19 +304,33 @@ public class Game{
         //Process user input for the last Adventurer:
         if(input.equals("attack") || input.equals("a")){
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          //YOUR CODE HERE
+          TextBox(TBDcoordinates, party.get(whichPlayer).attack(enemies.get(whichOpponent)));
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         }
         else if(input.equals("special") || input.equals("sp")){
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          //YOUR CODE HERE
+          TextBox(TBDcoordinates, party.get(whichPlayer).specialAttack(enemies.get(whichOpponent)));
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         }
         else if(input.startsWith("su ") || input.startsWith("support ")){
           //"support 0" or "su 0" or "su 2" etc.
-          //assume the value that follows su  is an integer.
+          //assume the value that follows su is an integer.
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          //YOUR CODE HERE
+          String[] parts = input.split(" ");
+          if (parts.length < 2) {
+            TextBox(TBDcoordinates, "Invalid command. Please properly specify who to support.");
+          } else {
+            int supported = Integer.parseInt(parts[1]);
+            if (supported < 0 || supported >= party.size()) {
+              TextBox(TBDcoordinates, "Invalid target. Choose a valid party membet index.");
+            } else if (supported == whichPlayer) {
+              // suport self
+              TextBox(TBDcoordinates, party.get(whichPlayer).support());
+            } else {
+              // support other
+              TextBox(TBDcoordinates, party.get(whichPlayer).support(party.get(supported)));
+            }
+          }
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         }
 
@@ -370,7 +384,7 @@ public class Game{
       }
 
       //display the updated screen after input has been processed.
-      drawScreen();
+      drawScreen(party, enemies);
 
 
     }//end of main game loop
