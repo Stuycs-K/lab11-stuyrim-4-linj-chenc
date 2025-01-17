@@ -97,7 +97,6 @@ public class Game{
         System.out.print("\u253B");
       }
     }
-    TextBox(26,2,80,3, "HIe");
 
     // Bottom Outer Corners
     Text.go(29,0);
@@ -235,13 +234,16 @@ public class Game{
 
   public static String userInput(Scanner in){
       //Move cursor to prompt location
-
+      Text.go(26,2);
+      System.out.print("> ");
+      Text.go(26,4);
       //show cursor
+      Text.showCursor();
 
       String input = in.nextLine();
 
       //clear the text that was written
-
+      TextBox(26,2,80,3," ");
       return input;
   }
 
