@@ -124,35 +124,44 @@ public class Game{
   *@param height the number of rows
   */
   public static void TextBox(int row, int col, int width, int height, String text){
-    String temp = "";
-    String temp2 = "";
-    if(text.length() > width - 2) {
-      temp = text.substring(width - 2);
-      text = text.substring(0, width - 2);
-    }
-    drawText(text, row, col);
-    height--;
-    if (temp.length() > 0) {
-      TextBox(row+1,col,width,height,temp);
+    if (text.contains("\n")) {
+      String[] texts = text.split("\n");
+      for (String t : texts) {
+        TextBox(row,col,width,height,t);
+        row = row + 1 + t.length()/width;
+      }
     }
     else {
-      for (int x = 0; x < width-2 && height > 0; x++) {
-        temp = temp + " ";
+      String temp = "";
+      String temp2 = "";
+      if(text.length() > width - 2) {
+        temp = text.substring(width - 2);
+        text = text.substring(0, width - 2);
       }
-      for (int x = 0; x < width-2-text.length(); x++) {
-        temp2 = temp2 + " ";
+      drawText(text, row, col);
+      height--;
+      if (temp.length() > 0) {
+        TextBox(row+1,col,width,height,temp);
       }
-      drawText(temp2,row,col+text.length());
-      while (height > 0) {
-        height--;
-        row = row+1;
-        drawText(temp, row, col);
+      else {
+        for (int x = 0; x < width-2 && height > 0; x++) {
+          temp = temp + " ";
+        }
+        for (int x = 0; x < width-2-text.length(); x++) {
+          temp2 = temp2 + " ";
+        }
+        drawText(temp2,row,col+text.length());
+        while (height > 0) {
+          height--;
+          row = row+1;
+          drawText(temp, row, col);
+        }
       }
+      Text.go(29,0);
+      System.out.print("\u2517");
+      Text.go(29,80);
+      System.out.print("\u251B");
     }
-    Text.go(29,0);
-    System.out.print("\u2517");
-    Text.go(29,80);
-    System.out.print("\u251B");
   }
 
 
