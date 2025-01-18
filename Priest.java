@@ -36,7 +36,7 @@ public class Priest extends Adventurer {
   // Deals 2 points of damage to all enemies -- > requires an ArrayList of foes
   public String attack(ArrayList<Adventurer> enemies){
     for (int x = 0; x < enemies.size(); x++) {
-      enemies.get(x).applyStatusEffects(2);
+      enemies.get(x).applyStatusEffects(2,this);
     }
     return this + " casts Light Arrows, raining light from the sky and dealing 2 damage to each enemy.";
   }
@@ -49,7 +49,7 @@ public class Priest extends Adventurer {
   public String specialAttack(ArrayList<Adventurer> enemies, Adventurer other){
     int dmg = 2 * enemies.size();
     if (getSpecial() >= 4) {
-      other.applyStatusEffects(dmg);
+      other.applyStatusEffects(dmg,this);
       other.setBurning(true);
       setSpecial(getSpecial() - 4);
       return this + " casts Divine Judgement, harnessing the flames of judgement to burn opponents, dealing "
@@ -66,11 +66,13 @@ public class Priest extends Adventurer {
 
   public String support(Adventurer other){
     if (getSpecial() >= 8) {
-      other.isDead();
-      setSpecial(getSpecial() - 8);
-      other.setHP(getmaxHP() / 2);
-      setWeakened(true);
-      return this + " resurrects " + other + ", bringing back the ally in a weakened state! A debuff has been applied, taking 2x damage, for interfering with the order of life.";
+      if (other.isDead()) {
+        setSpecial(getSpecial() - 8);
+        other.setHP(getmaxHP() / 2);
+        setWeakened(true);
+        return this + " resurrects " + other + ", bringing back the ally in a weakened state! A debuff has been applied, taking 2x damage, for interfering with the order of life.";
+      }
+      return other + " is still alive and cannot be resurrected!"
     }
     else {
       return this + " attempted to resurrect " + other + " but has insufficient faith!";
