@@ -39,10 +39,10 @@ public class Boss1 extends Adventurer {
 
   public String specialAttack(Adventurer other){
     if (getSpecial() >= 5) {
-      other.setPoisioned(true);
+      other.setPoisoned(true);
       setSpecial(getSpecial() - 5);
       return this + " used Spoiled Milk on " + other +
-        ", poisioning them. The poision will deal 1 damage per turn.";"
+        ", poisioning them. The poision will deal 1 damage per turn.";
     }
     else {
       return this + " tried to use Spoiled Milk on " + other + " but lacked Dairy.";
@@ -53,6 +53,10 @@ public class Boss1 extends Adventurer {
     int recovered = (int)(Math.random() * 4);
     setSpecial(dairy + recovered);
     return this + " ate some cheese and recovered " + recovered + " Dairy.";
+  }
+
+  public String support(Adventurer other){
+    return "";
   }
 
 }

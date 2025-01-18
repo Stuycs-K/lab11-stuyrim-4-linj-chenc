@@ -39,7 +39,7 @@ public class Boss2 extends Adventurer{
   public String specialAttack(Adventurer other){
     if (getSpecial() >= 5) {
       other.applyDamage(5);
-      other.cheeseMark = true;
+      other.hasCheeseMark = true;
       setSpecial(getSpecial() - 5);
       return this + " uses Mark of Vengeance, leaving a curse on " + other
         + " that will consume 50% of their special on the next attack and dealing 5 dmg.";
@@ -51,7 +51,7 @@ public class Boss2 extends Adventurer{
 
   public String support(){
     if (getHP() + 10 < getmaxHP()) {
-      setHP(getHP + 10);
+      setHP(getHP() + 10);
     }
     else {
       setHP(getmaxHP());
@@ -69,5 +69,9 @@ public class Boss2 extends Adventurer{
       restoreSpecial(2);
       return this + " uses TBD, recovering 10 HP and 2 Evil Dairy!";
     }
+  }
+
+  public String support(Adventurer other){
+    return "";
   }
 }

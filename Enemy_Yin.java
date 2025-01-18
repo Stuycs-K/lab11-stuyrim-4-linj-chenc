@@ -2,7 +2,7 @@ public class Enemy_Yin extends Adventurer {
   int moonEnergy, moonEnergyMax;
   boolean hasBuff, allyHasBuff;
 
-  public Boss1(String name, int hp){
+  public Enemy_Yin(String name, int hp){
     super(name,hp);
     moonEnergyMax = 10;
     moonEnergy = moonEnergyMax;
