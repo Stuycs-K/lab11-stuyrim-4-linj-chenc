@@ -5,7 +5,8 @@ public abstract class Adventurer{
   boolean isStunned, isBurning, isPoisoned, isWeakened, isStrengthened;
   boolean yangHasBuff, rageMode, hasDGStrengthed, hasElvenDebuff, hasCheeseMark;
   int shieldStrength;
-  ArrayList<Adventurer> enemies, allies;
+  ArrayList<Adventurer> enemies = new ArrayList<Adventurer>();
+  ArrayList<Adventurer> allies = new ArrayList<Adventurer>();
 
   //Abstract methods are meant to be implemented in child classes.
   /*
@@ -179,6 +180,7 @@ public abstract class Adventurer{
     if (rageMode) {
       applyDamage((int)(dmg * 0.7), other);
     }
+    applyDamage(dmg, other);
   }
 
   //You did it wrong if this happens.
