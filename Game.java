@@ -360,7 +360,22 @@ public class Game{
         //enemy attacks a randomly chosen person with a randomly chosen attack.z`
         //Enemy action choices go here!
         /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-        //YOUR CODE HERE
+        Adventurer randEnemy = enemies.get(randIndex);
+        int action = (int)(Math.random() * 3);
+        int randIndex = (int)(Math.random() * enemies.size());
+        int randParty = party.get((int)(Math.random() * party.size()));
+        if (action == 0) {
+          TextBox(7, 2, WIDTH, 17, randEnemy.attack(randParty);
+        } else if (action == 1) {
+          TextBox(7, 2, WIDTH, 17, randEnemy.specialAttack(randParty);
+        } else if (action == 2) {
+          int randInt = (int)(Math.random() * enemies.size());
+          if (randIndex == randInt) {
+            TextBox(7, 2, WIDTH, 17, randEnemy.support());
+          } else {
+            TextBox(7, 2, WIDTH, 17, randEnemy.support(enemies.get(randInt)));
+          }
+        }
         /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
 
