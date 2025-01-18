@@ -161,7 +161,6 @@ public class Game{
     //feel free to overload this method to allow specific names/stats.
     public static Adventurer createRandomAdventurer(){
       int num = (int) (Math.random() * 2);
-
       if (num == 0) {
         // we can change or remove names/stats later
         return new Enemy_BarbGoblin("Barbarian Goblin"+(int)(Math.random()*100));
@@ -217,17 +216,15 @@ public class Game{
   //Display the party and enemies
   //Do not write over the blank areas where text will appear.
   //Place the cursor at the place where the user will by typing their input at the end of this method.
-  public static void drawScreen(){
+  public static void drawScreen(ArrayList<Adventurer> party, ArrayList<Adventurer> enemies){
 
     drawBackground();
 
     //draw player party
-    int partyStartRow = 22;
-    drawParty(party, partyStartRow);
+    drawParty(party, 22);
 
     //draw enemy party
-    int enemyStartRow = 6;
-    drawParty(enemies, enemyStartRow);
+    drawParty(enemies, 6);
 
   }
 
@@ -265,13 +262,27 @@ public class Game{
     ArrayList<Adventurer>enemies = new ArrayList<Adventurer>();
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
+    int num = 1;
+    //only 1 for now; int num = 1+(int)(Math.random()*3);
+    if (num == 3) {
+      enemies.add(createRandomAdventurer());
+      enemies.add(createRandomAdventurer());
+      enemies.add(createRandomAdventurer());
+    } else if (num == 2) {
+      enemies.add(new Enemy_Yin("Yin"));
+      enemies.add(new Enemy_Yang("Yang"));
+    } else {
+      enemies.add(new Boss1("Little Cheese"));
+    }
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
     //Adventurers you control:
     //Make an ArrayList of Adventurers and add 2-4 Adventurers to it.
     ArrayList<Adventurer> party = new ArrayList<>();
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-    //YOUR CODE HERE
+    party.add(new ElvenGuardian("Thalindor Aegisheart"));
+    party.add(new Sorcerer("Veca Anouk"));
+    party.add(new Priest("Léopoldine Goyathlay"));
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
     boolean partyTurn = true;
@@ -360,14 +371,14 @@ public class Game{
         //enemy attacks a randomly chosen person with a randomly chosen attack.z`
         //Enemy action choices go here!
         /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-        Adventurer randEnemy = enemies.get(randIndex);
         int action = (int)(Math.random() * 3);
         int randIndex = (int)(Math.random() * enemies.size());
-        int randParty = party.get((int)(Math.random() * party.size()));
+        Adventurer randEnemy = enemies.get(randIndex);
+        Adventurer randParty = party.get((int)(Math.random() * party.size()));
         if (action == 0) {
-          TextBox(7, 2, WIDTH, 17, randEnemy.attack(randParty);
+          TextBox(7, 2, WIDTH, 17, randEnemy.attack(randParty));
         } else if (action == 1) {
-          TextBox(7, 2, WIDTH, 17, randEnemy.specialAttack(randParty);
+          TextBox(7, 2, WIDTH, 17, randEnemy.specialAttack(randParty));
         } else if (action == 2) {
           int randInt = (int)(Math.random() * enemies.size());
           if (randIndex == randInt) {
@@ -408,12 +419,13 @@ public class Game{
     quit();
   }
 
-  public static void addAllies(Adventurer a) {
+  //this kept compile error so I just didn't use it we can change later!!
+  /* public static void addAllies(Adventurer a) {
     this.allies.add(a);
   }
 
   public static void addEnemeis(Adventurer a) {
     this.enemies.add(a);
   }
-
+  */
 }

@@ -72,7 +72,7 @@ public class Priest extends Adventurer {
         setWeakened(true);
         return this + " resurrects " + other + ", bringing back the ally in a weakened state! A debuff has been applied, taking 2x damage, for interfering with the order of life.";
       }
-      return other + " is still alive and cannot be resurrected!"
+      return other + " is still alive and cannot be resurrected!";
     }
     else {
       return this + " attempted to resurrect " + other + " but has insufficient faith!";
