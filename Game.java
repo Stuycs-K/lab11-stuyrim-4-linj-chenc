@@ -2,8 +2,8 @@ import java.util.*;
 public class Game{
   private static final int WIDTH = 80;
   private static final int HEIGHT = 30;
-  private static final int BORDER_COLOR = Text.BLACK;
-  private static final int BORDER_BACKGROUND = Text.WHITE + Text.BACKGROUND;
+  private static final int BORDER_COLOR = Text.WHITE;
+  private static final int BORDER_BACKGROUND = Text.BLACK + Text.BACKGROUND;
 
   public static void main(String[] args) {
     run();
@@ -194,15 +194,15 @@ public class Game{
     // doesn't work when I use drawText???? Still not centered I :<<<<<<
 
     public static void drawParty(ArrayList<Adventurer> party, int startRow) {
-      int colWidth = WIDTH / party.size();
+      int colWidth = 26;
       for (int i = 0; i < party.size(); i++) {
         Adventurer member = party.get(i);
-        int startCol = i * colWidth;
-        Text.go(startRow, startCol + (colWidth / 2 - member.getName().length() / 2));
+        int startCol = (i * colWidth) + 2 + i;
+        Text.go(startRow, startCol + ((colWidth - member.getName().length()) / 2));
         System.out.print(member.getName());
-        Text.go(startRow + 1, startCol + 3);
+        Text.go(startRow + 1, startCol + i);
         System.out.print("HP: " + colorByPercent(member.getHP(), member.getmaxHP()));
-        Text.go(startRow + 2, startCol + 3);
+        Text.go(startRow + 2, startCol + i);
         System.out.print(member.getSpecialName() + ": " + colorByPercent(member.getSpecial(), member.getSpecialMax()));
       }
     }
@@ -241,7 +241,7 @@ public class Game{
     drawParty(party, 22);
 
     //draw enemy party
-    drawParty(enemies, 6);
+    drawParty(enemies, 2);
 
   }
 
@@ -299,7 +299,7 @@ public class Game{
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     party.add(new ElvenGuardian("Thalindor Aegisheart"));
     party.add(new Sorcerer("Veca Anouk"));
-    party.add(new Priest("Léopoldine Goyathlay"));
+    party.add(new Priest("Léopoldine Goyath"));
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
     boolean partyTurn = true;
