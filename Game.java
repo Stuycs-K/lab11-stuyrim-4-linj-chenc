@@ -20,7 +20,7 @@ public class Game{
     Text.go(1,80);
     System.out.print("\u2513");
 
-    // Fills in empty space
+    /* Fills in empty space -- blocks new text in center box for some reason
     for (int i = 2; i < 80; i++) {
       for (int x = 2; x < 29; x++) {
         if (x!= 5 && x!= 21 && x!= 25) {
@@ -28,7 +28,7 @@ public class Game{
           System.out.print(" ");
         }
       }
-    }
+    } */
 
     // Inner Vertical Borders (top)
     for(int x = 2; x < 6; x++) {
@@ -198,12 +198,11 @@ public class Game{
       for (int i = 0; i < party.size(); i++) {
         Adventurer member = party.get(i);
         int startCol = (i * colWidth) + 2 + i;
-        Text.go(startRow, startCol + ((colWidth - member.getName().length()) / 2));
-        System.out.print(member.getName());
-        Text.go(startRow + 1, startCol + i);
-        System.out.print("HP: " + colorByPercent(member.getHP(), member.getmaxHP()));
-        Text.go(startRow + 2, startCol + i);
-        System.out.print(member.getSpecialName() + ": " + colorByPercent(member.getSpecial(), member.getSpecialMax()));
+        drawText(member.getName(), startRow, startCol + ((colWidth - member.getName().length()) / 2));
+        String hp = "HP: " + colorByPercent(member.getHP(), member.getmaxHP());
+        drawText(hp, startRow + 1, startCol + i);
+        String special = member.getSpecialName() + ": " + colorByPercent(member.getSpecial(), member.getSpecialMax());
+        drawText(special, startRow + 2, startCol + i);
       }
     }
 
@@ -271,6 +270,29 @@ public class Game{
     Text.hideCursor();
     Text.clear();
 
+    boolean partyTurn = true;
+    boolean firstEntry = true;
+    int whichPlayer = 0;
+    int whichOpponent = 0;
+    int turn = 0;
+    String input = "";//blank to get into the main loop.
+    Scanner in = new Scanner(System.in);
+
+    drawBackground();
+    String prepreprompt = "How many enemies do you wish to fight: one(o) / two(t) / three(th)";
+    while ((! (input.equalsIgnoreCase("o") || input.equalsIgnoreCase("one"))) &&
+              (! (input.equalsIgnoreCase("t") || input.equalsIgnoreCase("two"))) &&
+              (! (input.equalsIgnoreCase("th") || input.equalsIgnoreCase("three")))) {
+      if (firstEntry) {
+        TextBox(26,2,WIDTH,1,prepreprompt);
+      }
+      else {
+        TextBox(26,2,WIDTH,1,"Invalid entry, please try again: one(o) / two(t) / three(th)");
+      }
+      input = userInput(in);
+      firstEntry = false;
+    }
+    firstEntry = true;
 
     //Things to attack:
     //Make an ArrayList of Adventurers and add 1-3 enemies to it.
@@ -279,18 +301,19 @@ public class Game{
     ArrayList<Adventurer>enemies = new ArrayList<Adventurer>();
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
-    int num = 1;
+    String num = input;
     //only 1 for now; int num = 1+(int)(Math.random()*3);
-    if (num == 3) {
+    if (input.equalsIgnoreCase("th") || input.equalsIgnoreCase("three")) {
       enemies.add(createRandomAdventurer());
       enemies.add(createRandomAdventurer());
       enemies.add(createRandomAdventurer());
-    } else if (num == 2) {
+    } else if (input.equalsIgnoreCase("t") || input.equalsIgnoreCase("two")) {
       enemies.add(new Enemy_Yin("Yin"));
       enemies.add(new Enemy_Yang("Yang"));
     } else {
       enemies.add(new Boss1("Little Cheese"));
     }
+    addAllies(enemies);
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
     //Adventurers you control:
@@ -300,14 +323,12 @@ public class Game{
     party.add(new ElvenGuardian("Thalindor Aegisheart"));
     party.add(new Sorcerer("Veca Anouk"));
     party.add(new Priest("Léopoldine Goyathlay"));
+    addAllies(party);
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
-    boolean partyTurn = true;
-    int whichPlayer = 0;
-    int whichOpponent = 0;
-    int turn = 0;
-    String input = "";//blank to get into the main loop.
-    Scanner in = new Scanner(System.in);
+    // Adding enemies
+    addEnemies(party,enemies);
+    addEnemies(enemies,party);
     //Draw the window border
 
     //You can add parameters to draw screen!
@@ -316,16 +337,15 @@ public class Game{
     //Main loop
 
     //display this prompt at the start of the game.
-    String preprompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
-    TextBox(26,2,WIDTH,1,preprompt);
-    input = userInput(in);
+      String preprompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
+      TextBox(26,2,WIDTH,1,preprompt);
 
     while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
       //Read user input
       input = userInput(in);
 
       //example debug statment
-      TextBox(24,2,1,78,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
+      TextBox(6,2,80,78,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
 
       //display event based on last turn's input
       if(partyTurn){
@@ -372,13 +392,14 @@ public class Game{
           //This is a player turn.
           //Decide where to draw the following prompt:
           String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
+          TextBox(26,2,WIDTH,1,prompt);
 
 
         }else{
           //This is after the player's turn, and allows the user to see the enemy turn
           //Decide where to draw the following prompt:
           String prompt = "press enter to see monster's turn";
-
+          TextBox(26,2,WIDTH,1,prompt);
           partyTurn = false;
           whichOpponent = 0;
         }
@@ -411,7 +432,7 @@ public class Game{
 
         //Decide where to draw the following prompt:
         String prompt = "press enter to see next turn";
-
+        TextBox(26,2,WIDTH,1,prompt);
         whichOpponent++;
 
       }//end of one enemy.
@@ -438,13 +459,22 @@ public class Game{
     quit();
   }
 
-  //this kept compile error so I just didn't use it we can change later!!
-  /* public static void addAllies(Adventurer a) {
-    this.allies.add(a);
+  public static void addAllies(ArrayList<Adventurer> team) {
+    for (int x = 0; x < team.size(); x++) {
+      for (int i = 0; i < team.size(); i++) {
+        if (i != x) {
+          (team.get(x)).allies.add(team.get(i));
+        }
+      }
+    }
   }
 
-  public static void addEnemeis(Adventurer a) {
-    this.enemies.add(a);
+  public static void addEnemies(ArrayList<Adventurer> team1, ArrayList<Adventurer> team2) {
+    for (int x = 0; x < team1.size(); x++) {
+      for (int i = 0; i < team2.size(); i++) {
+        team1.get(x).enemies.add(team2.get(i));
+      }
+    }
   }
-  */
+
 }
