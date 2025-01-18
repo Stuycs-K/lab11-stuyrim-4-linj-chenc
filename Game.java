@@ -145,7 +145,8 @@ public class Game{
       drawText(temp2,row,col+text.length());
       while (height > 0) {
         height--;
-        drawText(temp, row+1, col);
+        row = row+1;
+        drawText(temp, row, col);
       }
     }
     Text.go(29,0);

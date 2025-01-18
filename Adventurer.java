@@ -110,23 +110,23 @@ public abstract class Adventurer{
       int shielded = Math.min(amount, shieldStrength);
       shieldStrength -= shielded;
       amount -= shielded;
-      System.out.println(getName() + "'s shield absorbed " + shielded + " damage.");
+      System.out.println("\n" + getName() + "'s shield absorbed " + shielded + " damage.");
     }
     if (other.isStrengthened) {
       amount = amount *2;
-      System.out.println(getName() + " has received the Blessing of the Sun, dealing 2x the damage!");
+      System.out.println("\n" + getName() + " has received the Blessing of the Sun, dealing 2x the damage!");
       setStrengthened(false);
     }
     if (other.hasElvenDebuff) {
       if ((int)(Math.random() * 100) + 1 > 30) {
         amount = 0;
-        System.out.println(other.getName() + " has muddied judgement and misses, dealing no damage.");
+        System.out.println("\n" + other.getName() + " has muddied judgement and misses, dealing no damage.");
       }
       hasElvenDebuff = false;
     }
     if (other.hasDGStrengthed) {
       amount = (int)(amount * 1.5);
-      System.out.println(getName() + " is bolstered by encouragement and alchohol, increasing their damage 1.5x!");
+      System.out.println("\n" + getName() + " is bolstered by encouragement and alchohol, increasing their damage 1.5x!");
       setHasDGStrengthed(false);
     }
     if (amount > 0) {
@@ -134,7 +134,7 @@ public abstract class Adventurer{
     }
     if (HP <= 0) {
       HP = 0;
-      System.out.println(getName() + " has been defeated.");
+      System.out.println("\n" + getName() + " has been defeated.");
     }
   }
 
@@ -144,32 +144,32 @@ public abstract class Adventurer{
     }
     if (HP <= 0) {
       HP = 0;
-      System.out.println(getName() + " has been defeated.");
+      System.out.println("\n" + getName() + " has been defeated.");
     }
   }
 
   public void applyStatusEffects() {
     if (isBurning()) {
       applyDamage(1);
-      System.out.println(getName() + " takes 1 damage from burning.");
+      System.out.println("\n" + getName() + " takes 1 damage from burning.");
     }
     if (isPoisoned()) {
       applyDamage(1);
-      System.out.println(getName() + " takes 1 damage from poision.");
+      System.out.println("\n" + getName() + " takes 1 damage from poision.");
     }
     if (isStunned()) {
-      System.out.println(getName() + " is stunned and cannot act this turn.");
+      System.out.println("\n" + getName() + " is stunned and cannot act this turn.");
       setStunned(false);
     }
     if (isDead()) {
-      System.out.println(getName() + " cannot act, as they have already been defeated.");
+      System.out.println("\n" + getName() + " cannot act, as they have already been defeated.");
     }
   }
 
   public void applyStatusEffects(int dmg, Adventurer other) {
     if (isWeakened()) {
       applyDamage(dmg * 2, other);
-      System.out.println(getName() + " is weakened, taking 2x damage.");
+      System.out.println("\n" + getName() + " is weakened, taking 2x damage.");
     }
     if (yangHasBuff) {
       if ((int)(Math.random() * 100) + 1 > 30) {
