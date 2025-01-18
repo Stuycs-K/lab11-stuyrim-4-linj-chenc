@@ -1,3 +1,4 @@
+import java.util.*;
 public class Sorcerer extends Adventurer {
   int mana, manaMax;
   boolean hasBuff;
@@ -33,7 +34,7 @@ public class Sorcerer extends Adventurer {
     this.mana = Math.min(n, manaMax);
   }
 
-  public String attack(Adventuer other) {
+  public String attack(Adventurer other) {
     int dmg = 4;
     if (hasBuff) {
       dmg += 2;
@@ -44,22 +45,22 @@ public class Sorcerer extends Adventurer {
     + dmg + " damage.";
   }
 
-  public String specialAttack(ArrayList<Adventuer> enemies, ArrayList<Adventurer> allies) {
+  public String specialAttack(ArrayList<Adventurer> enemies, ArrayList<Adventurer> allies) {
     if (mana >= 6) {
       setSpecial(mana - 6);
       String result = this + " harnesses immense magical energy and unleashes Arcane Nova!\n";
       result += " The explosion resonates across the battlefield, dealing 6 damage to all enemies and 1 damage to all allies.";
       for (Adventurer enemy : enemies) {
         int dmg = 6;
-        enemy.applyDamage(dmg);
+        enemy.applyDamage(dmg, this);
         if (Math.random() < 0.3) {
           enemy.setStunned(true);
           result += enemy + " is stunned by the following shockwave!\n";
         }
       }
-      for (Adventurer ally : alies) {
+      for (Adventurer ally : allies) {
         if (!ally.isDead()) {
-          ally.applyDamage(1);
+          ally.applyDamage(1, this);
           result += ally + " is caught in the blast and takes 1 damage.\n";
         }
       }
@@ -67,6 +68,10 @@ public class Sorcerer extends Adventurer {
     } else {
       return this + " attempts to unleash Arcane Nova but lacks sufficient mana.";
     }
+  }
+
+  public String specialAttack(Adventurer other) {
+    return specialAttack(enemies, allies);
   }
 
   public String support(Adventurer other) {

@@ -324,7 +324,7 @@ public class Game{
           } else {
             int supported = Integer.parseInt(parts[1]);
             if (supported < 0 || supported >= party.size()) {
-              TextBox(26, 2, WIDTH, 3, "Invalid target. Choose a valid party membet index.");
+              TextBox(26, 2, WIDTH, 3, "Invalid target. Choose a valid party member index.");
             } else if (supported == whichPlayer) {
               // suport self
               TextBox(7, 2, WIDTH, 17, party.get(whichPlayer).support());
