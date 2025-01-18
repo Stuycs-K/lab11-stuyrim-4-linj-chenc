@@ -205,11 +205,11 @@ public class Game{
     // otherwise : white
     double percent = (double) hp / maxHP;
     if (percent < 0.25) {
-      return Text.colorize(output, Text.RED)
+      return Text.colorize(output, Text.RED);
     } else if (percent < 0.75) {
-      return Text.colorize(output, Text.YELLOW)
+      return Text.colorize(output, Text.YELLOW);
     } else {
-      return Text.colorize(output, Text.WHITE)
+      return Text.colorize(output, Text.WHITE);
     }
   }
 
@@ -306,12 +306,12 @@ public class Game{
         //Process user input for the last Adventurer:
         if(input.equals("attack") || input.equals("a")){
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          TextBox(TBDcoordinates, party.get(whichPlayer).attack(enemies.get(whichOpponent)));
+          TextBox(7, 2, WIDTH, 17, party.get(whichPlayer).attack(enemies.get(whichOpponent)));
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         }
         else if(input.equals("special") || input.equals("sp")){
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          TextBox(TBDcoordinates, party.get(whichPlayer).specialAttack(enemies.get(whichOpponent)));
+          TextBox(7, 2, WIDTH, 17, party.get(whichPlayer).specialAttack(enemies.get(whichOpponent)));
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         }
         else if(input.startsWith("su ") || input.startsWith("support ")){
@@ -320,17 +320,17 @@ public class Game{
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
           String[] parts = input.split(" ");
           if (parts.length < 2) {
-            TextBox(TBDcoordinates, "Invalid command. Please properly specify who to support.");
+            TextBox(26, 2, WIDTH, 3, "Invalid command. Please properly specify who to support.");
           } else {
             int supported = Integer.parseInt(parts[1]);
             if (supported < 0 || supported >= party.size()) {
-              TextBox(TBDcoordinates, "Invalid target. Choose a valid party membet index.");
+              TextBox(26, 2, WIDTH, 3, "Invalid target. Choose a valid party membet index.");
             } else if (supported == whichPlayer) {
               // suport self
-              TextBox(TBDcoordinates, party.get(whichPlayer).support());
+              TextBox(7, 2, WIDTH, 17, party.get(whichPlayer).support());
             } else {
               // support other
-              TextBox(TBDcoordinates, party.get(whichPlayer).support(party.get(supported)));
+              TextBox(7, 2, WIDTH, 17, party.get(whichPlayer).support(party.get(supported)));
             }
           }
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
