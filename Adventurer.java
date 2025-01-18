@@ -2,8 +2,8 @@ import java.util.*;
 public abstract class Adventurer{
   private String name;
   private int HP,maxHP;
-  boolean isStunned, isBurning, isPoisioned, isWeakened, isStrengthened;
-  boolean yangHasBuff, rageMode, hasDGStrengthed;
+  boolean isStunned, isBurning, isPoisoned, isWeakened, isStrengthened;
+  boolean yangHasBuff, rageMode, hasDGStrengthed, hasElvenDebuff, hasCheeseMark;
   int shieldStrength;
   ArrayList<Adventurer> enemies, allies;
 
@@ -76,8 +76,8 @@ public abstract class Adventurer{
     this.isPoisoned = poisoned;
   }
 
-  public boolean isPoisioned() {
-    return isPoisioned;
+  public boolean isPoisoned() {
+    return isPoisoned;
   }
 
   public void setWeakened(boolean weakened) {
@@ -92,7 +92,7 @@ public abstract class Adventurer{
     this.isStrengthened = Strengthened;
   }
 
-  public void hasDGStrengthed(boolean strengthend) {
+  public void setHasDGStrengthed(boolean strengthend) {
     this.hasDGStrengthed = strengthend;
   }
 
@@ -104,23 +104,33 @@ public abstract class Adventurer{
     return HP <= 0;
   }
 
-  public void applyDamage(int amount){
-    if (shieldStrength > 0) {
+  public void applyDamage(int amount, Adventurer other){
+    if (other.shieldStrength > 0) {
       int shielded = Math.min(amount, shieldStrength);
       shieldStrength -= shielded;
       amount -= shielded;
       System.out.println(getName() + "'s shield absorbed " + shielded + " damage.");
     }
-    if (isStrengthened) {
+    if (other.isStrengthened) {
       amount = amount *2;
       System.out.println(getName() + " has received the Blessing of the Sun, dealing 2x the damage!");
       setStrengthened(false);
     }
-    if (hasDGStrengthed) {
-      amount = amount * 1.5;
+    if (other.hasDGStrengthed) {
+      amount = (int)(amount * 1.5);
       System.out.println(getName() + " is bolstered by encouragement and alchohol, increasing their damage 1.5x!");
-      setHasDGStrengthed = false;
+      setHasDGStrengthed(false);
     }
+    if (amount > 0) {
+      this.HP -= amount;
+    }
+    if (HP <= 0) {
+      HP = 0;
+      System.out.println(getName() + " has been defeated.");
+    }
+  }
+
+  public void applyDamage(int amount){
     if (amount > 0) {
       this.HP -= amount;
     }
@@ -137,7 +147,7 @@ public abstract class Adventurer{
     }
     if (isPoisoned()) {
       applyDamage(1);
-      System.out.println(getname() + " takes 1 damage from poision.");
+      System.out.println(getName() + " takes 1 damage from poision.");
     }
     if (isStunned()) {
       System.out.println(getName() + " is stunned and cannot act this turn.");
@@ -148,19 +158,19 @@ public abstract class Adventurer{
     }
   }
 
-  public void applyStatusEffects(int dmg) {
+  public void applyStatusEffects(int dmg, Adventurer other) {
     if (isWeakened()) {
-      applyDamage(dmg * 2);
+      applyDamage(dmg * 2, other);
       System.out.println(getName() + " is weakened, taking 2x damage.");
     }
     if (yangHasBuff) {
-      if ((int)(Math.Random() * 100) + 1 > 30) {
-        applyDamage(dmg);
+      if ((int)(Math.random() * 100) + 1 > 30) {
+        applyDamage(dmg, other);
       }
       yangHasBuff = false;
     }
     if (rageMode) {
-      applyDamage((int)(dmg * 0.7));
+      applyDamage((int)(dmg * 0.7), other);
     }
   }
 
