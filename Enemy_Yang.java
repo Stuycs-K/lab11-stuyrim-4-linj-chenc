@@ -1,3 +1,4 @@
+import java.util.*;
 public class Enemy_Yang extends Adventurer {
   int sunEnergy, sEMax;
 
@@ -32,7 +33,7 @@ public class Enemy_Yang extends Adventurer {
   }
 
   public String attack(Adventurer other) {
-    other.applyStatusEffects(2);
+    other.applyStatusEffects(2,this);
     return this + " manifests a blade of light, stabbing " + other + " and dealing 2 dmg.";
   }
 

@@ -33,14 +33,14 @@ public class Enemy_BarbGoblin extends Adventurer {
 
   public String attack(Adventurer other) {
     if (rageMode && (int)(Math.random() * 2) == 1) {
-      other.applyStatusEffects(6);
+      other.applyStatusEffects(6, this);
+      rageMode = false;
       return "Enraged, " + this + " swings a wooden club at " + other + " with fury, dealing 6 dmg!";
     }
     else {
-      other.applyStatusEffects(4);
+      other.applyStatusEffects(4, this);
       return this + " attacks " + other + " with a wooden club, dealing 4 dmg!";
     }
-    rageMode = false;
   }
 
   public String specialAttack(Adventurer other){
@@ -55,7 +55,7 @@ public class Enemy_BarbGoblin extends Adventurer {
 
   public String support(Adventurer other){
     if (getSpecial() >= 1) {
-      setSpecial(getSpecial - 1);
+      setSpecial(getSpecial() - 1);
       if (other.getHP() + 2 >= other.getmaxHP()) {
         other.setHP(other.getmaxHP());
       }
@@ -71,7 +71,7 @@ public class Enemy_BarbGoblin extends Adventurer {
 
   public String support(){
     if (getSpecial() >= 1) {
-      setSpecial(getSpecial - 1);
+      setSpecial(getSpecial() - 1);
       if (getHP() + 2 >= getmaxHP()) {
         setHP(getmaxHP());
       }

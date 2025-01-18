@@ -34,14 +34,14 @@ public class Enemy_DrunkGoblin extends Adventurer {
   }
 
   public String attack(Adventurer other) {
-    other.setWeakend(true);
+    other.setWeakened(true);
     return this + " applies Alcohol Poisoning on " + other + ", causing them to take 2x damage on the next hit.";
   }
 
   public String specialAttack(Adventurer other) {
     if (Booze >= 4) {
       setSpecial(Booze - 4);
-      other.isPoisioned = true;
+      other.isPoisoned = true;
       // need to set number of turns as 2
       return this + " forces " + other + " to drink their Special Blend, leaving them poisioned for 2 turns.";
     } else {

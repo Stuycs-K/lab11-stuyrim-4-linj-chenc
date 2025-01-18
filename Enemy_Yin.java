@@ -1,3 +1,4 @@
+import java.util.*;
 public class Enemy_Yin extends Adventurer {
   int moonEnergy, moonEnergyMax;
   boolean hasBuff, allyHasBuff;
@@ -36,7 +37,7 @@ public class Enemy_Yin extends Adventurer {
 
   public String attack(Adventurer other) {
     int dmg = 3;
-    other.applyDamage(dmg);
+    other.applyStatusEffects(dmg, this);
     String result = this + " (text), striking " + other + " for " + dmg + " damage.";
     if (hasBuff) {
       int recovered = dmg / 2;
@@ -47,18 +48,23 @@ public class Enemy_Yin extends Adventurer {
     return result;
   }
 
-  public String specialAttack(ArrayList<Adventuer> enemies) {
+  public String specialAttack(ArrayList<Adventurer> enemies) {
     if (moonEnergy >= 5) {
       setSpecial(moonEnergy - 5);
       for (Adventurer enemy : enemies) {
         int dmg = 5;
-        enemy.applyDamage(dmg);
+        enemy.applyStatusEffects(dmg,this);
       }
-      return this + " unleashes (name), dealing " + dmg + " to all enemies.";
+      return this + " unleashes (name), dealing 5 damage to all enemies.";
     } else {
       return this + " attemped to unleash (name) but lacks sufficient Moon Energy.";
     }
   }
+
+  public String specialAttack(Adventurer other) {
+    return specialAttack(enemies);
+  }
+
 
   public String support(Adventurer other) {
     if (moonEnergy >= 3) {
