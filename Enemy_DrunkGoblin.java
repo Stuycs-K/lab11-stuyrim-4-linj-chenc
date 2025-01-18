@@ -5,8 +5,6 @@ public class Enemy_DrunkGoblin extends Adventurer {
     super(name,hp);
     BoozeMax = 5;
     Booze = BoozeMax;
-    hasBuff = false;
-    allyHasBuff = false;
   }
 
   public Enemy_DrunkGoblin(String name){
@@ -41,7 +39,7 @@ public class Enemy_DrunkGoblin extends Adventurer {
   public String specialAttack(Adventurer other) {
     if (Booze >= 4) {
       setSpecial(Booze - 4);
-      other.isPoisoned = true;
+      other.setPoisoned(true);
       // need to set number of turns as 2
       return this + " forces " + other + " to drink their Special Blend, leaving them poisioned for 2 turns.";
     } else {
