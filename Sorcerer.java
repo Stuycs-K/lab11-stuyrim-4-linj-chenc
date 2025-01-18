@@ -48,7 +48,7 @@ public class Sorcerer extends Adventurer {
   public String specialAttack(ArrayList<Adventurer> enemies, ArrayList<Adventurer> allies) {
     if (mana >= 6) {
       setSpecial(mana - 6);
-      String result = this + " harnesses immense magical energy and unleashes Arcane Nova!\n";
+      String result = this + " harnesses immense magical power to unleash Arcane Nova!\n";
       result += " The explosion resonates across the battlefield, dealing 6 damage to all enemies and 1 damage to all allies.";
       for (Adventurer enemy : enemies) {
         int dmg = 6;
@@ -79,7 +79,7 @@ public class Sorcerer extends Adventurer {
       setSpecial(mana - 4);
       if (other.getShieldStrength() < 6) {
         other.shieldStrength = 6;
-        return this + " casts Arcane Shield on " + other + ", granting a shield that absorbs 6 damage.";
+        return this + " weaves together magical currents to form an Arcane Shield, eveloping " + other + " in an opalescent barrier that absorbs 6 damage.";
       } else {
         return this + " casts Arcane Shield on " + other + ", but their existing shield is already at maximum strength.";
       }
@@ -91,7 +91,7 @@ public class Sorcerer extends Adventurer {
   public String support() {
     int restored = restoreSpecial(2);
     hasBuff = true;
-    return this + " (some word) Mana Surge, restoring " + restored + " Mana and gaining a +2 damage atk buff.";
+    return this + " channels Mana Surge, restoring " + restored + " Mana and gaining a +2 damage atk buff.";
   }
 
 }
