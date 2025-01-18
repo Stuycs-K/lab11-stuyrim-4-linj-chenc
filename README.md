@@ -44,6 +44,19 @@ Make a clear list of features that work/dont work
 |  supportSelf    |  **Mana Surge**: Recover **2 mana**; increases the Sorcerer's **atk dmg by +2 for next atk** (buff can not stack)         |
 |  supportOther   |  **Arcane Shield**: Grants an ally a shield that absorbs **6 dmg**; consumes **4 mana**         |
 
+- ### Elven Guardian
+
+|  Info           |  Details  |
+| :-------------: | :-------: |
+|  Name           |  Elven Guardian          |
+|  maxHP          |  45        |
+|  specialName    |  Elemental Energy        |
+|  specialMax     |  6         |
+|  attack         |  **Slash**: deals **2 dmg** to one enemy; deals **2 more dmg** for **each fallen teammate**        |
+|  specialAttack  |  **Nature’s Illusions**: Decreases target's accuracy, **30% chance of missing their next attack**; consumes **4 elemental energy**          |
+|  supportSelf    |  **A Guardian’s Will**: **Increase damage dealt by next hit by 2x**; consumes **2 elemental energy** (does not stack)        |
+|  supportOther   |  **Nature’s Elixir**: Allows an ally to **recover 3 hp**; consumes **2 elemental energy**         |
+
 ## Bosses
 - ### Phase 1: Little Cheese
 
