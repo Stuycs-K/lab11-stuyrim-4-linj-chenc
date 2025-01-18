@@ -178,7 +178,7 @@ public class Game{
     *Caffeine: 20 Mana: 10   Snark: 1
     * ***THIS ROW INTENTIONALLY LEFT BLANK***
     */
-    public static void drawParty(ArrayList<Adventurer> party,int startRow){
+    /*public static void drawParty(ArrayList<Adventurer> party,int startRow){
       for (int i = 0; i < party.size(); i++) {
         Adventurer member = party.get(i);
         int startCol = (i * WIDTH) / party.size();
@@ -189,7 +189,24 @@ public class Game{
         drawText(special, startRow + 2, startCol);
       }
       drawText("", startRow + 3, 0);
+    }*/
+
+    // doesn't work when I use drawText???? Still not centered I :<<<<<<
+
+    public static void drawParty(ArrayList<Adventurer> party, int startRow) {
+      int colWidth = WIDTH / party.size();
+      for (int i = 0; i < party.size(); i++) {
+        Adventurer member = party.get(i);
+        int startCol = i * colWidth;
+        Text.go(startRow, startCol + (colWidth / 2 - member.getName().length() / 2));
+        System.out.print(member.getName());
+        Text.go(startRow + 1, startCol + 3);
+        System.out.print("HP: " + colorByPercent(member.getHP(), member.getmaxHP()));
+        Text.go(startRow + 2, startCol + 3);
+        System.out.print(member.getSpecialName() + ": " + colorByPercent(member.getSpecial(), member.getSpecialMax()));
+      }
     }
+
 
 
   //Use this to create a colorized number string based on the % compared to the max value.
