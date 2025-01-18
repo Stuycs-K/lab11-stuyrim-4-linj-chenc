@@ -160,16 +160,13 @@ public class Game{
     //return a random adventurer (choose between all available subclasses)
     //feel free to overload this method to allow specific names/stats.
     public static Adventurer createRandomAdventurer(){
-      int num = (int) (Math.random() * 3);
+      int num = (int) (Math.random() * 2);
 
       if (num == 0) {
         // we can change or remove names/stats later
-        return new Enemy_BarbGoblin("Bob"+(int)(Math.random()*100));
-      } else if (num == 1) {
-        return new Enemy_DrunkGoblin("Sorcerer"+(int)(Math.random()*100));
+        return new Enemy_BarbGoblin("Barbarian Goblin"+(int)(Math.random()*100));
       } else {
-        if (())
-        return new Enemy_("Priest"+(int)(Math.random()*100));
+        return new Enemy_DrunkGoblin("Drunk Goblin"+(int)(Math.random()*100));
       }
     }
 
