@@ -109,7 +109,7 @@ public class Game{
   //(columns and rows start at 1 (not zero) in the terminal)
   //use this method in your other text drawing methods to make things simpler.
   public static void drawText(String s,int startRow, int startCol){
-    Text.go(startCol, startRow);
+    Text.go(startRow, startCol);
     System.out.print(s);
   }
 
@@ -247,9 +247,9 @@ public class Game{
 
   public static String userInput(Scanner in){
       //Move cursor to prompt location
-      Text.go(26,2);
+      Text.go(27,2);
       System.out.print("> ");
-      Text.go(26,4);
+      Text.go(27,4);
       //show cursor
       Text.showCursor();
 
@@ -299,7 +299,7 @@ public class Game{
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     party.add(new ElvenGuardian("Thalindor Aegisheart"));
     party.add(new Sorcerer("Veca Anouk"));
-    party.add(new Priest("Léopoldine Goyath"));
+    party.add(new Priest("Léopoldine Goyathlay"));
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
     boolean partyTurn = true;
@@ -317,6 +317,8 @@ public class Game{
 
     //display this prompt at the start of the game.
     String preprompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
+    TextBox(26,2,WIDTH,1,preprompt);
+    input = userInput(in);
 
     while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
       //Read user input
