@@ -15,6 +15,18 @@ Make a clear list of features that work/dont work
 
 :beetle: This is a bug that affects the game.
 
+|  Feature           |  Status  |
+| :-------------: | :-------: |
+|  Play with a group of 3 different types adventurers         |    :x:       |
+|  Play against 1-3 randomly chosen adventurer opponents         |   :x:        |
+|  Use attack/special operations on your opponents   |  :x:         |
+|  Use support operations on your team    |  :x:         |
+|  Program ends when user chooses to quit, or all enemies is defeated, or the entire party is defeated         |  :x:         |
+|  Win/Lose Screen  | :x:          |
+|  Display the results of the attack/special/support inside your border    |  :question:        |
+|  Have a special boss class adventurer for when a single opponent is selected   |  :white_check_mark:         |
+
+
 ***
 
 ## Adventurer Subclasses

@@ -116,6 +116,13 @@ public abstract class Adventurer{
       System.out.println(getName() + " has received the Blessing of the Sun, dealing 2x the damage!");
       setStrengthened(false);
     }
+    if (other.hasElvenDebuff) {
+      if ((int)(Math.random() * 100) + 1 > 30) {
+        amount = 0;
+        System.out.println(other.getName() + " has muddied judgement and misses, dealing no damage.");
+      }
+      hasElvenDebuff = false;
+    }
     if (other.hasDGStrengthed) {
       amount = (int)(amount * 1.5);
       System.out.println(getName() + " is bolstered by encouragement and alchohol, increasing their damage 1.5x!");
