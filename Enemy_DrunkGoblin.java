@@ -64,10 +64,15 @@ public class Enemy_DrunkGoblin extends Adventurer {
       setSpecial(Booze - 1);
       int amount = 2;
       if (Math.random() < 0.5) {
-        setHP(getHP() + amount);
+          if (getHP() + 2 > getmaxHP()) {
+            setHP(getmaxHP());
+          }
+          else {
+            setHP(getHP() + 2);
+          }
         return this + " takes a swig of their Drink, recovering " + amount + " HP.";
       } else {
-        setHP(getHP() - amount);
+        applyDamage(2);
         return this + " takes a swig of their Drink, losing " + amount + " HP.";
       }
     } else {
