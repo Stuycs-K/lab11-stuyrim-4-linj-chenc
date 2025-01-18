@@ -49,7 +49,7 @@ public class Sorcerer extends Adventurer {
     if (mana >= 6) {
       setSpecial(mana - 6);
       String result = this + " harnesses immense magical power to unleash Arcane Nova!\n";
-      result += " The explosion resonates across the battlefield, dealing 6 damage to all enemies and 1 damage to all allies.\n";
+      result += "The explosion resonates across the battlefield, dealing 6 damage to all enemies and 1 damage to all allies.\n";
       for (Adventurer enemy : enemies) {
         int dmg = 6;
         enemy.applyDamage(dmg, this);

@@ -14,7 +14,7 @@ public class Priest extends Adventurer {
   }
 
   public Priest(){
-    this("Léopoldine Goyath");
+    this("Léopoldine Goyathlay");
   }
 
   public String getSpecialName(){
