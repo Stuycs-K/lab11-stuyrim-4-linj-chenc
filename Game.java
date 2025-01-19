@@ -310,9 +310,6 @@ public class Game{
     //start with 1 boss and modify the code to allow 2-3 adventurers later.
     ArrayList<Adventurer>enemies = new ArrayList<Adventurer>();
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-    //YOUR CODE HERE
-    String num = input;
-    //only 1 for now; int num = 1+(int)(Math.random()*3);
     if (input.equalsIgnoreCase("th") || input.equalsIgnoreCase("three")) {
       enemies.add(createRandomAdventurer());
       enemies.add(createRandomAdventurer());
@@ -347,8 +344,8 @@ public class Game{
     //Main loop
 
     //display this prompt at the start of the game.
-      String preprompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
-      TextBox(26,2,WIDTH,1,preprompt);
+    String preprompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
+    TextBox(26,2,WIDTH,1,preprompt);
 
     while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
       //Read user input
@@ -408,10 +405,10 @@ public class Game{
         }else{
           //This is after the player's turn, and allows the user to see the enemy turn
           //Decide where to draw the following prompt:
-          String prompt = "press enter to see monster's turn";
+          String prompt = "press enter to see enemy's turn";
           TextBox(26,2,WIDTH,1,prompt);
           partyTurn = false;
-          whichOpponent = 0;
+          whichPlayer = 0;
         }
         //done with one party member
       }else{
@@ -422,26 +419,24 @@ public class Game{
         //Enemy action choices go here!
         /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
         int action = (int)(Math.random() * 3);
-        int randIndex = (int)(Math.random() * enemies.size());
-        Adventurer randEnemy = enemies.get(randIndex);
         Adventurer randParty = party.get((int)(Math.random() * party.size()));
         if (action == 0) {
-          TextBox(7, 2, WIDTH, 17, randEnemy.attack(randParty));
+          TextBox(7, 2, WIDTH, 17, enemies.get(whichOpponent).attack(randParty));
         } else if (action == 1) {
-          TextBox(7, 2, WIDTH, 17, randEnemy.specialAttack(randParty));
+          TextBox(7, 2, WIDTH, 17, enemies.get(whichOpponent).specialAttack(randParty));
         } else if (action == 2) {
           int randInt = (int)(Math.random() * enemies.size());
-          if (randIndex == randInt) {
-            TextBox(7, 2, WIDTH, 17, randEnemy.support());
+          if (whichOpponent == randInt) {
+            TextBox(7, 2, WIDTH, 17, enemies.get(whichOpponent).support());
           } else {
-            TextBox(7, 2, WIDTH, 17, randEnemy.support(enemies.get(randInt)));
+            TextBox(7, 2, WIDTH, 17, enemies.get(whichOpponent).support(enemies.get(randInt)));
           }
         }
         /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
 
         //Decide where to draw the following prompt:
-        String prompt = "press enter to see next turn";
+        String prompt = "press enter to see next enemy's turn";
         TextBox(26,2,WIDTH,1,prompt);
         whichOpponent++;
 
@@ -451,11 +446,12 @@ public class Game{
       if(!partyTurn && whichOpponent >= enemies.size()){
         //THIS BLOCK IS TO END THE ENEMY TURN
         //It only triggers after the last enemy goes.
-        whichPlayer = 0;
+        whichOpponent = 0;
         turn++;
         partyTurn=true;
         //display this prompt before player's turn
         String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
+        TextBox(26, 2, WIDTH, 1, prompt);
       }
 
       //display the updated screen after input has been processed.
