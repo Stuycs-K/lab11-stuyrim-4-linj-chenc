@@ -135,8 +135,12 @@ public class Game{
       String temp = "";
       String temp2 = "";
       if(text.length() > width - 2) {
-        temp = text.substring(width - 2);
-        text = text.substring(0, width - 2);
+        int split = text.lastIndexOf(" ", width - 2);
+        if (split == -1) {
+          split = width - 2;
+        }
+        temp = text.substring(split + 1);
+        text = text.substring(0, split);
       }
       drawText(text, row, col);
       height--;
