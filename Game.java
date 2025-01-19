@@ -34,7 +34,7 @@ public class Game{
     for(int x = 2; x < 6; x++) {
       Text.go(x,28);
       System.out.print("\u2503");
-      Text.go(x,56);
+      Text.go(x,54);
       System.out.print("\u2503");
     }
 
@@ -42,7 +42,7 @@ public class Game{
     for(int x = 21; x < 26; x++) {
       Text.go(x,28);
       System.out.print("\u2503");
-      Text.go(x,56);
+      Text.go(x,54);
       System.out.print("\u2503");
     }
 
@@ -67,7 +67,7 @@ public class Game{
     // All Horizontal Border Lines
     for(int x = 2; x < 80; x++) {
       Text.go(1,x);
-      if(x != 28 && x != 56) {
+      if(x != 28 && x != 54) {
         System.out.print("\u2501");
       }
       else {
@@ -76,21 +76,21 @@ public class Game{
       Text.go(29,x);
       System.out.print("\u2501");
       Text.go(5,x);
-      if(x != 28 && x != 56) {
+      if(x != 28 && x != 54) {
         System.out.print("\u2501");
       }
       else {
         System.out.print("\u253B");
       }
       Text.go(21,x);
-      if(x != 28 && x != 56) {
+      if(x != 28 && x != 54) {
         System.out.print("\u2501");
       }
       else {
         System.out.print("\u2533");
       }
       Text.go(25,x);
-      if(x != 28 && x != 56) {
+      if(x != 28 && x != 54) {
         System.out.print("\u2501");
       }
       else {
@@ -167,54 +167,65 @@ public class Game{
 
 
 
-    //return a random adventurer (choose between all available subclasses)
-    //feel free to overload this method to allow specific names/stats.
-    public static Adventurer createRandomAdventurer(){
-      int num = (int) (Math.random() * 2);
-      if (num == 0) {
-        // we can change or remove names/stats later
-        return new Enemy_BarbGoblin("Barbarian Goblin"+(int)(Math.random()*100));
+  //return a random adventurer (choose between all available subclasses)
+  //feel free to overload this method to allow specific names/stats.
+  public static Adventurer createRandomAdventurer(){
+    int num = (int) (Math.random() * 2);
+    if (num == 0) {
+      // we can change or remove names/stats later
+      return new Enemy_BarbGoblin("Barbarian Goblin"+(int)(Math.random()*100));
+    } else {
+      return new Enemy_DrunkGoblin("Drunk Goblin"+(int)(Math.random()*100));
+    }
+  }
+
+  /*Display a List of 2-4 adventurers on the rows row through row+3 (4 rows max)
+  *Should include Name HP and Special on 3 separate lines.
+  *Note there is one blank row reserved for your use if you choose.
+  *Format:
+  *Bob          Amy        Jun
+  *HP: 10       HP: 15     HP:19
+  *Caffeine: 20 Mana: 10   Snark: 1
+  * ***THIS ROW INTENTIONALLY LEFT BLANK***
+  */
+
+  public static void drawParty(ArrayList<Adventurer> party, int startRow) {
+    int colWidth = (WIDTH - 2) / 3;
+    for (int i = 0; i < party.size(); i++) {
+      Adventurer member = party.get(i);
+      int startCol = (i * colWidth) + 2;
+      String name = member.getName();
+      if (party.size() == 1) {
+        drawText(name, startRow, (WIDTH - name.length()) / 2);
       } else {
-        return new Enemy_DrunkGoblin("Drunk Goblin"+(int)(Math.random()*100));
+        drawText(name, startRow, startCol + (colWidth - name.length()) / 2);
+      }
+      String hp = "HP: " + colorByPercent(member.getHP(), member.getmaxHP());
+      String special = member.getSpecialName() + ": " + colorByPercent(member.getSpecial(), member.getSpecialMax());
+      if (party.size() == 1) {
+        drawText(hp, startRow + 1, (WIDTH / 2) - (colWidth / 2) + 3);
+        drawText(special, startRow + 2, (WIDTH / 2) - (colWidth / 2) + 3);
+      } else {
+        drawText(hp, startRow + 1, startCol + 1 + i);
+        drawText(special, startRow + 2, startCol + 1 + i);
       }
     }
+  }
 
-    /*Display a List of 2-4 adventurers on the rows row through row+3 (4 rows max)
-    *Should include Name HP and Special on 3 separate lines.
-    *Note there is one blank row reserved for your use if you choose.
-    *Format:
-    *Bob          Amy        Jun
-    *HP: 10       HP: 15     HP:19
-    *Caffeine: 20 Mana: 10   Snark: 1
-    * ***THIS ROW INTENTIONALLY LEFT BLANK***
-    */
-    /*public static void drawParty(ArrayList<Adventurer> party,int startRow){
-      for (int i = 0; i < party.size(); i++) {
-        Adventurer member = party.get(i);
-        int startCol = (i * WIDTH) / party.size();
-        drawText(member.getName(), startRow, startCol);
-        String hp = "HP: " + colorByPercent(member.getHP(), member.getmaxHP());
-        drawText(hp, startRow + 1, startCol);
-        String special = member.getSpecialName() + ": " + colorByPercent(member.getSpecial(), member.getSpecialMax());
-        drawText(special, startRow + 2, startCol);
-      }
-      drawText("", startRow + 3, 0);
-    }*/
-
-    // doesn't work when I use drawText???? Still not centered I :<<<<<<
-
-    public static void drawParty(ArrayList<Adventurer> party, int startRow) {
-      int colWidth = 26;
-      for (int i = 0; i < party.size(); i++) {
-        Adventurer member = party.get(i);
-        int startCol = (i * colWidth) + 2 + i;
-        drawText(member.getName(), startRow, startCol + ((colWidth - member.getName().length()) / 2));
-        String hp = "HP: " + colorByPercent(member.getHP(), member.getmaxHP());
-        drawText(hp, startRow + 1, startCol + i);
-        String special = member.getSpecialName() + ": " + colorByPercent(member.getSpecial(), member.getSpecialMax());
-        drawText(special, startRow + 2, startCol + i);
-      }
+  // old one just in case
+  /* public static void drawParty(ArrayList<Adventurer> party, int startRow) {
+  int colWidth = 26;
+  for (int i = 0; i < party.size(); i++) {
+    Adventurer member = party.get(i);
+    int startCol = (i * colWidth) + 2 + i; // Start column for this party member
+    drawText(member.getName(), startRow, startCol + ((colWidth - member.getName().length()) / 2)); // Center the name
+    String hp = "HP: " + colorByPercent(member.getHP(), member.getmaxHP());
+    drawText(hp, startRow + 1, startCol + i); // Display HP
+    String special = member.getSpecialName() + ": " + colorByPercent(member.getSpecial(), member.getSpecialMax());
+    drawText(special, startRow + 2, startCol + i); // Display special
     }
+  } */
+
 
 
 
@@ -256,9 +267,9 @@ public class Game{
 
   public static String userInput(Scanner in){
       //Move cursor to prompt location
-      Text.go(27,2);
+      Text.go(28,2);
       System.out.print("> ");
-      Text.go(27,4);
+      Text.go(28,4);
       //show cursor
       Text.showCursor();
 
