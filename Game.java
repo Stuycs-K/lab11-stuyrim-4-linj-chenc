@@ -5,6 +5,7 @@ public class Game{
   private static final int BORDER_COLOR = Text.WHITE;
   private static final int BORDER_BACKGROUND = Text.BLACK + Text.BACKGROUND;
   private static final ArrayList<String> history = new ArrayList<>();
+  private static int recentAction = 0;
 
   public static void main(String[] args) {
     run();
@@ -136,6 +137,7 @@ public class Game{
         wrapped.add(current);
       }
     }
+    recentAction = wrapped.size();
     for (int i = wrapped.size() - 1; i >= 0; i--) {
       history.add(0, wrapped.get(i));
     }
@@ -148,8 +150,16 @@ public class Game{
     TextBox(row, col, width, height, "");
     int index = Math.max(0, history.size() - height);
     for (int i = index; i < history.size(); i++) {
-      drawText(history.get(i), row++, col + 1);
+      String line = history.get(i);
+      String styled;
+      if (i < recentAction) {
+        styled = Text.colorize(line, Text.BOLD);
+      } else {
+        styled = Text.colorize(line, 90);
+      }
+      drawText(styled, row++, col + 1);
     }
+    recentAction = Math.max(0, recentAction - (history.size() - index));
   }
 
   /*Use this method to place text on the screen at a particular location.
