@@ -419,7 +419,16 @@ public class Game{
 
     while (!(input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")) && !hasWon && !hasLost) {
       //Read user input
-      input = userInput(in);
+
+      input = userInput(in).toLowerCase();
+      while ((! (input.equals("a") || input.equals("attack"))) &&
+                (! (input.equals("sp") || input.equals("special"))) &&
+                (! (input.startsWith("su ") || input.startsWith("support "))) &&
+                (! (input.startsWith("q") || input.startsWith("quit"))) &&
+                partyTurn) {
+        TextBox(26,2,WIDTH,1,"Invalid entry, please try again: attack(a)/special(sp)/support(su #)/quit(q)");
+        input = userInput(in).toLowerCase();
+      }
 
       //example debug statment
       TextBox(6,2,80,78,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
@@ -484,13 +493,13 @@ public class Game{
         }else{
           //This is after the player's turn, and allows the user to see the enemy turn
           //Decide where to draw the following prompt:
-          String prompt = "press enter to see enemy's turn";
+          String prompt = "Press enter to see enemy's turn";
           TextBox(26,2,WIDTH,1,prompt);
           partyTurn = false;
           whichPlayer = 0;
         }
         //done with one party member
-      }else{
+      }else if(!partyTurn && whichOpponent < enemies.size()) {
         //not the party turn!
 
 
@@ -526,14 +535,20 @@ public class Game{
         }
 
         //Decide where to draw the following prompt:
-        String prompt = "press enter to see next enemy's turn";
-        TextBox(26,2,WIDTH,1,prompt);
+        if (whichOpponent + 1 != enemies.size()) {
+          String prompt = "Press enter to see next enemy's turn";
+          TextBox(26,2,WIDTH,1,prompt);
+        }
+        else {
+          String prompt = "Press enter to complete the turn";
+          TextBox(26,2,WIDTH,1,prompt);
+        }
         whichOpponent++;
 
       }//end of one enemy.
 
       //modify this if statement.
-      if(!partyTurn && whichOpponent >= enemies.size()){
+      else {
         //THIS BLOCK IS TO END THE ENEMY TURN
         //It only triggers after the last enemy goes.
         whichOpponent = 0;
@@ -567,7 +582,7 @@ public class Game{
         }
 
         result += "\nAll players gain 1 special.";
-        TextBox(7,2,WIDTH,17,result);
+        addHistory(result);
 
         if (deadEnemies == enemies.size()) {
           hasWon = true;
