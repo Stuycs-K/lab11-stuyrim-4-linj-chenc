@@ -4,6 +4,7 @@ public class Game{
   private static final int HEIGHT = 30;
   private static final int BORDER_COLOR = Text.WHITE;
   private static final int BORDER_BACKGROUND = Text.BLACK + Text.BACKGROUND;
+  private static final ArrayList<String> history = new ArrayList<>();
 
   public static void main(String[] args) {
     run();
@@ -111,6 +112,41 @@ public class Game{
   public static void drawText(String s,int startRow, int startCol){
     Text.go(startRow, startCol);
     System.out.print(s);
+  }
+
+  public static void addHistory(String text) {
+    int maxWidth = WIDTH - 3;
+    ArrayList<String> wrapped = new ArrayList<>();
+    String[] lines = text.split("\n");
+    for (String line : lines) {
+      String[] words = line.split(" ");
+      String current = "";
+      for (String word : words) {
+        if (current.length() + word.length() + 1 > maxWidth) {
+          wrapped.add(current);
+          current = word;
+        } else {
+          if (!current.isEmpty()) {
+            current += " ";
+          }
+          current += word;
+        }
+      }
+      if (!current.isEmpty()) {
+        wrapped.add(current);
+      }
+    }
+    for (int i = wrapped.size() - 1; i >= 0; i--) {
+      history.add(0, wrapped.get(i));
+    }
+  }
+
+  public static void displayHistory(int row, int col, int width, int height) {
+    TextBox(row, col, width, height, "");
+    int index = Math.max(0, history.size() - height);
+    for (int i = index; i < history.size(); i++) {
+      drawText(history.get(i), row++, col + 1);
+    }
   }
 
   /*Use this method to place text on the screen at a particular location.
@@ -266,6 +302,8 @@ public class Game{
 
     //draw enemy party
     drawParty(enemies, 2);
+
+    displayHistory(7, 2, WIDTH - 2, 14);
 
   }
 

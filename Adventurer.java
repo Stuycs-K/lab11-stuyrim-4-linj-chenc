@@ -107,9 +107,9 @@ public abstract class Adventurer{
 
   public String applyDamage(int amount, Adventurer other){
     String result = "";
-    if (other.shieldStrength > 0) {
-      int shielded = Math.min(amount, shieldStrength);
-      shieldStrength -= shielded;
+    if (this.shieldStrength > 0) {
+      int shielded = Math.min(amount, this.shieldStrength);
+      this.shieldStrength -= shielded;
       amount -= shielded;
       result = result + "\n" + getName() + "'s shield absorbed " + shielded + " damage.";
     }
@@ -125,7 +125,7 @@ public abstract class Adventurer{
       }
       hasElvenDebuff = false;
     }
-    if (other.hasDGStrengthed) {
+    if (this.hasDGStrengthed) {
       amount = (int)(amount * 1.5);
       result = result + "\n" + getName() + " is bolstered by encouragement and alchohol, increasing their damage 1.5x!";
       setHasDGStrengthed(false);

@@ -80,7 +80,7 @@ public class Sorcerer extends Adventurer {
       setSpecial(mana - 4);
       if (other.getShieldStrength() < 6) {
         other.shieldStrength = 6;
-        return this + " weaves together magical currents to form an Arcane Shield, eveloping " + other + " in an opalescent barrier that absorbs 6 damage.";
+        return this + " weaves together magical currents to form an Arcane Shield, enveloping " + other + " in an opalescent barrier that absorbs 6 damage.";
       } else {
         return this + " casts Arcane Shield on " + other + ", but their existing shield is already at maximum strength.";
       }

@@ -40,7 +40,7 @@ public class Boss2 extends Adventurer{
     if (getSpecial() >= 5) {
       String result = this + " uses Mark of Vengeance, leaving a curse on " + other
         + " that will consume 50% of their special on the next attack and dealing 5 dmg.";
-      result += other.applyDamage(5);
+      result += other.applyDamage(5, this);
       other.hasCheeseMark = true;
       setSpecial(getSpecial() - 5);
       return result;
