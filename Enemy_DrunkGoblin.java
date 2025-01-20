@@ -40,6 +40,7 @@ public class Enemy_DrunkGoblin extends Adventurer {
     if (Booze >= 4) {
       setSpecial(Booze - 4);
       other.setPoisoned(true);
+      other.poisonDuration = 0;
       // need to set number of turns as 2
       return this + " forces " + other + " to drink their Special Blend, leaving them poisioned for 2 turns.";
     } else {

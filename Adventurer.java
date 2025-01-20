@@ -4,7 +4,7 @@ public abstract class Adventurer{
   private int HP,maxHP;
   boolean isStunned, isBurning, isPoisoned, isWeakened, isStrengthened;
   boolean yangHasBuff, rageMode, hasDGStrengthed, hasElvenDebuff, hasCheeseMark, hasSecondPhase;
-  int shieldStrength;
+  int shieldStrength, burnDuration, poisonDuration;
   ArrayList<Adventurer> enemies = new ArrayList<Adventurer>();
   ArrayList<Adventurer> allies = new ArrayList<Adventurer>();
 
@@ -152,11 +152,21 @@ public abstract class Adventurer{
     String result = "";
     if (isBurning()) {
       applyDamage(1);
+      burnDuration++;
       result += "\n" + getName() + " takes 1 damage from burning.";
+      if (burnDuration + 1 == 2) {
+        result += "\n" + getName() + "\'s burning has lifted.";
+        isBurning = false;
+      }
     }
     if (isPoisoned()) {
       applyDamage(1);
-      result += "\n" + getName() + " takes 1 damage from poision.";
+      poisonDuration++;
+      result += "\n" + getName() + " takes 1 damage from poison.";
+      if (poisonDuration + 1 == 2) {
+        result += "\n" + getName() + "\'s poisoning has lifted.";
+        isPoisoned = false;
+      }
     }
     if (isStunned()) {
       result += "\n" + getName() + " is stunned and cannot act this turn.";
@@ -173,6 +183,7 @@ public abstract class Adventurer{
     if (isWeakened()) {
       result = result + "\n" + getName() + " is weakened, taking 2x damage.";
       dmg = dmg * 2;
+      setWeakened(false);
     }
     if (yangHasBuff) {
       if ((int)(Math.random() * 100) + 1 <= 30) {

@@ -41,7 +41,12 @@ public class Enemy_Yin extends Adventurer {
     result += other.applyStatusEffects(dmg, this);
     if (hasBuff) {
       int recovered = dmg / 2;
-      setHP(getHP() + recovered);
+      if (getHP() + recovered < getmaxHP()) {
+        setHP(getHP() + recovered);
+      }
+      else {
+        setHP(getmaxHP());
+      }
       hasBuff = false;
       result += this + "(text), recovering " + recovered + " HP.";
     }

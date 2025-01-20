@@ -54,6 +54,7 @@ public class Priest extends Adventurer {
         + dmg + " dmg to " + other + " and inflicts them with Burning.";
       result += other.applyStatusEffects(dmg,this);
       other.setBurning(true);
+      other.burnDuration = 0;
       setSpecial(getSpecial() - 4);
       return result;
     }
