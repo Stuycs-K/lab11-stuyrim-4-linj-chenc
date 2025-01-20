@@ -35,10 +35,11 @@ public class Priest extends Adventurer {
 
   // Deals 2 points of damage to all enemies -- > requires an ArrayList of foes
   public String attack(ArrayList<Adventurer> enemies){
+    String result = this + " casts Light Arrows, raining light from the sky and dealing 2 damage to each enemy.";
     for (int x = 0; x < enemies.size(); x++) {
-      enemies.get(x).applyStatusEffects(2,this);
+      result += enemies.get(x).applyStatusEffects(2,this);
     }
-    return this + " casts Light Arrows, raining light from the sky and dealing 2 damage to each enemy.";
+    return result;
   }
 
   public String attack(Adventurer other) {
@@ -49,11 +50,12 @@ public class Priest extends Adventurer {
   public String specialAttack(ArrayList<Adventurer> enemies, Adventurer other){
     int dmg = 2 * enemies.size();
     if (getSpecial() >= 4) {
-      other.applyStatusEffects(dmg,this);
+      String result = this + " casts Divine Judgement, harnessing the flames of judgement to burn opponents, dealing "
+        + dmg + " dmg to " + other + " and inflicts them with Burning.";
+      result += other.applyStatusEffects(dmg,this);
       other.setBurning(true);
       setSpecial(getSpecial() - 4);
-      return this + " casts Divine Judgement, harnessing the flames of judgement to burn opponents, dealing "
-        + dmg + " dmg to " + other + " and inflicts them with Burning.";
+      return result;
     }
     else {
       return this + " attempted to cast Divine Judgement on " + other + " but has insufficient faith!";

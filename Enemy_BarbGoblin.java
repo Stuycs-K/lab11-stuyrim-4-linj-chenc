@@ -32,14 +32,17 @@ public class Enemy_BarbGoblin extends Adventurer {
   }
 
   public String attack(Adventurer other) {
+    String result;
     if (rageMode && (int)(Math.random() * 2) == 1) {
-      other.applyStatusEffects(6, this);
+      result = "Enraged, " + this + " swings a wooden club at " + other + " with fury, dealing 6 dmg!";
+      result += other.applyStatusEffects(6, this);
       rageMode = false;
-      return "Enraged, " + this + " swings a wooden club at " + other + " with fury, dealing 6 dmg!";
+      return result;
     }
     else {
-      other.applyStatusEffects(4, this);
-      return this + " attacks " + other + " with a wooden club, dealing 4 dmg!";
+      result = this + " attacks " + other + " with a wooden club, dealing 4 dmg!";
+      result += other.applyStatusEffects(4, this);
+      return result;
     }
   }
 

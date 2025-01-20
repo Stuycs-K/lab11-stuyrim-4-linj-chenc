@@ -35,14 +35,17 @@ public class ElvenGuardian extends Adventurer{
 
   public String attack(Adventurer other){
     int damage = 2 + (2*(3-allies.size()));
+    String result;
     if (hasBuff) {
-      other.applyStatusEffects(damage*2, this);
+      result = this + " slashes at " + other + " in a strengthend state with their broadsword, dealing " + damage + " damage!";
+      result += other.applyStatusEffects(damage*2, this);
       hasBuff = false;
-      return this + " slashes at " + other + " in a strengthend state with their broadsword, dealing " + damage + " damage!";
+      return result;
     }
     else {
-      other.applyStatusEffects(damage, this);
-      return this + " slashes at " + other + " with their broadsword, dealing " + damage + " damage!";
+      result = this + " slashes at " + other + " with their broadsword, dealing " + damage + " damage!"
+      result += other.applyStatusEffects(damage, this);
+      return result;
     }
   }
 

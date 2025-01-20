@@ -40,9 +40,10 @@ public class Sorcerer extends Adventurer {
       dmg += 2;
       hasBuff = false;
     }
-    other.applyDamage(dmg);
-    return this + " channels a bolt of arcane energy, casting Arcane Bolt on " + other + " for "
+    String result = this + " channels a bolt of arcane energy, casting Arcane Bolt on " + other + " for "
     + dmg + " damage.";
+    result += other.applyStatusEffects(dmg, this);
+    return result;
   }
 
   public String specialAttack(ArrayList<Adventurer> enemies, ArrayList<Adventurer> allies) {
@@ -52,7 +53,7 @@ public class Sorcerer extends Adventurer {
       result += "The explosion resonates across the battlefield, dealing 6 damage to all enemies and 1 damage to all allies.\n";
       for (Adventurer enemy : enemies) {
         int dmg = 6;
-        enemy.applyDamage(dmg, this);
+        result += enemy.applyStatusEffects(dmg, this);
         if (Math.random() < 0.3) {
           enemy.setStunned(true);
           result += enemy + " is stunned by the following shockwave!\n";
@@ -60,7 +61,7 @@ public class Sorcerer extends Adventurer {
       }
       for (Adventurer ally : allies) {
         if (!ally.isDead()) {
-          ally.applyDamage(1, this);
+          ally.applyDamage(1);
           result += ally + " is caught in the blast and takes 1 damage.\n";
         }
       }
