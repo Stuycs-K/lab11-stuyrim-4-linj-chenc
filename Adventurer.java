@@ -3,7 +3,7 @@ public abstract class Adventurer{
   private String name;
   private int HP,maxHP;
   boolean isStunned, isBurning, isPoisoned, isWeakened, isStrengthened;
-  boolean yangHasBuff, rageMode, hasDGStrengthed, hasElvenDebuff, hasCheeseMark;
+  boolean yangHasBuff, rageMode, hasDGStrengthed, hasElvenDebuff, hasCheeseMark, hasSecondPhase;
   int shieldStrength;
   ArrayList<Adventurer> enemies = new ArrayList<Adventurer>();
   ArrayList<Adventurer> allies = new ArrayList<Adventurer>();

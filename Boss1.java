@@ -5,6 +5,7 @@ public class Boss1 extends Adventurer {
     super(name,hp);
     dairyMax = 15;
     dairy = dairyMax - 2;
+    hasSecondPhase = true;
   }
 
   public Boss1(String name){
