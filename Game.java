@@ -139,6 +139,9 @@ public class Game{
     for (int i = wrapped.size() - 1; i >= 0; i--) {
       history.add(0, wrapped.get(i));
     }
+    while (history.size() > 14) {
+      history.remove(history.size() - 1);
+    }
   }
 
   public static void displayHistory(int row, int col, int width, int height) {
@@ -417,12 +420,14 @@ public class Game{
         //Process user input for the last Adventurer:
         if(input.equals("attack") || input.equals("a")){
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          TextBox(7, 2, WIDTH, 17, party.get(whichPlayer).attack(enemies.get(whichOpponent)) + checkforDead(enemies,whichOpponent));
+          String action = party.get(whichPlayer).attack(enemies.get(whichOpponent)) + checkforDead(enemies,whichOpponent);
+          addHistory(action);
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         }
         else if(input.equals("special") || input.equals("sp")){
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          TextBox(7, 2, WIDTH, 17, party.get(whichPlayer).specialAttack(enemies.get(whichOpponent)) + checkforDead(enemies,whichOpponent));
+          String action = party.get(whichPlayer).specialAttack(enemies.get(whichOpponent)) + checkforDead(enemies,whichOpponent);
+          addHistory(action);
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         }
         else if(input.startsWith("su ") || input.startsWith("support ")){
@@ -438,10 +443,12 @@ public class Game{
               TextBox(26, 2, WIDTH, 3, "Invalid target. Choose a valid party member index.");
             } else if (supported == whichPlayer) {
               // suport self
-              TextBox(7, 2, WIDTH, 17, party.get(whichPlayer).support());
+              String action = party.get(whichPlayer).support();
+              addHistory(action);
             } else {
               // support other
-              TextBox(7, 2, WIDTH, 17, party.get(whichPlayer).support(party.get(supported)));
+              String action = party.get(whichPlayer).support(party.get(supported));
+              addHistory(action);
             }
           }
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
@@ -480,19 +487,23 @@ public class Game{
         //enemy attacks a randomly chosen person with a randomly chosen attack.z`
         //Enemy action choices go here!
         /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-        int action = (int)(Math.random() * 3);
+        int move = (int)(Math.random() * 3);
         int randNum = (int)(Math.random() * party.size());
         Adventurer randParty = party.get(randNum);
-        if (action == 0) {
-          TextBox(7, 2, WIDTH, 17, enemies.get(whichOpponent).attack(randParty)+checkforDead(party,randNum));
-        } else if (action == 1) {
-          TextBox(7, 2, WIDTH, 17, enemies.get(whichOpponent).specialAttack(randParty)+checkforDead(party,randNum));
-        } else if (action == 2) {
+        if (move == 0) {
+          String action = enemies.get(whichOpponent).attack(randParty)+checkforDead(party,randNum);
+          addHistory(action);
+        } else if (move == 1) {
+          String action = enemies.get(whichOpponent).specialAttack(randParty)+checkforDead(party,randNum);
+          addHistory(action);
+        } else if (move == 2) {
           int randInt = (int)(Math.random() * enemies.size());
           if (whichOpponent == randInt) {
-            TextBox(7, 2, WIDTH, 17, enemies.get(whichOpponent).support());
+            String action = enemies.get(whichOpponent).support();
+            addHistory(action);
           } else {
-            TextBox(7, 2, WIDTH, 17, enemies.get(whichOpponent).support(enemies.get(randInt)));
+            String action = enemies.get(whichOpponent).support(enemies.get(randInt));
+            addHistory(action);
           }
         }
         /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
