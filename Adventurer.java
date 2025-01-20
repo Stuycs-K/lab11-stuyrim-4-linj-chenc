@@ -105,28 +105,29 @@ public abstract class Adventurer{
     return HP <= 0;
   }
 
-  public void applyDamage(int amount, Adventurer other){
+  public String applyDamage(int amount, Adventurer other){
+    String result = "";
     if (other.shieldStrength > 0) {
       int shielded = Math.min(amount, shieldStrength);
       shieldStrength -= shielded;
       amount -= shielded;
-      System.out.println("\n" + getName() + "'s shield absorbed " + shielded + " damage.");
+      result = result + "\n" + getName() + "'s shield absorbed " + shielded + " damage.";
     }
     if (other.isStrengthened) {
       amount = amount *2;
-      System.out.println("\n" + getName() + " has received the Blessing of the Sun, dealing 2x the damage!");
+      result = result + "\n" + getName() + " has received the Blessing of the Sun, dealing 2x the damage!";
       setStrengthened(false);
     }
     if (other.hasElvenDebuff) {
       if ((int)(Math.random() * 100) + 1 > 30) {
         amount = 0;
-        System.out.println("\n" + other.getName() + " has muddied judgement and misses, dealing no damage.");
+        result = result + "\n" + other.getName() + " has muddied judgement and misses, dealing no damage.";
       }
       hasElvenDebuff = false;
     }
     if (other.hasDGStrengthed) {
       amount = (int)(amount * 1.5);
-      System.out.println("\n" + getName() + " is bolstered by encouragement and alchohol, increasing their damage 1.5x!");
+      result = result + "\n" + getName() + " is bolstered by encouragement and alchohol, increasing their damage 1.5x!";
       setHasDGStrengthed(false);
     }
     if (amount > 0) {
@@ -135,6 +136,7 @@ public abstract class Adventurer{
     if (HP <= 0) {
       HP = 0;
     }
+    return result;
   }
 
   public void applyDamage(int amount){
@@ -164,21 +166,24 @@ public abstract class Adventurer{
     }
   }
 
-  public void applyStatusEffects(int dmg, Adventurer other) {
+  public String applyStatusEffects(int dmg, Adventurer other) {
+    String result = "";
     if (isWeakened()) {
-      applyDamage(dmg * 2, other);
-      System.out.println("\n" + getName() + " is weakened, taking 2x damage.");
+      result = result + "\n" + getName() + " is weakened, taking 2x damage.";
+      dmg = dmg * 2;
     }
     if (yangHasBuff) {
-      if ((int)(Math.random() * 100) + 1 > 30) {
-        applyDamage(dmg, other);
+      if ((int)(Math.random() * 100) + 1 <= 30) {
+        dmg = 0;
       }
+      result = result + "\nYang has dodged the attack!";
       yangHasBuff = false;
     }
     if (rageMode) {
-      applyDamage((int)(dmg * 0.7), other);
+      dmg = (int)(dmg*0.7);
     }
-    applyDamage(dmg, other);
+    result = result + applyDamage(dmg, other);
+    return result;
   }
 
   //You did it wrong if this happens.
