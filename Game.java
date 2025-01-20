@@ -297,6 +297,10 @@ public class Game{
 
     boolean partyTurn = true;
     boolean firstEntry = true;
+    boolean hasWon = false;
+    boolean hasLost = false;
+    int deadEnemies = 0;
+    int deadParty = 0;
     int whichPlayer = 0;
     int whichOpponent = 0;
     int turn = 0;
@@ -362,7 +366,7 @@ public class Game{
     String preprompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
     TextBox(26,2,WIDTH,1,preprompt);
 
-    while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
+    while (!(input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")) && !hasWon && !hasLost) {
       //Read user input
       input = userInput(in);
 
@@ -375,12 +379,12 @@ public class Game{
         //Process user input for the last Adventurer:
         if(input.equals("attack") || input.equals("a")){
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          TextBox(7, 2, WIDTH, 17, party.get(whichPlayer).attack(enemies.get(whichOpponent)));
+          TextBox(7, 2, WIDTH, 17, party.get(whichPlayer).attack(enemies.get(whichOpponent)) + checkforDead(enemies,whichOpponent));
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         }
         else if(input.equals("special") || input.equals("sp")){
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          TextBox(7, 2, WIDTH, 17, party.get(whichPlayer).specialAttack(enemies.get(whichOpponent)));
+          TextBox(7, 2, WIDTH, 17, party.get(whichPlayer).specialAttack(enemies.get(whichOpponent)) + checkforDead(enemies,whichOpponent));
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         }
         else if(input.startsWith("su ") || input.startsWith("support ")){
@@ -404,7 +408,12 @@ public class Game{
           }
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         }
-
+        if (enemies.get(whichOpponent).isDead()) {
+          deadEnemies++;
+          if (deadEnemies == enemies.size()) {
+            hasWon = true;
+          }
+        }
         //You should decide when you want to re-ask for user input
         //If no errors:
         whichPlayer++;
@@ -434,11 +443,12 @@ public class Game{
         //Enemy action choices go here!
         /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
         int action = (int)(Math.random() * 3);
-        Adventurer randParty = party.get((int)(Math.random() * party.size()));
+        int randNum = (int)(Math.random() * party.size());
+        Adventurer randParty = party.get(randNum);
         if (action == 0) {
-          TextBox(7, 2, WIDTH, 17, enemies.get(whichOpponent).attack(randParty));
+          TextBox(7, 2, WIDTH, 17, enemies.get(whichOpponent).attack(randParty)+checkforDead(party,randNum));
         } else if (action == 1) {
-          TextBox(7, 2, WIDTH, 17, enemies.get(whichOpponent).specialAttack(randParty));
+          TextBox(7, 2, WIDTH, 17, enemies.get(whichOpponent).specialAttack(randParty)+checkforDead(party,randNum));
         } else if (action == 2) {
           int randInt = (int)(Math.random() * enemies.size());
           if (whichOpponent == randInt) {
@@ -449,6 +459,12 @@ public class Game{
         }
         /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
+        if (party.get(randNum).isDead()) {
+          deadParty++;
+          if (deadParty == party.size()) {
+              hasLost = true;
+          }
+        }
 
         //Decide where to draw the following prompt:
         String prompt = "press enter to see next enemy's turn";
@@ -496,6 +512,13 @@ public class Game{
         team1.get(x).enemies.add(team2.get(i));
       }
     }
+  }
+
+  public static String checkforDead (ArrayList<Adventurer> team, int target) {
+    if (team.get(target).isDead()) {
+      return "\n" + team.get(target).getName() + " has been defeated.";
+    }
+    return "";
   }
 
 }

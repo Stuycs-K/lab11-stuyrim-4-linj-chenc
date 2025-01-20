@@ -134,7 +134,6 @@ public abstract class Adventurer{
     }
     if (HP <= 0) {
       HP = 0;
-      System.out.println("\n" + getName() + " has been defeated.");
     }
   }
 
@@ -144,7 +143,6 @@ public abstract class Adventurer{
     }
     if (HP <= 0) {
       HP = 0;
-      System.out.println("\n" + getName() + " has been defeated.");
     }
   }
 
