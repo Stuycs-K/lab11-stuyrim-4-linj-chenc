@@ -481,6 +481,42 @@ public class Game{
         turn++;
         partyTurn=true;
         //display this prompt before player's turn
+        String result = "";
+        int x = 0;
+        for (Adventurer a : enemies) {
+          result += a.applyStatusEffects();
+          result += checkforDead(enemies,x);
+          if (a.isDead()) {
+            deadEnemies++;
+          }
+          else {
+            a.restoreSpecial(1);
+          }
+          x++;
+        }
+        x=0;
+        for (Adventurer a : party) {
+          result += a.applyStatusEffects();
+          result += checkforDead(party,x);
+          if (a.isDead()) {
+            deadParty++;
+          }
+          else {
+            a.restoreSpecial(1);
+          }
+          x++;
+        }
+
+        result += "\nAll players gain 1 special.";
+        TextBox(7,2,WIDTH,17,result);
+
+        if (deadEnemies == enemies.size()) {
+          hasWon = true;
+        }
+        if (deadParty == party.size()) {
+            hasLost = true;
+        }
+
         String prompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su #)/quit(q)";
         TextBox(26, 2, WIDTH, 1, prompt);
       }

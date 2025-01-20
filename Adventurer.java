@@ -148,22 +148,24 @@ public abstract class Adventurer{
     }
   }
 
-  public void applyStatusEffects() {
+  public String applyStatusEffects() {
+    String result = "";
     if (isBurning()) {
       applyDamage(1);
-      System.out.println("\n" + getName() + " takes 1 damage from burning.");
+      result += "\n" + getName() + " takes 1 damage from burning.";
     }
     if (isPoisoned()) {
       applyDamage(1);
-      System.out.println("\n" + getName() + " takes 1 damage from poision.");
+      result += "\n" + getName() + " takes 1 damage from poision.";
     }
     if (isStunned()) {
-      System.out.println("\n" + getName() + " is stunned and cannot act this turn.");
+      result += "\n" + getName() + " is stunned and cannot act this turn.";
       setStunned(false);
     }
     if (isDead()) {
-      System.out.println("\n" + getName() + " cannot act, as they have already been defeated.");
+      result += "\n" + getName() + " cannot act, as they have already been defeated.";
     }
+    return result;
   }
 
   public String applyStatusEffects(int dmg, Adventurer other) {

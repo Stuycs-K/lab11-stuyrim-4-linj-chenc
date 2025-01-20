@@ -34,7 +34,7 @@ public class Boss1 extends Adventurer {
   public String attack(Adventurer other) {
     int dmg = 1;
     String result = this + " uses Cheese Chuck, dealing " + dmg + " damage to " + other + ".";
-    result += other.applyDamage(dmg);
+    result += other.applyStatusEffects(dmg,this);
     return result;
   }
 

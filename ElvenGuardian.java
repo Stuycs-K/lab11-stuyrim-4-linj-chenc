@@ -43,7 +43,7 @@ public class ElvenGuardian extends Adventurer{
       return result;
     }
     else {
-      result = this + " slashes at " + other + " with their broadsword, dealing " + damage + " damage!"
+      result = this + " slashes at " + other + " with their broadsword, dealing " + damage + " damage!";
       result += other.applyStatusEffects(damage, this);
       return result;
     }
