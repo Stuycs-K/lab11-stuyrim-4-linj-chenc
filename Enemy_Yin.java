@@ -37,28 +37,28 @@ public class Enemy_Yin extends Adventurer {
 
   public String attack(Adventurer other) {
     int dmg = 3;
-    String result = this + " (text), striking " + other + " for " + dmg + " damage.";
+    String result = this + " converges the moonlight into a Lunar Blade, striking " + other + " for " + dmg + " damage.";
     result += other.applyStatusEffects(dmg, this);
     if (hasBuff) {
       int recovered = dmg / 2;
       setHP(getHP() + recovered);
       hasBuff = false;
-      result += this + "(text), recovering " + recovered + " HP.";
+      result += this + "'s wounds mend as the Whispers of the Dead restore " + recovered + " HP from their attack.";
     }
     return result;
   }
 
   public String specialAttack(ArrayList<Adventurer> enemies) {
     if (moonEnergy >= 5) {
-      String result = this + " unleashes (name), dealing 5 damage to all enemies.";
+      int dmg = 5;
+      String result = this + " invokes Moon's Descent, shrouding the battlefield in an ethereal darkness that deals " + dmg + " damage to all enemies.";
       setSpecial(moonEnergy - 5);
       for (Adventurer enemy : enemies) {
-        int dmg = 5;
         result += enemy.applyStatusEffects(dmg,this);
       }
       return result;
     } else {
-      return this + " attemped to unleash (name) but lacks sufficient Moon Energy.";
+      return this + " calls upon the moon, attempting to unleash Moon's Descent, but lacks sufficient Moon Energy.";
     }
   }
 
@@ -71,7 +71,7 @@ public class Enemy_Yin extends Adventurer {
     if (moonEnergy >= 3) {
       setSpecial(moonEnergy - 3);
       other.rageMode = true;
-      return this + " weaves together the stars, endowing " + other + " with Celestial Protection, reducing incoming damage by 30% for the next attack.";
+      return this + " channels the heavens' blessing into " + other + ", endowing them with Celestial Protection which reduces incoming damage by 30% for the next hit.";
     } else {
       return this + " attempts to grant Celestial Protection to " + other + " but lacks sufficient Moon Energy.";
     }
@@ -79,7 +79,7 @@ public class Enemy_Yin extends Adventurer {
 
   public String support(){
     hasBuff = true;
-    return this + " harnesses (text), healing themselves for 50% of the damage dealt by their next attack.";
+    return this + " attunes to the Whispers of the Dead, harnessing their energy to heal themselves for 50% of the damage dealt by their next attack.";
   }
 
 }
