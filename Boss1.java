@@ -33,8 +33,9 @@ public class Boss1 extends Adventurer {
 
   public String attack(Adventurer other) {
     int dmg = 1;
-    other.applyDamage(dmg);
-    return this + " uses Cheese Chuck, dealing " + dmg + " damage to " + other + ".";
+    String result = this + " uses Cheese Chuck, dealing " + dmg + " damage to " + other + ".";
+    result += other.applyDamage(dmg);
+    return result;
   }
 
   public String specialAttack(Adventurer other){

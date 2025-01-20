@@ -37,8 +37,8 @@ public class Enemy_Yin extends Adventurer {
 
   public String attack(Adventurer other) {
     int dmg = 3;
-    other.applyStatusEffects(dmg, this);
     String result = this + " (text), striking " + other + " for " + dmg + " damage.";
+    result += other.applyStatusEffects(dmg, this);
     if (hasBuff) {
       int recovered = dmg / 2;
       setHP(getHP() + recovered);
@@ -50,12 +50,13 @@ public class Enemy_Yin extends Adventurer {
 
   public String specialAttack(ArrayList<Adventurer> enemies) {
     if (moonEnergy >= 5) {
+      String result = this + " unleashes (name), dealing 5 damage to all enemies.";
       setSpecial(moonEnergy - 5);
       for (Adventurer enemy : enemies) {
         int dmg = 5;
-        enemy.applyStatusEffects(dmg,this);
+        result += enemy.applyStatusEffects(dmg,this);
       }
-      return this + " unleashes (name), dealing 5 damage to all enemies.";
+      return result;
     } else {
       return this + " attemped to unleash (name) but lacks sufficient Moon Energy.";
     }

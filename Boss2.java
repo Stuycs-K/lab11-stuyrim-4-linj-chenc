@@ -38,11 +38,12 @@ public class Boss2 extends Adventurer{
 
   public String specialAttack(Adventurer other){
     if (getSpecial() >= 5) {
-      other.applyDamage(5);
+      String result = this + " uses Mark of Vengeance, leaving a curse on " + other
+        + " that will consume 50% of their special on the next attack and dealing 5 dmg.";
+      result += other.applyDamage(5);
       other.hasCheeseMark = true;
       setSpecial(getSpecial() - 5);
-      return this + " uses Mark of Vengeance, leaving a curse on " + other
-        + " that will consume 50% of their special on the next attack and dealing 5 dmg.";
+      return result;
     }
     else {
       return this + " attempted to use Mark of Vengeance on " + other + " but has insufficient Evil Dairy!";

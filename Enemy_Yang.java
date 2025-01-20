@@ -33,8 +33,9 @@ public class Enemy_Yang extends Adventurer {
   }
 
   public String attack(Adventurer other) {
-    other.applyStatusEffects(2,this);
-    return this + " manifests a blade of light, stabbing " + other + " and dealing 2 dmg.";
+    String result = this + " manifests a blade of light, stabbing " + other + " and dealing 2 dmg.";
+    result += other.applyStatusEffects(2,this);
+    return result;
   }
 
 // Maybe put the insufficient special in game.java instead, prompting the player to put in a new input
