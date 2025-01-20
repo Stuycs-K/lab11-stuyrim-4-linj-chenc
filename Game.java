@@ -157,7 +157,7 @@ public class Game{
       } else {
         styled = Text.colorize(line, 90);
       }
-      drawText(styled, row++, col + 1);
+      drawText(styled, row++, col);
     }
     recentAction = Math.max(0, recentAction - (history.size() - index));
   }
@@ -500,7 +500,7 @@ public class Game{
         }else{
           //This is after the player's turn, and allows the user to see the enemy turn
           //Decide where to draw the following prompt:
-          String prompt = "Press enter to see enemy's turn";
+          String prompt = "Press Enter to see enemy's turn: ";
           TextBox(26,2,WIDTH,1,prompt);
           partyTurn = false;
           whichPlayer = 0;
@@ -516,22 +516,20 @@ public class Game{
         int move = (int)(Math.random() * 3);
         int randNum = (int)(Math.random() * party.size());
         Adventurer randParty = party.get(randNum);
+        String action = "";
         if (move == 0) {
-          String action = enemies.get(whichOpponent).attack(randParty)+checkforDead(party,randNum);
-          addHistory(action);
+          action = enemies.get(whichOpponent).attack(randParty)+checkforDead(party,randNum);
         } else if (move == 1) {
-          String action = enemies.get(whichOpponent).specialAttack(randParty)+checkforDead(party,randNum);
-          addHistory(action);
+          action = enemies.get(whichOpponent).specialAttack(randParty)+checkforDead(party,randNum);
         } else if (move == 2) {
           int randInt = (int)(Math.random() * enemies.size());
           if (whichOpponent == randInt) {
-            String action = enemies.get(whichOpponent).support();
-            addHistory(action);
+            action = enemies.get(whichOpponent).support();
           } else {
-            String action = enemies.get(whichOpponent).support(enemies.get(randInt));
-            addHistory(action);
+            action = enemies.get(whichOpponent).support(enemies.get(randInt));
           }
         }
+        addHistory(action);
         /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
         if (party.get(randNum).isDead()) {
@@ -595,7 +593,7 @@ public class Game{
           hasWon = true;
         }
         if (deadParty == party.size()) {
-            hasLost = true;
+          hasLost = true;
         }
 
         String prompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su #)/quit(q)";
