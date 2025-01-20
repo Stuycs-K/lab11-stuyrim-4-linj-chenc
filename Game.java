@@ -439,12 +439,38 @@ public class Game{
         //Process user input for the last Adventurer:
         if(input.equals("attack") || input.equals("a")){
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+          TextBox(26,2,WIDTH,1,"Please select a target using a valid integer index");
+          input = userInput(in);
+          whichOpponent = Integer.parseInt(input);
+          while (whichOpponent >= enemies.size() || whichOpponent < 0 || enemies.get(whichOpponent).isDead()) {
+            if (whichOpponent >= enemies.size() || whichOpponent < 0) {
+              TextBox(26,2,WIDTH,1,"Invalid target. Choose a valid party member index.");
+            }
+            else {
+              TextBox(26,2,WIDTH,1,"The selected target is dead, please reselect a target.");
+            }
+            input = userInput(in);
+            whichOpponent = Integer.parseInt(input);
+          }
           String action = party.get(whichPlayer).attack(enemies.get(whichOpponent)) + checkforDead(enemies,whichOpponent);
           addHistory(action);
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         }
         else if(input.equals("special") || input.equals("sp")){
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+          TextBox(26,2,WIDTH,1,"Please select a target using a valid integer index");
+          input = userInput(in);
+          whichOpponent = Integer.parseInt(input);
+          while (whichOpponent >= enemies.size() || whichOpponent < 0 || enemies.get(whichOpponent).isDead()) {
+            if (whichOpponent >= enemies.size() || whichOpponent < 0) {
+              TextBox(26,2,WIDTH,1,"Invalid target. Choose a valid party member index.");
+            }
+            else {
+              TextBox(26,2,WIDTH,1,"The selected target is dead, please reselect a target.");
+            }
+            input = userInput(in);
+            whichOpponent = Integer.parseInt(input);
+          }
           String action = party.get(whichPlayer).specialAttack(enemies.get(whichOpponent)) + checkforDead(enemies,whichOpponent);
           addHistory(action);
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
@@ -518,6 +544,9 @@ public class Game{
         /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
         int move = (int)(Math.random() * 3);
         int randNum = (int)(Math.random() * party.size());
+        while (!party.get(randNum).isDead()) {
+          randNum = (int)(Math.random() * party.size());
+        };
         Adventurer randParty = party.get(randNum);
         String action = "";
         if (move == 0) {
@@ -537,6 +566,9 @@ public class Game{
 
         if (party.get(randNum).isDead()) {
           deadParty++;
+          while (!party.get(randNum).isDead()) {
+            randNum = (int)(Math.random() * party.size());
+          };
           if (deadParty == party.size()) {
               hasLost = true;
           }

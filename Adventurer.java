@@ -169,12 +169,12 @@ public abstract class Adventurer{
     }
     if (isPoisoned()) {
       applyDamage(1);
-      poisonDuration++;
       result += "\n" + getName() + " takes 1 damage from poison.";
       if (poisonDuration + 1 == 2) {
         result += "\n" + getName() + "\'s poisoning has lifted.";
         isPoisoned = false;
       }
+      poisonDuration++;
     }
     if (isPoisoned2()) {
       applyDamage(1);
