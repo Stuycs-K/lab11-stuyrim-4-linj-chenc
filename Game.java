@@ -477,6 +477,9 @@ public class Game{
           if (enemies.get(whichOpponent).hasSecondPhase == true) {
             enemies.remove(0);
             enemies.add(new Boss2("Big Cheese, DoW"));
+            for (Adventurer a : party) {
+              a.setPoisoned2(false);
+            }
           }
           else {
             deadEnemies++;
@@ -632,7 +635,7 @@ public class Game{
   public static String checkforDead (ArrayList<Adventurer> team, int target) {
     if (team.get(target).isDead()) {
       if (team.get(target).hasSecondPhase == true) {
-        return "\n" + team.get(target).getName() + " has been defeated, entering Phase 2!";
+        return "\n" + team.get(target).getName() + " has been defeated, entering Phase 2!\nLittle Cheese's poison effects have been lifted.";
       }
       return "\n" + team.get(target).getName() + " has been defeated.";
     }

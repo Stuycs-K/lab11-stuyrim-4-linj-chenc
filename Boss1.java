@@ -41,7 +41,7 @@ public class Boss1 extends Adventurer {
 
   public String specialAttack(Adventurer other){
     if (getSpecial() >= 5) {
-      other.setPoisoned(true);
+      other.setPoisoned2(true);
       setSpecial(getSpecial() - 5);
       return this + " used Spoiled Milk on " + other +
         ", poisioning them. The poision will deal 1 damage per turn.";

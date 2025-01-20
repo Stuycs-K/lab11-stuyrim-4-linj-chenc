@@ -2,7 +2,7 @@ import java.util.*;
 public abstract class Adventurer{
   private String name;
   private int HP,maxHP;
-  boolean isStunned, isBurning, isPoisoned, isWeakened, isStrengthened;
+  boolean isStunned, isBurning, isPoisoned, isPoisoned2, isWeakened, isStrengthened;
   boolean yangHasBuff, rageMode, hasDGStrengthed, hasElvenDebuff, hasCheeseMark, hasSecondPhase;
   int shieldStrength, burnDuration, poisonDuration;
   ArrayList<Adventurer> enemies = new ArrayList<Adventurer>();
@@ -77,8 +77,16 @@ public abstract class Adventurer{
     this.isPoisoned = poisoned;
   }
 
+  public void setPoisoned2(boolean poisoned) {
+    this.isPoisoned2 = poisoned;
+  }
+
   public boolean isPoisoned() {
     return isPoisoned;
+  }
+
+  public boolean isPoisoned2() {
+    return isPoisoned2;
   }
 
   public void setWeakened(boolean weakened) {
@@ -167,6 +175,10 @@ public abstract class Adventurer{
         result += "\n" + getName() + "\'s poisoning has lifted.";
         isPoisoned = false;
       }
+    }
+    if (isPoisoned2()) {
+      applyDamage(1);
+      result += "\n" + getName() + " takes 1 damage from poison.";
     }
     if (isStunned()) {
       result += "\n" + getName() + " is stunned and cannot act this turn.";
