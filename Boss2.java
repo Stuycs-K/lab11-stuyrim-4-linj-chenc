@@ -32,15 +32,21 @@ public class Boss2 extends Adventurer{
   }
 
   public String attack(Adventurer other) {
-    int dmg = (int)(Math.random() * 8) + 1;
-    return this + "TBD, dealing " + dmg + " to " + other + "!";
+    int dmg = (int)(Math.random() * 4) + 5;
+    String result = other.applyStatusEffects(dmg, this);
+    if (other.hasCheeseMark == true) {
+      other.setSpecial((int)(getSpecial() * 0.5));
+      result += other + " has lost 50% of their special due to a curse!";
+      other.hasCheeseMark = false;
+    }
+    return this + " TBD, dealing " + dmg + " damage to " + other + "!" + result;
   }
 
   public String specialAttack(Adventurer other){
     if (getSpecial() >= 5) {
       String result = this + " uses Mark of Vengeance, leaving a curse on " + other
         + " that will consume 50% of their special on the next attack and dealing 5 dmg.";
-      result += other.applyDamage(5, this);
+      result += other.applyStatusEffects(5, this);
       other.hasCheeseMark = true;
       setSpecial(getSpecial() - 5);
       return result;
