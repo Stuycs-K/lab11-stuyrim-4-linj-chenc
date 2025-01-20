@@ -431,9 +431,13 @@ public class Game{
         input = userInput(in).toLowerCase();
       }
 
-      if (!(input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")) && partyTurn) {
+      if (!(input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")) && !(input.startsWith("su ") || input.startsWith("support ")) && partyTurn) {
         TextBox(26,2,WIDTH,1,"Please select a target using a valid integer index");
         String input2 = userInput(in);
+        while (input2.length() > 0 && (input2.charAt(0) < 48 || input2.charAt(0) > 57)) {
+          TextBox(26, 2, WIDTH, 3, "Invalid command. Please properly specify target");
+          input2 = userInput(in);
+        }
         target = Integer.parseInt(input2);
         while (target >= enemies.size() || target < 0 || enemies.get(target).isDead()) {
           if (target >= enemies.size() || target < 0) {
@@ -443,7 +447,11 @@ public class Game{
             TextBox(26,2,WIDTH,1,"The selected target is dead, please reselect a target.");
           }
           input2 = userInput(in);
-          target = Integer.parseInt(input);
+          while (input2.length() > 0 && (input2.charAt(0) < 48 || input2.charAt(0) > 57)) {
+            TextBox(26, 2, WIDTH, 3, "Invalid command. Please properly specify target");
+            input2 = userInput(in);
+          }
+          target = Integer.parseInt(input2);
         }
       }
 
