@@ -90,9 +90,9 @@ Make a clear list of features that work/dont work
 |  maxHP          |  60        |
 |  specialName    |  Evil Dairy        |
 |  specialMax     |  15         |
-|  attack         |  **TBD**: Deals **5-8 dmg to one enemy**        |
-|  specialAttack  |  **Mark of Vengeance**: Deals **5 dmg to one enemy** and inflicts the Lactose Intolerance Debuff that will **remove 50% of the target's special on the next attack**. The mark does not disappear until they are attacked (can be stacked (?)); consumes **5 evil dairy**          |
-|  supportSelf    |  **TBD**: **recovers 10 hp points** and either **recovers or consumes 2 evil dairy**    |
+|  attack         |  **Colossal Cheese Chuck**: Deals **5-8 dmg to one enemy**        |
+|  specialAttack  |  **Mark of Vengeance**: Deals **5 dmg to one enemy** and inflicts the Lactose Intolerance Debuff that will **remove 50% of the target's special on the next attack**. The mark does not disappear until they are attacked; consumes **5 evil dairy**          |
+|  supportSelf    |  **Cheese Devour**: **recovers 10 hp points** and either **recovers or consumes 2 evil dairy**    |
 
 ## Enemies
 - ### Barbarian Goblin

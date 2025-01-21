@@ -39,7 +39,7 @@ public class Boss2 extends Adventurer{
       result += other + " has lost 50% of their special due to a curse!";
       other.hasCheeseMark = false;
     }
-    return this + " TBD, dealing " + dmg + " damage to " + other + "!" + result;
+    return this + " chucks a colossally large chunk of cheese, dealing " + dmg + " damage to " + other + "!" + result;
   }
 
   public String specialAttack(Adventurer other){
@@ -70,11 +70,11 @@ public class Boss2 extends Adventurer{
       else {
         setSpecial(getSpecial() - 2);
       }
-      return this + " uses TBD, recovering 10 HP but loses 2 Evil Dairy!";
+      return this + " devours their secret cheese stash, recovering 10 HP but loses 2 Evil Dairy!";
     }
     else {
       restoreSpecial(2);
-      return this + " uses TBD, recovering 10 HP and 2 Evil Dairy!";
+      return this + " devours their secret cheese stash and discovers there is even more cheese, recovering 10 HP and 2 Evil Dairy!";
     }
   }
 
