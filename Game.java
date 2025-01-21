@@ -358,6 +358,7 @@ public class Game{
     int target = 0;
     int turn = 0;
     String input = "";//blank to get into the main loop.
+    String action = "";
     Scanner in = new Scanner(System.in);
 
     drawBackground();
@@ -432,27 +433,45 @@ public class Game{
         input = userInput(in).toLowerCase();
       }
 
-      if (!(input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")) && !(input.startsWith("su ") || input.startsWith("support ")) && partyTurn) {
-        TextBox(26,2,WIDTH,1,"Please select a target using a valid integer index");
-        String input2 = userInput(in);
-        while (input2.length() > 0 && (input2.charAt(0) < 48 || input2.charAt(0) > 57)) {
-          TextBox(26, 2, WIDTH, 3, "Invalid command. Please properly specify target");
-          input2 = userInput(in);
+      if (!(input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")) && partyTurn) {
+        if (input.startsWith("su ") || input.startsWith("support ")) {
+          String[] parts = input.split(" ");
+          if (parts.length < 2 || parts[1].isEmpty() || (parts[1].charAt(0) < 48 || parts[1].charAt(0) > 57)) {
+            TextBox(26, 2, WIDTH, 3, "Invalid command. Please properly specify who to support: support # (su #)");
+            continue;
+          }
+          target = Integer.parseInt(parts[1]);
+          if (target < 0 || target >= party.size()) {
+            TextBox(26, 2, WIDTH, 3, "Invalid target. Choose a valid party member index to support: support # (su #).");
+            continue;
+          } else if (party.get(target).isDead() && !(party.get(whichPlayer) instanceof Priest)) {
+            TextBox(26, 2, WIDTH, 3, "The selected target is dead, " + party.get(whichPlayer).getName() + " is unable to support them: support # (su #).");
+            continue;
+          }
         }
-        target = Integer.parseInt(input2);
-        while (target >= enemies.size() || target < 0 || enemies.get(target).isDead()) {
-          if (target >= enemies.size() || target < 0) {
-            TextBox(26,2,WIDTH,1,"Invalid target. Choose a valid party member index.");
-          }
-          else {
-            TextBox(26,2,WIDTH,1,"The selected target is dead, please reselect a target.");
-          }
-          input2 = userInput(in);
+
+        if (partyTurn && (input.equals("a") || input.equals("attack") || input.equals("sp") || input.equals("special"))) {
+          TextBox(26,2,WIDTH,1,"Please select a target using a valid integer index");
+          String input2 = userInput(in);
           while (input2.length() > 0 && (input2.charAt(0) < 48 || input2.charAt(0) > 57)) {
             TextBox(26, 2, WIDTH, 3, "Invalid command. Please properly specify target");
             input2 = userInput(in);
           }
           target = Integer.parseInt(input2);
+          while (target >= enemies.size() || target < 0 || enemies.get(target).isDead()) {
+            if (target >= enemies.size() || target < 0) {
+              TextBox(26,2,WIDTH,1,"Invalid target. Choose a valid party member index.");
+            }
+            else {
+              TextBox(26,2,WIDTH,1,"The selected target is dead, please reselect a target.");
+            }
+            input2 = userInput(in);
+            while (input2.length() > 0 && (input2.charAt(0) < 48 || input2.charAt(0) > 57)) {
+              TextBox(26, 2, WIDTH, 3, "Invalid command. Please properly specify target");
+              input2 = userInput(in);
+            }
+            target = Integer.parseInt(input2);
+          }
         }
       }
 
@@ -466,41 +485,26 @@ public class Game{
         //Process user input for the last Adventurer:
         if(input.equals("attack") || input.equals("a")){
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          String action = party.get(whichPlayer).attack(enemies.get(target)) + checkForDead(enemies,target);
-          addHistory(action);
+          action = party.get(whichPlayer).attack(enemies.get(target)) + checkForDead(enemies,target);
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         }
         else if(input.equals("special") || input.equals("sp")){
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          String action = party.get(whichPlayer).specialAttack(enemies.get(target)) + checkForDead(enemies,target);
-          addHistory(action);
+          action = party.get(whichPlayer).specialAttack(enemies.get(target)) + checkForDead(enemies,target);
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         }
         else if(input.startsWith("su ") || input.startsWith("support ")){
           //"support 0" or "su 0" or "su 2" etc.
           //assume the value that follows su is an integer.
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          String[] parts = input.split(" ");
-          if (parts.length < 2) {
-            TextBox(26, 2, WIDTH, 3, "Invalid command. Please properly specify who to support.");
+          if (target == whichPlayer) {
+            action = party.get(whichPlayer).support();
           } else {
-            int supported = Integer.parseInt(parts[1]);
-            if (supported < 0 || supported >= party.size()) {
-              TextBox(26, 2, WIDTH, 3, "Invalid target. Choose a valid party member index.");
-            } else if (party.get(supported).isDead() && !(party.get(whichPlayer) instanceof Priest)) {
-              TextBox(26, 2, WIDTH, 3, "The selected target is dead. " + party.get(whichPlayer).getName() + " is unable to support them.");
-            } else if (supported == whichPlayer) {
-              // suport self
-              String action = party.get(whichPlayer).support();
-              addHistory(action);
-            } else {
-              // support other
-              String action = party.get(whichPlayer).support(party.get(supported));
-              addHistory(action);
-            }
+            action = party.get(whichPlayer).support(party.get(target));
           }
-          /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         }
+        addHistory(action);
+          /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
         if (enemies.get(target).isDead()) {
           if (enemies.get(target).hasSecondPhase == true) {
@@ -549,7 +553,6 @@ public class Game{
         if (currentEnemy.isDead()) {
           addHistory(currentEnemy.getName() + " has been defeated and cannot act.");
         } else {
-          String action = "";
           int move = (int)(Math.random() * 3);
           if (move == 0 || move == 1) {
             Adventurer randParty = getValidTarget(party);
@@ -578,11 +581,11 @@ public class Game{
 
         //Decide where to draw the following prompt:
         if (whichOpponent + 1 != enemies.size()) {
-          String prompt = "Press enter to see next enemy's turn";
+          String prompt = "Press Enter to see next enemy's turn: ";
           TextBox(26,2,WIDTH,1,prompt);
         }
         else {
-          String prompt = "Press enter to complete the turn";
+          String prompt = "Press Enter to complete the turn: ";
           TextBox(26,2,WIDTH,1,prompt);
         }
         whichOpponent++;
