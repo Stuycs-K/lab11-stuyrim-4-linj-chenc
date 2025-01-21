@@ -266,23 +266,6 @@ public class Game{
     }
   }
 
-  // old one just in case
-  /* public static void drawParty(ArrayList<Adventurer> party, int startRow) {
-  int colWidth = 26;
-  for (int i = 0; i < party.size(); i++) {
-    Adventurer member = party.get(i);
-    int startCol = (i * colWidth) + 2 + i; // Start column for this party member
-    drawText(member.getName(), startRow, startCol + ((colWidth - member.getName().length()) / 2)); // Center the name
-    String hp = "HP: " + colorByPercent(member.getHP(), member.getmaxHP());
-    drawText(hp, startRow + 1, startCol + i); // Display HP
-    String special = member.getSpecialName() + ": " + colorByPercent(member.getSpecial(), member.getSpecialMax());
-    drawText(special, startRow + 2, startCol + i); // Display special
-    }
-  } */
-
-
-
-
   //Use this to create a colorized number string based on the % compared to the max value.
   public static String colorByPercent(int hp, int maxHP){
     String output = String.format("%2s", hp+"")+"/"+String.format("%2s", maxHP+"");
@@ -355,7 +338,7 @@ public class Game{
     int deadParty = 0;
     int whichPlayer = 0;
     int whichOpponent = 0;
-    int target = -1;
+    int target = 0;
     int turn = 0;
     String input = "";//blank to get into the main loop.
     String action = "";
