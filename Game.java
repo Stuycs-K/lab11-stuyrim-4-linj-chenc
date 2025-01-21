@@ -355,7 +355,7 @@ public class Game{
     int deadParty = 0;
     int whichPlayer = 0;
     int whichOpponent = 0;
-    int target = 0;
+    int target = -1;
     int turn = 0;
     String input = "";//blank to get into the main loop.
     String action = "";
@@ -434,75 +434,70 @@ public class Game{
       }
 
       if (!(input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")) && partyTurn) {
+        Adventurer currentPlayer = party.get(whichPlayer);
 
         if (input.startsWith("su ") || input.startsWith("support ")) {
-          String[] parts = input.split(" ");
-          if (parts.length < 2 || parts[1].isEmpty() || (parts[1].charAt(0) < 48 || parts[1].charAt(0) > 57)) {
-            TextBox(26, 2, WIDTH, 3, "Invalid command. Please properly specify who to support: support # (su #)");
-            continue;
-          }
-          target = Integer.parseInt(parts[1]);
-          if (target < 0 || target >= party.size()) {
-            TextBox(26, 2, WIDTH, 3, "Invalid target. Choose a valid party member index to support: support # (su #).");
-            continue;
-          } else if (party.get(target).isDead() && !(party.get(whichPlayer) instanceof Priest)) {
-            TextBox(26, 2, WIDTH, 3, "The selected target is dead, " + party.get(whichPlayer).getName() + " is unable to support them: support # (su #).");
-            continue;
-          }
-        }
-
-        Adventurer currentPlayer = party.get(whichPlayer);
-        if (currentPlayer.isAoe(input) && partyTurn && (input.equals("a") || input.equals("attack") || input.equals("sp") || input.equals("special"))) {
-          if (input.equals("attack") || input.equals("a")) {
-            action = currentPlayer.attack(enemies) + checkForDead(enemies, -1);
-          } else if (input.equals("special") || input.equals("sp")) {
-            action = currentPlayer.specialAttack(enemies, party) + checkForDead(enemies, -1);
-          }
-        } else if (input.equals("a") || input.equals("attack") || input.equals("sp") || input.equals("special")) {
-          TextBox(26,2,WIDTH,1,"Please select a target using a valid integer index");
-          String input2 = userInput(in);
-          while (input2.length() > 0 && (input2.charAt(0) < 48 || input2.charAt(0) > 57)) {
-            TextBox(26, 2, WIDTH, 3, "Invalid command. Please properly specify target");
-            input2 = userInput(in);
-          }
-          target = Integer.parseInt(input2);
-          while (target >= enemies.size() || target < 0 || enemies.get(target).isDead()) {
-            if (target >= enemies.size() || target < 0) {
-              TextBox(26,2,WIDTH,1,"Invalid target. Choose a valid party member index.");
+            String[] parts = input.split(" ");
+            if (parts.length < 2 || parts[1].isEmpty() || !parts[1].chars().allMatch(Character::isDigit)) {
+              TextBox(26, 2, WIDTH, 3, "Invalid command. Please properly specify who to support: support # (su #)");
+              continue;
             }
-            else {
-              TextBox(26,2,WIDTH,1,"The selected target is dead, please reselect a target.");
+            target = Integer.parseInt(parts[1]);
+            if (target < 0 || target >= party.size()) {
+              TextBox(26, 2, WIDTH, 3, "Invalid target. Choose a valid party member index to support 0-" + (party.size() - 1) + ": support # (su #)");
+              continue;
             }
-            input2 = userInput(in);
+            if (party.get(target).isDead() && !(currentPlayer instanceof Priest)) {
+              TextBox(26, 2, WIDTH, 3, "The selected target is dead, " + currentPlayer.getName() + " is unable to support them: support # (su #).");
+              continue;
+            }
+            if (target == whichPlayer) {
+              action = currentPlayer.support();
+            } else {
+              action = currentPlayer.support(party.get(target));
+            }
+          } else if (currentPlayer.isAoe(input) && partyTurn && (input.equals("a") || input.equals("attack") || input.equals("sp") || input.equals("special"))) {
+            if (input.equals("attack") || input.equals("a")) {
+              action = currentPlayer.attack(enemies) + checkForDead(enemies, -1);
+            } else if (input.equals("special") || input.equals("sp")) {
+              action = currentPlayer.specialAttack(enemies, party) + checkForDead(enemies, -1);
+            }
+          } else if (input.equals("a") || input.equals("attack") || input.equals("sp") || input.equals("special")) {
+            TextBox(26,2,WIDTH,1,"Please select a target using a valid integer index");
+            String input2 = userInput(in);
             while (input2.length() > 0 && (input2.charAt(0) < 48 || input2.charAt(0) > 57)) {
               TextBox(26, 2, WIDTH, 3, "Invalid command. Please properly specify target");
               input2 = userInput(in);
             }
             target = Integer.parseInt(input2);
-          }
-          //Process user input for the last Adventurer:
-          if(input.equals("attack") || input.equals("a")){
-            /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-            action = party.get(whichPlayer).attack(enemies.get(target)) + checkForDead(enemies,target);
-            /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-          }
-          else if(input.equals("special") || input.equals("sp")){
-            /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-            action = party.get(whichPlayer).specialAttack(enemies.get(target)) + checkForDead(enemies,target);
-            /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-          }
-          else if(input.startsWith("su ") || input.startsWith("support ")){
-            //"support 0" or "su 0" or "su 2" etc.
-            //assume the value that follows su is an integer.
-            /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-            if (target == whichPlayer) {
-              action = party.get(whichPlayer).support();
-            } else {
-              action = party.get(whichPlayer).support(party.get(target));
+            while (target >= enemies.size() || target < 0 || enemies.get(target).isDead()) {
+              if (target >= enemies.size() || target < 0) {
+                TextBox(26,2,WIDTH,1,"Invalid target. Choose a valid party member index.");
+              }
+              else {
+                TextBox(26,2,WIDTH,1,"The selected target is dead, please reselect a target.");
+              }
+              input2 = userInput(in);
+              while (input2.length() > 0 && (input2.charAt(0) < 48 || input2.charAt(0) > 57)) {
+                TextBox(26, 2, WIDTH, 3, "Invalid command. Please properly specify target");
+                input2 = userInput(in);
+              }
+              target = Integer.parseInt(input2);
+            }
+            //Process user input for the last Adventurer:
+            if(input.equals("attack") || input.equals("a")){
+              /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+              action = party.get(whichPlayer).attack(enemies.get(target)) + checkForDead(enemies,target);
+              /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+            }
+            else if(input.equals("special") || input.equals("sp")){
+              /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+              action = party.get(whichPlayer).specialAttack(enemies.get(target)) + checkForDead(enemies,target);
+              /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
             }
           }
         }
-      }
+
 
       //example debug statment
       TextBox(6,2,80,78,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
