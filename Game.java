@@ -434,6 +434,7 @@ public class Game{
       }
 
       if (!(input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")) && partyTurn) {
+
         if (input.startsWith("su ") || input.startsWith("support ")) {
           String[] parts = input.split(" ");
           if (parts.length < 2 || parts[1].isEmpty() || (parts[1].charAt(0) < 48 || parts[1].charAt(0) > 57)) {
@@ -450,7 +451,14 @@ public class Game{
           }
         }
 
-        if (partyTurn && (input.equals("a") || input.equals("attack") || input.equals("sp") || input.equals("special"))) {
+        Adventurer currentPlayer = party.get(whichPlayer);
+        if (currentPlayer.isAoe(input) && partyTurn && (input.equals("a") || input.equals("attack") || input.equals("sp") || input.equals("special"))) {
+          if (input.equals("attack") || input.equals("a")) {
+            action = currentPlayer.attack(enemies) + checkForDead(enemies, -1);
+          } else if (input.equals("special") || input.equals("sp")) {
+            action = currentPlayer.specialAttack(enemies, party) + checkForDead(enemies, -1);
+          }
+        } else if (input.equals("a") || input.equals("attack") || input.equals("sp") || input.equals("special")) {
           TextBox(26,2,WIDTH,1,"Please select a target using a valid integer index");
           String input2 = userInput(in);
           while (input2.length() > 0 && (input2.charAt(0) < 48 || input2.charAt(0) > 57)) {
@@ -472,37 +480,37 @@ public class Game{
             }
             target = Integer.parseInt(input2);
           }
+          //Process user input for the last Adventurer:
+          if(input.equals("attack") || input.equals("a")){
+            /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+            action = party.get(whichPlayer).attack(enemies.get(target)) + checkForDead(enemies,target);
+            /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+          }
+          else if(input.equals("special") || input.equals("sp")){
+            /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+            action = party.get(whichPlayer).specialAttack(enemies.get(target)) + checkForDead(enemies,target);
+            /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+          }
+          else if(input.startsWith("su ") || input.startsWith("support ")){
+            //"support 0" or "su 0" or "su 2" etc.
+            //assume the value that follows su is an integer.
+            /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+            if (target == whichPlayer) {
+              action = party.get(whichPlayer).support();
+            } else {
+              action = party.get(whichPlayer).support(party.get(target));
+            }
+          }
         }
       }
-
 
       //example debug statment
       TextBox(6,2,80,78,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
 
       //display event based on last turn's input
+
       if(partyTurn){
 
-        //Process user input for the last Adventurer:
-        if(input.equals("attack") || input.equals("a")){
-          /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          action = party.get(whichPlayer).attack(enemies.get(target)) + checkForDead(enemies,target);
-          /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-        }
-        else if(input.equals("special") || input.equals("sp")){
-          /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          action = party.get(whichPlayer).specialAttack(enemies.get(target)) + checkForDead(enemies,target);
-          /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-        }
-        else if(input.startsWith("su ") || input.startsWith("support ")){
-          //"support 0" or "su 0" or "su 2" etc.
-          //assume the value that follows su is an integer.
-          /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          if (target == whichPlayer) {
-            action = party.get(whichPlayer).support();
-          } else {
-            action = party.get(whichPlayer).support(party.get(target));
-          }
-        }
         addHistory(action);
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
@@ -683,6 +691,20 @@ public class Game{
   }
 
   public static String checkForDead (ArrayList<Adventurer> team, int target) {
+    String result = "";
+    if (target == -1) {
+      for (Adventurer member : team) {
+        if (member.isDead() && !member.deathCounted) {
+          member.deathCounted = true;
+          if (member.hasSecondPhase) {
+            result +=  "\n" + member.getName() + " has been defeated, entering Phase 2!\nLittle Cheese's poison effects have been lifted.";
+          } else {
+            result += "\n" + member.getName() + " has been defeated.";
+          }
+        }
+      }
+      return result;
+    }
     Adventurer current = team.get(target);
     if (current.isDead() && !current.deathCounted) {
       current.deathCounted = true;
@@ -691,7 +713,7 @@ public class Game{
       }
       return "\n" + current.getName() + " has been defeated.";
     }
-    return "";
+    return result;
   }
 
 }

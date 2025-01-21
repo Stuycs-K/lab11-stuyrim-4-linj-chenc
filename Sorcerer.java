@@ -46,29 +46,32 @@ public class Sorcerer extends Adventurer {
     return result;
   }
 
+  public boolean isAoe(String move) {
+    return move.equalsIgnoreCase("special") || move.equalsIgnoreCase("sp");
+  }
+
   public String specialAttack(ArrayList<Adventurer> enemies, ArrayList<Adventurer> allies) {
-    if (mana >= 6) {
-      setSpecial(mana - 6);
-      String result = this + " harnesses immense magical power to unleash Arcane Nova!\n";
-      result += "The explosion resonates across the battlefield, dealing 6 damage to all enemies and 1 damage to all allies.\n";
-      for (Adventurer enemy : enemies) {
-        int dmg = 6;
-        result += enemy.applyStatusEffects(dmg, this);
-        if (Math.random() < 0.3) {
-          enemy.setStunned(true);
-          result += enemy + " is stunned by the following shockwave!\n";
-        }
-      }
-      for (Adventurer ally : allies) {
-        if (!ally.isDead()) {
-          ally.applyDamage(1);
-          result += ally + " is caught in the blast and takes 1 damage.\n";
-        }
-      }
-      return result;
-    } else {
+    if (this.getSpecial() < 6) {
       return this + " attempts to unleash Arcane Nova but lacks sufficient mana.";
     }
+    setSpecial(mana - 6);
+    String result = this + " harnesses immense magical power to unleash Arcane Nova!\n";
+    result += "The explosion resonates across the battlefield, dealing 6 damage to all enemies and 1 damage to all other allies.\n";
+    for (Adventurer enemy : enemies) {
+      int dmg = 6;
+      result += enemy.applyStatusEffects(dmg, this);
+      if (Math.random() < 0.3) {
+        enemy.setStunned(true);
+        result += enemy + " is stunned by the following shockwave!\n";
+      }
+    }
+    for (Adventurer ally : allies) {
+      if (ally != this && !ally.isDead()) {
+        ally.applyDamage(1);
+        result += ally + " is caught in the blast and takes 1 damage.\n";
+      }
+    }
+    return result;
   }
 
   public String specialAttack(Adventurer other) {

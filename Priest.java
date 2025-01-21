@@ -18,7 +18,7 @@ public class Priest extends Adventurer {
   }
 
   public String getSpecialName(){
-    return "faith";
+    return "Faith";
   }
 
   public int getSpecial(){
@@ -31,6 +31,10 @@ public class Priest extends Adventurer {
 
   public int getSpecialMax(){
     return faithMax;
+  }
+
+  public boolean isAoe(String move) {
+    return move.equalsIgnoreCase("attack") || move.equalsIgnoreCase("a");
   }
 
   // Deals 2 points of damage to all enemies -- > requires an ArrayList of foes
@@ -54,7 +58,6 @@ public class Priest extends Adventurer {
         + dmg + " dmg to " + other + " and inflicts them with Burning.";
       result += other.applyStatusEffects(dmg,this);
       other.setBurning(true);
-      other.burnDuration = 0;
       setSpecial(getSpecial() - 4);
       return result;
     }

@@ -57,6 +57,22 @@ public abstract class Adventurer{
   standard methods
   */
 
+  public String attack(ArrayList<Adventurer> enemies) {
+    return this + " does not have an AoE attack.";
+  }
+
+  public String specialAttack(ArrayList<Adventurer> enemies) {
+    return this + " does not have an AoE special attack.";
+  }
+
+  public String specialAttack(ArrayList<Adventurer> enemies, ArrayList<Adventurer> allies) {
+    return this + " does not have an AoE special attack which damages allies.";
+  }
+
+  public boolean isAoe(String move) {
+    return false;
+  }
+
   public void setStunned(boolean stunned) {
     this.isStunned = stunned;
   }
@@ -121,7 +137,7 @@ public abstract class Adventurer{
       amount -= shielded;
       result = result + "\n" + getName() + "'s shield absorbed " + shielded + " damage.";
     }
-    if (other.isStrengthened) {
+    if (this.isStrengthened) {
       amount = amount *2;
       result = result + "\n" + getName() + " has received the Blessing of the Sun, dealing 2x the damage!";
       setStrengthened(false);
