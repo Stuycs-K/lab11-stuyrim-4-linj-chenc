@@ -486,6 +486,8 @@ public class Game{
             int supported = Integer.parseInt(parts[1]);
             if (supported < 0 || supported >= party.size()) {
               TextBox(26, 2, WIDTH, 3, "Invalid target. Choose a valid party member index.");
+            } else if (party.get(supported).isDead() && !(party.get(whichPlayer) instanceof Priest)) {
+              TextBox(26, 2, WIDTH, 3, "The selected target is dead. " + party.get(whichPlayer).getName() + " is unable to support them.");
             } else if (supported == whichPlayer) {
               // suport self
               String action = party.get(whichPlayer).support();
@@ -546,35 +548,32 @@ public class Game{
         if (currentEnemy.isDead()) {
           addHistory(currentEnemy.getName() + " has been defeated and cannot act.");
         } else {
-          int move = (int)(Math.random() * 3);
-          int randNum = (int)(Math.random() * party.size());
-          while (party.get(randNum).isDead()) {
-            randNum = (int)(Math.random() * party.size());
-          };
-          Adventurer randParty = party.get(randNum);
           String action = "";
-          if (move == 0) {
-            action = currentEnemy.attack(randParty)+checkForDead(party,randNum);
-          } else if (move == 1) {
-            action = currentEnemy.specialAttack(randParty)+checkForDead(party,randNum);
+          int move = (int)(Math.random() * 3);
+          if (move == 0 || move == 1) {
+            Adventurer randParty = getValidTarget(party);
+            if (move == 0) {
+              action = currentEnemy.attack(randParty)+checkForDead(party,party.indexOf(randParty));
+            } else {
+              action = currentEnemy.specialAttack(randParty)+checkForDead(party,party.indexOf(randParty));
+            }
+            if (randParty.isDead()) {
+              deadParty++;
+              if (deadParty == party.size()) {
+                hasLost = true;
+              }
+            }
           } else if (move == 2) {
-            int randInt = (int)(Math.random() * enemies.size());
-            if (whichOpponent == randInt) {
+            Adventurer randEnemy = getValidTarget(enemies);
+            if (randEnemy == currentEnemy) {
               action = currentEnemy.support();
             } else {
-              action = currentEnemy.support(enemies.get(randInt));
+              action = currentEnemy.support(randEnemy);
             }
           }
           addHistory(action);
-        /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-
-          if (randParty.isDead()) {
-            deadParty++;
-            if (deadParty == party.size()) {
-              hasLost = true;
-            }
-          }
         }
+        /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
         //Decide where to draw the following prompt:
         if (whichOpponent + 1 != enemies.size()) {
@@ -662,6 +661,14 @@ public class Game{
         team1.get(x).enemies.add(team2.get(i));
       }
     }
+  }
+
+  private static Adventurer getValidTarget(ArrayList<Adventurer> team) {
+    int randIndex = (int)(Math.random() * team.size());
+    while (team.get(randIndex).isDead()) {
+      randIndex = (int)(Math.random() * team.size());
+    }
+    return team.get(randIndex);
   }
 
   public static String checkForDead (ArrayList<Adventurer> team, int target) {
