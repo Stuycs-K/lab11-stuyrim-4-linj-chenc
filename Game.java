@@ -465,13 +465,13 @@ public class Game{
         //Process user input for the last Adventurer:
         if(input.equals("attack") || input.equals("a")){
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          String action = party.get(whichPlayer).attack(enemies.get(target)) + checkforDead(enemies,target);
+          String action = party.get(whichPlayer).attack(enemies.get(target)) + checkForDead(enemies,target);
           addHistory(action);
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         }
         else if(input.equals("special") || input.equals("sp")){
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          String action = party.get(whichPlayer).specialAttack(enemies.get(target)) + checkforDead(enemies,target);
+          String action = party.get(whichPlayer).specialAttack(enemies.get(target)) + checkForDead(enemies,target);
           addHistory(action);
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         }
@@ -542,35 +542,37 @@ public class Game{
         //enemy attacks a randomly chosen person with a randomly chosen attack.z`
         //Enemy action choices go here!
         /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-        int move = (int)(Math.random() * 3);
-        int randNum = (int)(Math.random() * party.size());
-        while (party.get(randNum).isDead()) {
-          randNum = (int)(Math.random() * party.size());
-        };
-        Adventurer randParty = party.get(randNum);
-        String action = "";
-        if (move == 0) {
-          action = enemies.get(whichOpponent).attack(randParty)+checkforDead(party,randNum);
-        } else if (move == 1) {
-          action = enemies.get(whichOpponent).specialAttack(randParty)+checkforDead(party,randNum);
-        } else if (move == 2) {
-          int randInt = (int)(Math.random() * enemies.size());
-          if (whichOpponent == randInt) {
-            action = enemies.get(whichOpponent).support();
-          } else {
-            action = enemies.get(whichOpponent).support(enemies.get(randInt));
-          }
-        }
-        addHistory(action);
-        /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-
-        if (party.get(randNum).isDead()) {
-          deadParty++;
+        Adventurer currentEnemy = enemies.get(whichOpponent);
+        if (currentEnemy.isDead()) {
+          addHistory(currentEnemy.getName() + " has been defeated and cannot act.");
+        } else {
+          int move = (int)(Math.random() * 3);
+          int randNum = (int)(Math.random() * party.size());
           while (party.get(randNum).isDead()) {
             randNum = (int)(Math.random() * party.size());
           };
-          if (deadParty == party.size()) {
+          Adventurer randParty = party.get(randNum);
+          String action = "";
+          if (move == 0) {
+            action = currentEnemy.attack(randParty)+checkForDead(party,randNum);
+          } else if (move == 1) {
+            action = currentEnemy.specialAttack(randParty)+checkForDead(party,randNum);
+          } else if (move == 2) {
+            int randInt = (int)(Math.random() * enemies.size());
+            if (whichOpponent == randInt) {
+              action = currentEnemy.support();
+            } else {
+              action = currentEnemy.support(enemies.get(randInt));
+            }
+          }
+          addHistory(action);
+        /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+
+          if (randParty.isDead()) {
+            deadParty++;
+            if (deadParty == party.size()) {
               hasLost = true;
+            }
           }
         }
 
@@ -596,40 +598,38 @@ public class Game{
         partyTurn=true;
         //display this prompt before player's turn
         String result = "";
-        int x = 0;
-        for (Adventurer a : enemies) {
+        for (int x = 0; x < enemies.size(); x++) {
+          Adventurer a = enemies.get(x);
           result += a.applyStatusEffects();
-          result += checkforDead(enemies,x);
-          if (a.isDead()) {
+          if (!checkForDead(enemies, x).isEmpty()) {
             deadEnemies++;
-          }
-          else {
+          } else {
             a.restoreSpecial(1);
           }
-          x++;
+          result += checkForDead(enemies, x);
         }
-        x=0;
-        for (Adventurer a : party) {
-          result += a.applyStatusEffects();
-          result += checkforDead(party,x);
-          if (a.isDead()) {
-            deadParty++;
-          }
-          else {
-            a.restoreSpecial(1);
-          }
-          x++;
-        }
-
-        result += "\nAll players gain 1 special.";
-        addHistory(result);
 
         if (deadEnemies == enemies.size()) {
           hasWon = true;
         }
+
+        for (int x = 0; x < party.size(); x++) {
+          Adventurer a = party.get(x);
+          result += a.applyStatusEffects();
+          if (!checkForDead(party, x).isEmpty()) {
+            deadParty++;
+          } else {
+            a.restoreSpecial(1);
+          }
+          result += checkForDead(party, x);
+        }
+
         if (deadParty == party.size()) {
           hasLost = true;
         }
+
+        result += "\nAll players gain 1 special.";
+        addHistory(result);
 
         String prompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su #)/quit(q)";
         TextBox(26, 2, WIDTH, 1, prompt);
@@ -664,12 +664,14 @@ public class Game{
     }
   }
 
-  public static String checkforDead (ArrayList<Adventurer> team, int target) {
-    if (team.get(target).isDead()) {
-      if (team.get(target).hasSecondPhase == true) {
-        return "\n" + team.get(target).getName() + " has been defeated, entering Phase 2!\nLittle Cheese's poison effects have been lifted.";
+  public static String checkForDead (ArrayList<Adventurer> team, int target) {
+    Adventurer current = team.get(target);
+    if (current.isDead() && !current.deathCounted) {
+      current.deathCounted = true;
+      if (current.hasSecondPhase) {
+        return "\n" + current.getName() + " has been defeated, entering Phase 2!\nLittle Cheese's poison effects have been lifted.";
       }
-      return "\n" + team.get(target).getName() + " has been defeated.";
+      return "\n" + current.getName() + " has been defeated.";
     }
     return "";
   }

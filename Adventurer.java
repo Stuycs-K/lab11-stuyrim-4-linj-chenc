@@ -3,7 +3,7 @@ public abstract class Adventurer{
   private String name;
   private int HP,maxHP;
   boolean isStunned, isBurning, isPoisoned, isPoisoned2, isWeakened, isStrengthened;
-  boolean yangHasBuff, rageMode, hasDGStrengthed, hasElvenDebuff, hasCheeseMark, hasSecondPhase;
+  boolean yangHasBuff, rageMode, hasDGStrengthed, hasElvenDebuff, hasCheeseMark, hasSecondPhase, deathCounted;
   int shieldStrength, burnDuration, poisonDuration;
   ArrayList<Adventurer> enemies = new ArrayList<Adventurer>();
   ArrayList<Adventurer> allies = new ArrayList<Adventurer>();
@@ -183,9 +183,6 @@ public abstract class Adventurer{
     if (isStunned()) {
       result += "\n" + getName() + " is stunned and cannot act this turn.";
       setStunned(false);
-    }
-    if (isDead()) {
-      result += "\n" + getName() + " cannot act, as they have already been defeated.";
     }
     return result;
   }
