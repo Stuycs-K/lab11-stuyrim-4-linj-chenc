@@ -196,10 +196,6 @@ public abstract class Adventurer{
       applyDamage(1);
       result += "\n" + getName() + " takes 1 damage from poison.";
     }
-    if (isStunned()) {
-      result += "\n" + getName() + " is stunned and cannot act this turn.";
-      setStunned(false);
-    }
     return result;
   }
 

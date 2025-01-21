@@ -538,6 +538,9 @@ public class Game{
         Adventurer currentEnemy = enemies.get(whichOpponent);
         if (currentEnemy.isDead()) {
           addHistory(currentEnemy.getName() + " has been defeated and cannot act.");
+        } else if (currentEnemy.isStunned()) {
+          addHistory(currentEnemy.getName() + " is stunned and cannot act this turn.");
+          currentEnemy.setStunned(false);
         } else {
           int move = (int)(Math.random() * 3);
           if (move == 0 || move == 1) {
