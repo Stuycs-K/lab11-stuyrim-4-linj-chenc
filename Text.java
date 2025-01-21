@@ -55,6 +55,13 @@ public class Text{
     return ("\u001b[" + c1 + ";" + c2 + ";" + c3 + "m"+text+"\u001b[0m");
   }
 
+  public static void wait(int millis){
+  try {
+    Thread.sleep(millis);
+  }
+    catch (InterruptedException e) {
+  }
+}
 
   //Tested and working in:
   //git-bash (windows 10),    wsl (windows 10+11),   powershell windows 11

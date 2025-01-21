@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class test {
+public class screens {
   private static final int BORDER_COLOR = Text.BLACK;
   private static final int BORDER_BACKGROUND = Text.WHITE + Text.BACKGROUND;
 

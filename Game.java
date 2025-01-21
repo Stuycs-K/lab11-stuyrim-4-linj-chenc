@@ -7,6 +7,7 @@ public class Game{
   private static final ArrayList<String> history = new ArrayList<>();
   private static int recentAction = 0;
 
+
   public static void main(String[] args) {
     run();
   }
@@ -640,7 +641,14 @@ public class Game{
 
     }//end of main game loop
 
-
+    if (hasWon == true) {
+      screens.win();
+      Text.wait(1000);
+    }
+    else if (hasLost == true) {
+      screens.lose();
+      Text.wait(1000);
+    }
     //After quit reset things:
     quit();
   }
