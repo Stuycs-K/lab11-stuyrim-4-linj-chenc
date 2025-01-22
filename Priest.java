@@ -41,7 +41,9 @@ public class Priest extends Adventurer {
   public String attack(ArrayList<Adventurer> enemies){
     String result = this + " casts Light Arrows, raining light from the sky and dealing 2 damage to each enemy.";
     for (int x = 0; x < enemies.size(); x++) {
-      result += enemies.get(x).applyStatusEffects(2,this);
+      if (!enemies.get(x).isDead()) {
+        result += enemies.get(x).applyStatusEffects(2,this);
+      }
     }
     return result;
   }

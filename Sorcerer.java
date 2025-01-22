@@ -59,16 +59,20 @@ public class Sorcerer extends Adventurer {
     result += "The explosion resonates across the battlefield, dealing 6 damage to all enemies and 1 damage to all other allies.\n";
     for (Adventurer enemy : enemies) {
       int dmg = 6;
-      result += enemy.applyStatusEffects(dmg, this);
-      if (Math.random() < 0.3) {
-        enemy.setStunned(true);
-        result += enemy + " is stunned by the following shockwave!\n";
+      if (!enemy.isDead()) {
+        result += enemy.applyStatusEffects(dmg, this);
+        if (Math.random() < 0.3) {
+          enemy.setStunned(true);
+          result += enemy + " is stunned by the following shockwave!\n";
+        }
       }
     }
     for (Adventurer ally : allies) {
       if (ally != this && !ally.isDead()) {
-        ally.applyDamage(1);
-        result += ally + " is caught in the blast and takes 1 damage.\n";
+        if (!ally.isDead()) {
+          ally.applyDamage(1);
+          result += ally + " is caught in the blast and takes 1 damage.\n";
+        }
       }
     }
     return result;

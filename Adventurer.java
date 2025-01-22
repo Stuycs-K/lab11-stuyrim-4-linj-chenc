@@ -174,27 +174,29 @@ public abstract class Adventurer{
 
   public String applyStatusEffects() {
     String result = "";
-    if (isBurning()) {
-      applyDamage(1);
-      burnDuration++;
-      result += "\n" + getName() + " takes 1 damage from burning.";
-      if (burnDuration + 1 == 2) {
-        result += "\n" + getName() + "\'s burning has lifted.";
-        isBurning = false;
+    if (!isDead()) {
+      if (isBurning()) {
+        applyDamage(1);
+        burnDuration++;
+        result += "\n" + getName() + " takes 1 damage from burning.";
+        if (burnDuration + 1 == 2) {
+          result += "\n" + getName() + "\'s burning has lifted.";
+          isBurning = false;
+        }
       }
-    }
-    if (isPoisoned()) {
-      applyDamage(1);
-      result += "\n" + getName() + " takes 1 damage from poison.";
-      if (poisonDuration + 1 == 2) {
-        result += "\n" + getName() + "\'s poisoning has lifted.";
-        isPoisoned = false;
+      if (isPoisoned()) {
+        applyDamage(1);
+        result += "\n" + getName() + " takes 1 damage from poison.";
+        if (poisonDuration + 1 == 2) {
+          result += "\n" + getName() + "\'s poisoning has lifted.";
+          isPoisoned = false;
+        }
+        poisonDuration++;
       }
-      poisonDuration++;
-    }
-    if (isPoisoned2()) {
-      applyDamage(1);
-      result += "\n" + getName() + " takes 1 damage from poison.";
+      if (isPoisoned2()) {
+        applyDamage(1);
+        result += "\n" + getName() + " takes 1 damage from poison.";
+      }
     }
     return result;
   }

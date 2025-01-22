@@ -59,7 +59,9 @@ public class Enemy_Yin extends Adventurer {
       String result = this + " invokes Moon's Descent, shrouding the battlefield in an ethereal darkness that deals " + dmg + " damage to all enemies.";
       setSpecial(moonEnergy - 5);
       for (Adventurer enemy : enemies) {
-        result += enemy.applyStatusEffects(dmg,this);
+        if (!enemy.isDead()) {
+          result += enemy.applyStatusEffects(dmg,this);
+        }
       }
       return result;
     } else {
