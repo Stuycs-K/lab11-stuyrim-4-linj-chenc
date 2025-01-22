@@ -500,7 +500,7 @@ public class Game{
               a.setPoisoned2(false);
             }
           }
-          else {
+          else if (!enemies.get(target).deathCounted) {
             deadEnemies++;
             if (deadEnemies == enemies.size()) {
               hasWon = true;
